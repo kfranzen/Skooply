@@ -23,7 +23,11 @@ app.configure('production', function(){
 
 var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {});
 
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
+	res.send("methods: get?query={fields}, create?user=X&attributes={}, update?skoop={}");
+});
+
+app.get('/get', function(req, res){
   skoopDb.getSkoops({}, function(err, skoops) {
 		if (err == null) {
 			res.send(skoops);
