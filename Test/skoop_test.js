@@ -16,12 +16,13 @@ try {
 	});
 
 	//skoopDb.createSkoop(1, {product:"shoes"}, null);
-	skoopDb.createSkoop(2, {product:"shirts"}, null);
-/*
+	//skoopDb.createSkoop(2, {product:"pants"}, null);
+
  // update
-	skoopDb.getSkoops({'user':1}, function(err, skoops) {
+	var query = {user:"2"};
+	skoopDb.getSkoops(query, function(err, skoops) {
 		if (err == null) {
-			console.log("Found " + skoops.length+ " skoops");
+			console.log("Found " + skoops.length + " skoops");
 
 			for (var i = 0; i < skoops.length; i++) {
 				var skoop = skoops[i];
@@ -36,7 +37,7 @@ try {
 		} else
 			console.log(err);
 	});
-
+/*
 	// delete
 	skoopDb.getSkoops({'user':1}, function(err, skoops) {
 		if (err == null) {
