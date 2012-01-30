@@ -47,7 +47,7 @@ function parseQueryStr(query) {
  * returns a list of matching skoops
  * @param fields is null or an object contain the skoop attributes and values to be searched
  */
-app.get('/get', function(req, res){
+app.get('/get', function(req, res) {
 	var fields = parseQueryStr(req.query);
 
 	skoopDb.getSkoops(fields, function(err, skoops) {
@@ -67,6 +67,27 @@ app.get('/get', function(req, res){
 /*
  *
  */
+app.get('/create', function(req, res) {
+	var fields = parseQueryStr(req.query);
+	var user = fields.user;
+
+	if (!user) {
+		res.contentType('text');
+		res.send("A skoop must include a user identifier.\n");
+	} else {
+		skoopDb.createSkoop(user, fields, function(err, skoop) {
+			if (err == null) {
+				res.contentType('json');
+				res.send(skoop);
+				res.send("\n");
+			} else {
+				res.contentType('text');
+				res.send(err);
+				res.send("\n");
+			}
+		});
+	}
+});
 
 // run the application
 app.listen(5150);
