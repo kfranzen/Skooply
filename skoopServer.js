@@ -1,5 +1,6 @@
 var express = require('express'),
-	skoopdb = require('skoopdb');
+	skoopdb = require('skoopdb'),
+	Skoop = require('skoop');
 
 var app = module.exports = express.createServer(express.logger());
 
@@ -65,7 +66,7 @@ app.get('/get', function(req, res) {
 
 // create skoops
 /*
- *
+ * create using get
  */
 app.get('/create', function(req, res) {
 	var fields = parseQueryStr(req.query);
@@ -76,6 +77,37 @@ app.get('/create', function(req, res) {
 		res.send("A skoop must include a user identifier.\n");
 	} else {
 		skoopDb.createSkoop(user, fields, function(err, skoop) {
+			if (err == null) {
+				res.contentType('json');
+				res.send(skoop);
+				res.send("\n");
+			} else {
+				res.contentType('text');
+				res.send(err);
+				res.send("\n");
+			}
+		});
+	}
+});
+
+// update skoop
+/*
+ * update skoop
+ */
+app.get('/update', function(req, res) {
+	var fields = parseQueryStr(req.query);
+	var id = fields._id;
+	// should replace this with alternate skoop constructor?
+	var user = fields.user;
+
+	if (!id || !user) {
+		res.contentType('text');
+		res.send("A valid skoop must include an _id and a user.");
+	} else {
+		var skoop = new Skoop.Skoop(user, fields);
+
+		retVal = false;
+		skoopDb.updateSkoop(skoop, function(err, skoop) {
 			if (err == null) {
 				res.contentType('json');
 				res.send(skoop);
