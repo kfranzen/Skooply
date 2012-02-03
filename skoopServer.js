@@ -2,17 +2,18 @@ var express = require('express'),
 	skoopdb = require('skoopdb'),
 	Skoop = require('skoop');
 
-var app = module.exports = express.createServer(express.logger());
-app.enable("jsonp callback");
+var app = module.exports = express.createServer();
 
 app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(require('stylus').middleware({ src: __dirname + '/public' }));
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+	app.enable("jsonp callback");
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'jade');
+	app.use(express.logger());
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(require('stylus').middleware({ src: __dirname + '/public' }));
+	app.use(app.router);
+	app.use(express.static(__dirname + '/public'));
 });
 
 app.configure('development', function(){
