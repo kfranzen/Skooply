@@ -3,6 +3,7 @@ var express = require('express'),
 	Skoop = require('skoop');
 
 var app = module.exports = express.createServer(express.logger());
+app.enable("jsonp callback");
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
@@ -24,9 +25,10 @@ app.configure('production', function(){
 
 var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {logger:app.logger});
 
+
 // routes
 app.get('/', function(req, res) {
-	res.send("methods: get?query={fields}, create?user=X&attributes={}, update?skoop={}");
+	res.json({"methods": ["get?query={fields}", "create?user=X&attributes={}", "update?skoop={}"]});
 });
 
 function parseQueryStr(query) {
@@ -34,7 +36,7 @@ function parseQueryStr(query) {
 
 	if (query != null) {
 		for (prop in query) {
-			if (typeof query[prop] === "function")
+			if (prop === "callback" || typeof query[prop] === "function")
 				continue;
 
 			fields[prop] = query[prop];
@@ -52,14 +54,11 @@ app.get('/get', function(req, res) {
 	var fields = parseQueryStr(req.query);
 
 	skoopDb.getSkoops(fields, function(err, skoops) {
-		if (err == null) {
-			res.contentType('json');
-			res.send(skoops);
-			res.send("\n");
-		} else {
+		if (err == null)
+			res.json(skoops);
+		else {
 			res.contentType('text');
 			res.send(err);
-			res.send("\n");
 		}
 	});
 });
@@ -77,14 +76,11 @@ app.get('/create', function(req, res) {
 		res.send("A skoop must include a user identifier.\n");
 	} else {
 		skoopDb.createSkoop(user, fields, function(err, skoop) {
-			if (err == null) {
-				res.contentType('json');
-				res.send(skoop);
-				res.send("\n");
-			} else {
+			if (err == null)
+				res.json(skoop);
+			else {
 				res.contentType('text');
 				res.send(err);
-				res.send("\n");
 			}
 		});
 	}
@@ -108,14 +104,11 @@ app.get('/update', function(req, res) {
 
 		retVal = false;
 		skoopDb.updateSkoop(skoop, function(err, skoop) {
-			if (err == null) {
-				res.contentType('json');
-				res.send(skoop);
-				res.send("\n");
-			} else {
+			if (err == null)
+				res.json(skoop);
+			else {
 				res.contentType('text');
 				res.send(err);
-				res.send("\n");
 			}
 		});
 	}
