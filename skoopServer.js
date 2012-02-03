@@ -1,4 +1,5 @@
 var express = require('express'),
+	querystring = require('querystring'),
 	skoopdb = require('skoopdb'),
 	Skoop = require('skoop');
 
@@ -39,8 +40,12 @@ function parseQueryStr(query) {
 		for (prop in query) {
 			if (prop === "callback" || typeof query[prop] === "function")
 				continue;
-
-			fields[prop] = query[prop];
+			else if (prop === "skoop") {
+				var val = query[prop];
+				var obj = JSON.parse(val);
+				fields[prop] = obj;
+			} else
+				fields[prop] = query[prop];
 		}
 	}
 
@@ -64,9 +69,10 @@ app.get('/get', function(req, res) {
 	});
 });
 
-// create skoops
+
 /*
- * create using get
+ * create skoop using get
+ * Takes a list of fields for a skoop or an array of sets of fields
  */
 app.get('/create', function(req, res) {
 	var fields = parseQueryStr(req.query);
@@ -87,22 +93,25 @@ app.get('/create', function(req, res) {
 	}
 });
 
-// update skoop
+
 /*
  * update skoop
+ * Takes a skoop and updates it
  */
 app.get('/update', function(req, res) {
 	var fields = parseQueryStr(req.query);
-	var id = fields._id;
-	// should replace this with alternate skoop constructor?
-	var user = fields.user;
 
-	if (!id || !user) {
+	if (!('skoop' in fields)) {
 		res.contentType('text');
-		res.send("A valid skoop must include an _id and a user.");
-	} else {
-		var skoop = new Skoop.Skoop(user, fields);
-
+		res.send('Must update a valid skoop.');
+	} else if (!('user' in fields['skoop'])) {
+		res.contentType('text');
+		res.send("The object is not a valid skoop.");
+	} else if (!('_id' in fields['skoop']) || !fields['skoop']['_id']) {
+		res.contentType('text');
+		res.send("Undefined skoop");
+	}else {
+		var skoop = new Skoop.Skoop(fields['skoop']['user'], fields['skoop']);
 		retVal = false;
 		skoopDb.updateSkoop(skoop, function(err, skoop) {
 			if (err == null)
