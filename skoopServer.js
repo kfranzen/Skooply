@@ -4,7 +4,7 @@ var express = require('express'),
 
 var app = module.exports = express.createServer();
 
-app.configure(function(){
+app.configure(function() {
 	app.enable("jsonp callback");
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
