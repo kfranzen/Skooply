@@ -59,7 +59,7 @@ function parseQueryStr(query) {
 app.get('/get', function(req, res) {
 	var fields = parseQueryStr(req.query);
 
-	skoopDb.getSkoops(fields, function(err, skoops) {
+	skoopDb.fetch(fields, function(err, skoops) {
 		if (err == null)
 			res.json(skoops);
 		else {
@@ -82,7 +82,7 @@ app.get('/create', function(req, res) {
 		res.contentType('text');
 		res.send("A skoop must include a user identifier.\n");
 	} else {
-		skoopDb.createSkoop(user, fields, function(err, skoop) {
+		skoopDb.create(user, fields, function(err, skoop) {
 			if (err == null)
 				res.json(skoop);
 			else {
@@ -113,7 +113,7 @@ app.get('/update', function(req, res) {
 	}else {
 		var skoop = new Skoop.Skoop(fields['skoop']['user'], fields['skoop']);
 		retVal = false;
-		skoopDb.updateSkoop(skoop, function(err, skoop) {
+		skoopDb.update(skoop, function(err, skoop) {
 			if (err == null)
 				res.json(skoop);
 			else {
