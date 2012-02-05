@@ -30,7 +30,7 @@ var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {logger:app.logger});
 
 // routes
 app.get('/', function(req, res) {
-	res.json({"methods": ["get?query={fields}", "create?user=X&attributes={}", "update?skoop={}"]});
+	res.json({"methods": ["get: Search on any Skoop property; Sort:any Skoop property; Limit: number of values", "create?user=X&attributes={any skoop properties}", "update?skoop={}"]});
 });
 
 function parseQueryStr(query) {
@@ -52,14 +52,41 @@ function parseQueryStr(query) {
 	return fields;
 }
 
+function parseSkoopProperties (fields) {
+	var properties = {};
+	var skoop = new Skoop.Skoop(1, {});
+	var keys = Object.keys(skoop);
+
+	for (prop in fields) {
+		for (var i = 0; i < keys.length; i++) {
+			if (prop === keys[i])
+				properties[prop] = fields[keys[i]];
+		}
+	}
+
+	return properties;
+}
+
 /*
  * returns a list of matching skoops
- * @param fields is null or an object contain the skoop attributes and values to be searched
+ * @param Skoop.property: Search on any Skoop property
+ * @param sort: sort on any Skoop.property
+ * @param limit: X limit the number of returned skoops
  */
 app.get('/get', function(req, res) {
 	var fields = parseQueryStr(req.query);
+   var sort = fields.sort;
+   var limit = fields.limit;
+   var options = {};
+   var query = parseSkoopProperties(fields);
 
-	skoopDb.fetch(fields, function(err, skoops) {
+	if (sort)
+		options['sort'] = sort;
+
+	if (limit)
+		options['limit'] = limit;
+
+	skoopDb.fetch(query, options, function(err, skoops) {
 		if (err == null)
 			res.json(skoops);
 		else {
