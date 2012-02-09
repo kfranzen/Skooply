@@ -88,10 +88,10 @@ app.get('/get', function(req, res) {
 
 	skoopDb.fetch(query, options, function(err, skoops) {
 		if (err == null)
-			res.json(skoops);
+			res.json(skoops, null, 200);
 		else {
-			res.contentType('text');
-			res.send(err);
+			res.contentType('text/html');
+			res.send(error, null, 400);
 		}
 	});
 });
@@ -106,15 +106,15 @@ app.get('/create', function(req, res) {
 	var user = fields.user;
 
 	if (!user) {
-		res.contentType('text');
+		res.contentType('text/html');
 		res.send("A skoop must include a user identifier.\n");
 	} else {
 		skoopDb.create(user, fields, function(err, skoop) {
 			if (err == null)
-				res.json(skoop);
+				res.json(skoop, null, 200);
 			else {
-				res.contentType('text');
-				res.send(err);
+				res.contentType('text/html');
+				res.send(error, null, 400);
 			}
 		});
 	}
@@ -129,26 +129,45 @@ app.get('/update', function(req, res) {
 	var fields = parseQueryStr(req.query);
 
 	if (!('skoop' in fields)) {
-		res.contentType('text');
+		res.contentType('text/html');
 		res.send('Must update a valid skoop.');
 	} else if (!('user' in fields['skoop'])) {
-		res.contentType('text');
+		res.contentType('text/html');
 		res.send("The object is not a valid skoop.");
 	} else if (!('_id' in fields['skoop']) || !fields['skoop']['_id']) {
-		res.contentType('text');
+		res.contentType('text/html');
 		res.send("Undefined skoop");
 	}else {
 		var skoop = new Skoop.Skoop(fields['skoop']['user'], fields['skoop']);
 		retVal = false;
 		skoopDb.update(skoop, function(err, skoop) {
 			if (err == null)
-				res.json(skoop);
+				res.json(skoop, null, 200);
 			else {
-				res.contentType('text');
-				res.send(err);
+				res.contentType('text/html');
+				res.send(error, null, 400);
 			}
 		});
 	}
+});
+
+/*
+ * remove a skoop by id or remove all skoops matching the specified criteria
+ */
+app.get('/remove', function (req, res) {
+	var fields = parseQueryStr(req.query);
+
+	if ('_id' in fields)
+		fields = {'_id' : fields['_id'] };
+
+	skoopDb.remove(fields, function (err) {
+		res.contentType('text/html');
+
+		if (err != null)
+			res.send(err, null, 400);
+		else
+			res.send('removed');
+	});
 });
 
 // run the application
