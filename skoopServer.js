@@ -153,6 +153,8 @@ app.get('/update', function(req, res) {
 
 /*
  * remove a skoop by id or remove all skoops matching the specified criteria
+ * If _id is provided it is used exclusively to remove the Object
+ * If _id is not provided all other provided fields are used to remove matching objects
  */
 app.get('/remove', function (req, res) {
 	var fields = parseQueryStr(req.query);
