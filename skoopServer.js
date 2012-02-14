@@ -89,10 +89,8 @@ app.get('/get', function(req, res) {
 	skoopDb.fetch(query, options, function(err, skoops) {
 		if (err == null)
 			res.json(skoops, null, 200);
-		else {
-			res.contentType('text/html');
-			res.send(error, null, 400);
-		}
+		else
+			res.send({code:400, message:err}, 400);
 	});
 });
 
@@ -105,17 +103,14 @@ app.get('/create', function(req, res) {
 	var fields = parseQueryStr(req.query);
 	var user = fields.user;
 
-	if (!user) {
-		res.contentType('text/html');
-		res.send("A skoop must include a user identifier.\n");
-	} else {
+	if (!user)
+		res.json({code:400, message:"A skoop must include a user identifier."},400);
+	else {
 		skoopDb.create(user, fields, function(err, skoop) {
 			if (err == null)
-				res.json(skoop, null, 200);
-			else {
-				res.contentType('text/html');
-				res.send(error, null, 400);
-			}
+				res.json(skoop, null, 201);
+			else
+				res.send({code:400, message:err}, 400);
 		});
 	}
 });
@@ -128,25 +123,20 @@ app.get('/create', function(req, res) {
 app.get('/update', function(req, res) {
 	var fields = parseQueryStr(req.query);
 
-	if (!('skoop' in fields)) {
-		res.contentType('text/html');
-		res.send('Must update a valid skoop.');
-	} else if (!('user' in fields['skoop'])) {
-		res.contentType('text/html');
-		res.send("The object is not a valid skoop.");
-	} else if (!('_id' in fields['skoop']) || !fields['skoop']['_id']) {
-		res.contentType('text/html');
-		res.send("Undefined skoop");
-	}else {
+	if (!('skoop' in fields))
+		res.json({code: 400, message:'Must update a valid skoop.'}, 400);
+	else if (!('user' in fields['skoop']))
+		res.json({code: 400, message:"The object is not a valid skoop."}, 400);
+	else if (!('_id' in fields['skoop']) || !fields['skoop']['_id'])
+		res.json({code:400, message:"Undefined skoop"}, 400);
+	else {
 		var skoop = new Skoop.Skoop(fields['skoop']['user'], fields['skoop']);
 		retVal = false;
 		skoopDb.update(skoop, function(err, skoop) {
 			if (err == null)
-				res.json(skoop, null, 200);
-			else {
-				res.contentType('text/html');
-				res.send(error, null, 400);
-			}
+				res.json(skoop, null, 202);
+			else
+				res.send({code:400, message:err}, 400);
 		});
 	}
 });
@@ -163,12 +153,10 @@ app.get('/remove', function (req, res) {
 		fields = {'_id' : fields['_id'] };
 
 	skoopDb.remove(fields, function (err) {
-		res.contentType('text/html');
-
 		if (err != null)
-			res.send(err, null, 400);
+			res.json({code: 400, message: err}, 400);
 		else
-			res.send('removed');
+			res.json('removed', 202);
 	});
 });
 
