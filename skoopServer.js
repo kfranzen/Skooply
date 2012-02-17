@@ -1,7 +1,8 @@
 var express = require('express'),
 	querystring = require('querystring'),
 	skoopdb = require('skoopdb'),
-	Skoop = require('skoop');
+	Skoop = require('skoop'),
+	fs = require('fs');
 
 var app = module.exports = express.createServer();
 
@@ -40,7 +41,7 @@ function parseQueryStr(query) {
 		for (prop in query) {
 			if (prop === "callback" || typeof query[prop] === "function")
 				continue;
-			else if (prop === "skoop") {
+			else if (query[prop][0] === "{") {
 				var val = query[prop];
 				var obj = JSON.parse(val);
 				fields[prop] = obj;
@@ -90,27 +91,27 @@ app.get('/get', function(req, res) {
 		if (err == null)
 			res.json(skoops, null, 200);
 		else
-			res.send({code:400, message:err}, 400);
+			res.send({code:400, message:err.toString()}, 400);
 	});
 });
 
 
 /*
  * create skoop using get
- * Takes a list of fields for a skoop or an array of sets of fields
+ * Takes a list of attributes for a skoop or an array of sets of attributes
  */
 app.get('/create', function(req, res) {
-	var fields = parseQueryStr(req.query);
+	var attributes = parseQueryStr(req.query);
 	var user = fields.user;
 
 	if (!user)
 		res.json({code:400, message:"A skoop must include a user identifier."},400);
 	else {
-		skoopDb.create(user, fields, function(err, skoop) {
+		skoopDb.create(user, attributes, function(err, skoop) {
 			if (err == null)
 				res.json(skoop, null, 201);
 			else
-				res.send({code:400, message:err}, 400);
+				res.send({code:400, message:err.toString()}, 400);
 		});
 	}
 });
@@ -121,24 +122,28 @@ app.get('/create', function(req, res) {
  * Takes a skoop and updates it
  */
 app.get('/update', function(req, res) {
-	var fields = parseQueryStr(req.query);
+	var params = parseQueryStr(req.query);
+	var selector = params.selector;
+	var attributes = params.attributes;
+	var message = ""
+	var code = 201;
 
-	if (!('skoop' in fields))
-		res.json({code: 400, message:'Must update a valid skoop.'}, 400);
-	else if (!('user' in fields['skoop']))
-		res.json({code: 400, message:"The object is not a valid skoop."}, 400);
-	else if (!('_id' in fields['skoop']) || !fields['skoop']['_id'])
-		res.json({code:400, message:"Undefined skoop"}, 400);
-	else {
-		var skoop = new Skoop.Skoop(fields['skoop']['user'], fields['skoop']);
-		retVal = false;
-		skoopDb.update(skoop, function(err, skoop) {
-			if (err == null)
-				res.json(skoop, null, 202);
-			else
-				res.send({code:400, message:err}, 400);
-		});
+	if (!selector)
+		message = "A selector object must be provided to update skoops.";
+	else if (!attributes)
+		message = "No attributes provided to update.";
+
+	if (message !== "") {
+		res.json({'code':code, 'message':message});
+		return;
 	}
+
+	skoopDb.update(selector, attributes, function(err) {
+		if (err == null)
+			res.json({code:202, message:"updated"}, 202);
+		else
+			res.json({code:400, message:err.toString()}, 400);
+	});
 });
 
 /*
@@ -154,10 +159,40 @@ app.get('/remove', function (req, res) {
 
 	skoopDb.remove(fields, function (err) {
 		if (err != null)
-			res.json({code: 400, message: err}, 400);
+			res.json({code: 400, message: err.toString()}, 400);
 		else
-			res.json('removed', 202);
+			res.json({code:202, messsage:"removed"}, 202);
 	});
+});
+
+app.post('/addImage', function(req, res) {
+	if (!req.body._id) {
+		res.json({code: 404, message: "A skoop _id must be provided."}, 404);
+		return;
+	}
+
+	// get the temporary location of the file
+	var path = req.files.image.path;
+
+   skoopDb.addImage(req.body._id, path, function(err, imgId) {
+		if (err != null)
+			res.json({code: 400, message: err.toString()}, 400);
+		else {
+			var selector = { '_id' : req.body._id };
+			var fields = { 'image' : imgId.toString() };
+			skoopDb.update(selector, fields, function(err) {
+				fs.unlink(path, function(err) {
+					if (err)
+						res.json({code:400, message: err.toString()}, 400);
+				});
+
+				if (err)
+					res.json({code:400, message: err.toString()}, 400);
+				else
+					res.json({code:201, message:"added"}, 201);
+			});
+		}
+ 	});
 });
 
 // run the application
