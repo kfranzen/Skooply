@@ -102,7 +102,7 @@ app.get('/get', function(req, res) {
  */
 app.get('/create', function(req, res) {
 	var attributes = parseQueryStr(req.query);
-	var user = fields.user;
+	var user = attributes.user;
 
 	if (!user)
 		res.json({code:400, message:"A skoop must include a user identifier."},400);
