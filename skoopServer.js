@@ -163,7 +163,7 @@ app.get('/remove', function (req, res) {
 		if (err != null)
 			res.json({code: 400, message: err.toString()}, 400);
 		else
-			res.json({code:202, messsage:"removed"}, 202);
+			res.json({code:202, message:"removed"}, 202);
 	});
 });
 
