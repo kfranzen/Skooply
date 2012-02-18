@@ -12,6 +12,8 @@ app.configure(function() {
 	app.set('view engine', 'jade');
 	app.use(express.logger());
 	app.use(express.bodyParser());
+	app.use(express.cookieParser());
+	app.use(express.session({secret:"skooply"}));
 	app.use(express.methodOverride());
 	app.use(require('stylus').middleware({ src: __dirname + '/public' }));
 	app.use(app.router);
@@ -165,6 +167,10 @@ app.get('/remove', function (req, res) {
 	});
 });
 
+/*
+ * Add and image for a skoop
+* Requires a skoop _id and an image file
+*/
 app.post('/addImage', function(req, res) {
 	if (!req.body._id) {
 		res.json({code: 404, message: "A skoop _id must be provided."}, 404);
@@ -190,6 +196,38 @@ app.post('/addImage', function(req, res) {
 					res.json({code:400, message: err.toString()}, 400);
 				else
 					res.json({code:201, message:"added"}, 201);
+			});
+		}
+ 	});
+});
+
+/*
+ * get the image for a skoop
+* Requires a skoop _id
+* Returns the image
+*/
+app.get('/getImage', function(req, res) {
+	var id = req.query['_id'];
+
+	if (!id) {
+		res.json({code: 404, message: "A skoop _id must be provided."}, 404);
+		return;
+	}
+
+   skoopDb.getImage(id, function(err, data) {
+		if (err != null)
+			res.json({code: 400, message: err.toString()}, 400);
+		else {
+			var fileName = './public/images/' + id + '.png';
+			fs.writeFile(fileName, data, 'binary', function(err) {
+				if (err !== null)
+					res.json({code:400, message: "Unable to retrieve image"}, 404);
+				else {
+					res.download(fileName, function(err) {
+						if (!err)
+							fs.unlink(fileName);
+					});
+				}
 			});
 		}
  	});
