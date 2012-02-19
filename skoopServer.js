@@ -30,8 +30,13 @@ app.configure('production', function(){
 
 var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {logger:app.logger});
 
-
 // routes
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
+
 app.get('/', function(req, res) {
 	res.json({"methods": ["get: Search on any Skoop property; Sort:any Skoop property; Limit: number of values", "create?user=X&attributes={any skoop properties}", "update?skoop={}"]});
 });
