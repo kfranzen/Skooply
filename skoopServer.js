@@ -33,6 +33,7 @@ var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {logger:app.logger});
 // routes
 app.all('/', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Method", "POST, GET, OPTIONS");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
  });
