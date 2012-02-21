@@ -30,7 +30,13 @@ app.configure('production', function(){
 
 var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {logger:app.logger});
 
-// routes
+/*
+ * Routes for api calls
+ */
+
+/*
+ * All applies to all paths
+ */
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Method", "POST, GET, OPTIONS");
@@ -38,46 +44,15 @@ app.all('*', function(req, res, next) {
   next();
  });
 
+/*
+ * Returns the available API
+ */
 app.get('/', function(req, res) {
 	res.json({"methods": ["get: Search on any Skoop property; Sort:any Skoop property; Limit: number of values", "create?user=X&attributes={any skoop properties}", "update?skoop={}"]});
 });
 
-function parseQueryStr(query) {
-	var fields = {};
-
-	if (query != null) {
-		for (prop in query) {
-			if (prop === "callback" || typeof query[prop] === "function")
-				continue;
-			else if (query[prop][0] === "{") {
-				var val = query[prop];
-				var obj = JSON.parse(val);
-				fields[prop] = obj;
-			} else
-				fields[prop] = query[prop];
-		}
-	}
-
-	return fields;
-}
-
-function parseSkoopProperties (fields) {
-	var properties = {};
-	var skoop = new Skoop.Skoop(1, {});
-	var keys = Object.keys(skoop);
-
-	for (prop in fields) {
-		for (var i = 0; i < keys.length; i++) {
-			if (prop === keys[i])
-				properties[prop] = fields[keys[i]];
-		}
-	}
-
-	return properties;
-}
-
 /*
- * returns a list of matching skoops
+ * Returns a list of matching skoops
  * @param Skoop.property: Search on any Skoop property
  * @param sort: sort on any Skoop.property
  * @param limit: X limit the number of returned skoops
@@ -105,7 +80,7 @@ app.get('/get', function(req, res) {
 
 
 /*
- * create skoop using get
+ * Create skoop using get
  * Takes a list of attributes for a skoop or an array of sets of attributes
  */
 app.get('/create', function(req, res) {
@@ -126,7 +101,7 @@ app.get('/create', function(req, res) {
 
 
 /*
- * update skoop
+ * Update skoop
  * Takes a skoop and updates it
  */
 app.get('/update', function(req, res) {
@@ -155,7 +130,7 @@ app.get('/update', function(req, res) {
 });
 
 /*
- * remove a skoop by id or remove all skoops matching the specified criteria
+ * Remove a skoop by id or remove all skoops matching the specified criteria
  * If _id is provided it is used exclusively to remove the Object
  * If _id is not provided all other provided fields are used to remove matching objects
  */
@@ -208,7 +183,7 @@ app.post('/addImage', function(req, res) {
 });
 
 /*
- * get the image for a skoop
+ * Get the image for a skoop
 * Requires a skoop _id
 * Returns the image
 */
@@ -238,6 +213,43 @@ app.get('/getImage', function(req, res) {
 		}
  	});
 });
+
+/*
+ * Helpers
+ */
+function parseQueryStr(query) {
+	var fields = {};
+
+	if (query != null) {
+		for (prop in query) {
+			if (prop === "callback" || typeof query[prop] === "function")
+				continue;
+			else if (query[prop][0] === "{") {
+				var val = query[prop];
+				var obj = JSON.parse(val);
+				fields[prop] = obj;
+			} else
+				fields[prop] = query[prop];
+		}
+	}
+
+	return fields;
+}
+
+function parseSkoopProperties (fields) {
+	var properties = {};
+	var skoop = new Skoop.Skoop(1, {});
+	var keys = Object.keys(skoop);
+
+	for (prop in fields) {
+		for (var i = 0; i < keys.length; i++) {
+			if (prop === keys[i])
+				properties[prop] = fields[keys[i]];
+		}
+	}
+
+	return properties;
+}
 
 // run the application
 app.listen(5150);
