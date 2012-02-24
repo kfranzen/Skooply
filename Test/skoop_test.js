@@ -5,7 +5,7 @@ try {
 	var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {});
 	//skoopDb.validateDb();
 
-	skoopDb.on('inserted', function(skoop) {
+	skoopDb.on('created', function(skoop) {
 		console.log("Handle inserted event");
 		console.log(skoop);
 	});

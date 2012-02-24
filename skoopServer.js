@@ -1,8 +1,11 @@
-var express = require('express'),
+var http = require('http'),
+	express = require('express'),
 	querystring = require('querystring'),
 	skoopdb = require('skoopdb'),
 	Skoop = require('skoop'),
-	fs = require('fs');
+	fs = require('fs'),
+	path = require('path'),
+	url = require('url');
 
 var app = module.exports = express.createServer();
 
@@ -89,16 +92,18 @@ app.get('/create', function(req, res) {
 
 	if (!user)
 		res.json({code:400, message:"A skoop must include a user identifier."},400);
-	else {
-		skoopDb.create(user, attributes, function(err, skoop) {
-			if (err == null)
-				res.json(skoop, null, 201);
-			else
-				res.send({code:400, message:err.toString()}, 400);
-		});
-	}
-});
 
+	skoopDb.create(user, attributes, function(err, skoop) {
+		if (err)
+			res.json({code:400, message:err.toString()}, 400);
+		else {
+			if (skoop.image)
+				fetchImage(skoop);
+
+			res.json(skoop, null, 201);
+		}
+	});
+});
 
 /*
  * Update skoop
@@ -195,11 +200,11 @@ app.get('/getImage', function(req, res) {
 		return;
 	}
 
-   skoopDb.getImage(id, function(err, data) {
+   skoopDb.getImage(id, function(err, data, ext) {
 		if (err != null)
 			res.json({code: 400, message: err.toString()}, 400);
 		else {
-			var fileName = './public/images/' + id + '.png';
+			var fileName = './public/images/' + id + ext;
 			fs.writeFile(fileName, data, 'binary', function(err) {
 				if (err !== null)
 					res.json({code:400, message: "Unable to retrieve image"}, 404);
@@ -249,6 +254,59 @@ function parseSkoopProperties (fields) {
 	}
 
 	return properties;
+}
+
+function fetchImage(skoop) {
+	var self = this;
+	var fileName = path.basename(skoop.image);
+	var filePath = './public/images/' + fileName;
+	var urlParts = url.parse(skoop.image);
+
+	var options = {
+		host: urlParts.hostname,
+	  	port: urlParts.port,
+		path: urlParts.path
+	};
+
+	var request = http.get(options, function(res){
+		 var imagedata = ''
+		 res.setEncoding('binary')
+
+		 res.on('data', function(chunk){
+			  imagedata += chunk
+		 });
+
+		 res.on('end', function(){
+			  fs.writeFile(filePath, imagedata, 'binary', function(err){
+					if (err)
+						console.log(err);
+					else
+						storeImage(skoop, filePath);
+			  });
+		 });
+	});
+}
+
+function storeImage(skoop, uri) {
+	skoopDb.addImage(skoop._id.toString(), uri, function (err, imgId) {
+		if (err == null) {
+			skoop.image = "http://204.236.144.100/getImage?_id=" + skoop._id;
+			var selector = { '_id' : skoop._id.toString() };
+			var fields = { 'image' : skoop.image };
+
+			skoopDb.update(selector, fields, function(err) {
+				if (err)
+					// TODO: should delete the skoop?
+					console.log(err);
+			});
+		} else {
+			// TODO: delete the skoop?
+			console.log(err);
+		}
+
+		// remove the temporary image
+		fs.unlink(uri);
+	});
 }
 
 // run the application
