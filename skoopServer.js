@@ -5,7 +5,14 @@ var http = require('http'),
 	Skoop = require('skoop'),
 	fs = require('fs'),
 	path = require('path'),
-	url = require('url');
+	url = require('url'),
+	log4js = require('log4js');
+
+// setup logger
+log4js.configure();
+log4js.addAppender(log4js.fileAppender(process.env['HOME'] + '/www/logs/skoopServer.log'), 'skoopServer');
+var logger = log4js.getLogger('skoopServer');
+logger.setLevel('TRACE');
 
 var app = module.exports = express.createServer();
 
@@ -13,7 +20,7 @@ app.configure(function() {
 	app.enable("jsonp callback");
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
-	app.use(express.logger());
+	app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO }));
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
 	app.use(express.session({secret:"skooply"}));
@@ -25,6 +32,7 @@ app.configure(function() {
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  log4js.addAppender(log4js.consoleAppender());
 });
 
 app.configure('production', function(){
@@ -77,7 +85,7 @@ app.get('/get', function(req, res) {
 		if (err == null)
 			res.json(skoops, null, 200);
 		else
-			res.send({code:400, message:err.toString()}, 400);
+			logError(err, 400, res);
 	});
 });
 
@@ -91,11 +99,11 @@ app.get('/create', function(req, res) {
 	var user = attributes.user;
 
 	if (!user)
-		res.json({code:400, message:"A skoop must include a user identifier."},400);
+		logError("A skoop must include a user identifier.", 400, res);
 
 	skoopDb.create(user, attributes, function(err, skoop) {
 		if (err)
-			res.json({code:400, message:err.toString()}, 400);
+			logError(err, 400, res);
 		else {
 			if (skoop.image)
 				fetchImage(skoop);
@@ -122,15 +130,18 @@ app.get('/update', function(req, res) {
 		message = "No attributes provided to update.";
 
 	if (message !== "") {
-		res.json({'code':code, 'message':message});
+		logError(message, 400, res);
 		return;
 	}
 
 	skoopDb.update(selector, attributes, function(err) {
-		if (err == null)
+		if (err == null) {
+			if (attributes.image)
+				fetchImage(skoop);
+
 			res.json({code:202, message:"updated"}, 202);
-		else
-			res.json({code:400, message:err.toString()}, 400);
+		} else
+			logError(err, 400, res);
 	});
 });
 
@@ -147,7 +158,7 @@ app.get('/remove', function (req, res) {
 
 	skoopDb.remove(fields, function (err) {
 		if (err != null)
-			res.json({code: 400, message: err.toString()}, 400);
+			logError(err, 400, res);
 		else
 			res.json({code:202, message:"removed"}, 202);
 	});
@@ -159,7 +170,7 @@ app.get('/remove', function (req, res) {
 */
 app.post('/addImage', function(req, res) {
 	if (!req.body._id) {
-		res.json({code: 404, message: "A skoop _id must be provided."}, 404);
+		logError("A skoop _id must be provided.", 400, res);
 		return;
 	}
 
@@ -168,18 +179,18 @@ app.post('/addImage', function(req, res) {
 
    skoopDb.addImage(req.body._id, path, function(err, imgId) {
 		if (err != null)
-			res.json({code: 400, message: err.toString()}, 400);
+			logError(err, 400, res);
 		else {
 			var selector = { '_id' : req.body._id };
 			var fields = { 'image' : imgId.toString() };
 			skoopDb.update(selector, fields, function(err) {
 				fs.unlink(path, function(err) {
 					if (err)
-						res.json({code:400, message: err.toString()}, 400);
+						logError(err, 400, res);
 				});
 
 				if (err)
-					res.json({code:400, message: err.toString()}, 400);
+					logError(err, 400, res);
 				else
 					res.json({code:201, message:"added"}, 201);
 			});
@@ -196,22 +207,24 @@ app.get('/getImage', function(req, res) {
 	var id = req.query['_id'];
 
 	if (!id) {
-		res.json({code: 404, message: "A skoop _id must be provided."}, 404);
+		logError("A skoop _id must be provided.", 404, res);
 		return;
 	}
 
    skoopDb.getImage(id, function(err, data, ext) {
 		if (err != null)
-			res.json({code: 400, message: err.toString()}, 400);
+			logError(err, 400, res);
 		else {
-			var fileName = './public/images/' + id + ext;
+			var fileName = process.env['HOME'] + '/www/public/images/' + id + ext;
 			fs.writeFile(fileName, data, 'binary', function(err) {
 				if (err !== null)
-					res.json({code:400, message: "Unable to retrieve image"}, 404);
+					logError(err, 400, res);
 				else {
 					res.download(fileName, function(err) {
-						if (!err)
-							fs.unlink(fileName);
+						if (err)
+							logError(err, 400, res);
+
+						fs.unlink(fileName);
 					});
 				}
 			});
@@ -222,6 +235,13 @@ app.get('/getImage', function(req, res) {
 /*
  * Helpers
  */
+function logError(err, code, res) {
+	logger.error(err.toString());
+
+	if (res)
+		res.json({'code':code, message:err.toString()}, code);
+}
+
 function parseQueryStr(query) {
 	var fields = {};
 
@@ -259,7 +279,7 @@ function parseSkoopProperties (fields) {
 function fetchImage(skoop) {
 	var self = this;
 	var fileName = path.basename(skoop.image);
-	var filePath = './public/images/' + fileName;
+	var filePath = process.env['HOME'] + '/www/public/images/' + fileName;
 	var urlParts = url.parse(skoop.image);
 
 	var options = {
@@ -279,9 +299,11 @@ function fetchImage(skoop) {
 		 res.on('end', function(){
 			  fs.writeFile(filePath, imagedata, 'binary', function(err){
 					if (err)
-						console.log(err);
-					else
+						logError(err, 400);
+					else {
+						logger.trace('Wrote file ' + filePath);
 						storeImage(skoop, filePath);
+					}
 			  });
 		 });
 	});
@@ -290,18 +312,18 @@ function fetchImage(skoop) {
 function storeImage(skoop, uri) {
 	skoopDb.addImage(skoop._id.toString(), uri, function (err, imgId) {
 		if (err == null) {
+			logger.trace('Added image for skoop: ' + skoop._id.toString());
 			skoop.image = "http://204.236.144.100/getImage?_id=" + skoop._id;
 			var selector = { '_id' : skoop._id.toString() };
 			var fields = { 'image' : skoop.image };
 
 			skoopDb.update(selector, fields, function(err) {
 				if (err)
-					// TODO: should delete the skoop?
-					console.log(err);
+					logError(err, 400);
 			});
 		} else {
-			// TODO: delete the skoop?
-			console.log(err);
+			// TODO: should update the skoop with bad image or original url
+			logError(err, 400);
 		}
 
 		// remove the temporary image
