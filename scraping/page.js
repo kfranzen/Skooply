@@ -894,6 +894,7 @@ function createPropsPanel(retailer_title, retailer_price, image_array)
     
     create_skoop_div = shmCreateElement('div', { id: 'create_skoop_div'}, styleCreateSkoop);
     props_panel.appendChild(create_skoop_div);
+    $("#create_skoop_div").bind("click", function() { createSkoop() });
     
     create_skoop_button = shmCreateElement('img', { id: 'create_skoop_button'},{position: 'absolute'});
     create_skoop_div.appendChild(create_skoop_button);
@@ -965,6 +966,45 @@ function changeImage(direction)
     $("#image_change_text").html(getImageIndexText());
 }
 
+function createSkoop()
+{
+    url = "http://204.236.144.100/create";
+    args = "";
+    
+    cur_user = "gttsoft@gmail.com";
+    cur_image = encodeURIComponent(image_array[image_index].src);
+    cur_title = encodeURIComponent($("#name_container").val());
+    cur_price = encodeURIComponent($("#price_container").val());
+    cur_url = encodeURIComponent(window.location);
+    
+    //cur_vendor = getVendorFromURL(cur_url);
+    
+    url += "?";
+    url += "user=" + cur_user;
+    url += "&url=" + cur_url; 
+    url += "&product=" + cur_title;
+    url += "&price=" + cur_price;
+    url += "&image=" + cur_image;
+    
+    /*
+    args = "{";
+    args += " user: \"" + cur_user + "\"";
+    args += ", url: \"" + cur_url  + "\""; 
+    args += ", product: \"" + cur_title  + "\"";
+    //args += ", price: \"" + cur_price  + "\"";
+    args += ", image: \"" + cur_image  + "\"";
+    args += " }";
+    */
+    
+    doAjaxGet(url, args);
+}
+
+function getVendorFromURL()
+{
+// TODO
+    return "";
+}
+
 //******** Main Popup **************************//
 
 function showPopover(args){
@@ -987,6 +1027,29 @@ function showPopover(args){
         $("#image_container").attr('src',image_array[0].src);
     }
 }
+
+//********* Transport ****************************//
+
+function handleState(data)
+{
+    alert(data);
+}
+
+function doAjaxGet(url, args)
+{
+alert("url: " + url + " - data: " + args);
+    $.ajaxSetup ({
+        cache: false
+    });  
+    
+    $.get(url, 
+           args,
+          function(data) {
+            handleState(data);
+          });
+}
+
+//******************* END ********************//
 
 showPopover("");
 
