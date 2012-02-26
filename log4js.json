@@ -1,0 +1,11 @@
+{
+  "appenders": [
+    {
+      "type": "file",
+      "filename": "skoopServer.log",
+      "maxLogSize": 20480,
+      "backups": 5,
+      "pollInterval": 15
+    }
+  ]
+}
