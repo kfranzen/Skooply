@@ -9,8 +9,8 @@ var http = require('http'),
 	log4js = require('log4js');
 
 // setup logger
-log4js.configure('./log4js.json');
-log4js.addAppender(log4js.fileAppender('logs/skoopServer.log'), 'skoopServer');
+log4js.configure();
+log4js.addAppender(log4js.fileAppender(process.env['HOME'] + '/www/logs/skoopServer.log'), 'skoopServer');
 var logger = log4js.getLogger('skoopServer');
 logger.setLevel('TRACE');
 
@@ -215,7 +215,7 @@ app.get('/getImage', function(req, res) {
 		if (err != null)
 			logError(err, 400, res);
 		else {
-			var fileName = './public/images/' + id + ext;
+			var fileName = process.env['HOME'] + '/www/public/images/' + id + ext;
 			fs.writeFile(fileName, data, 'binary', function(err) {
 				if (err !== null)
 					logError(err, 400, res);
@@ -279,7 +279,7 @@ function parseSkoopProperties (fields) {
 function fetchImage(skoop) {
 	var self = this;
 	var fileName = path.basename(skoop.image);
-	var filePath = './public/images/' + fileName;
+	var filePath = process.env['HOME'] + '/www/public/images/' + fileName;
 	var urlParts = url.parse(skoop.image);
 
 	var options = {
