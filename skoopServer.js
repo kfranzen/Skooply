@@ -9,10 +9,14 @@ var http = require('http'),
 	log4js = require('log4js');
 
 // setup logger
-log4js.configure();
-log4js.addAppender(log4js.fileAppender(process.env['HOME'] + '/www/logs/skoopServer.log'), 'skoopServer');
+log4js.configure(process.env['HOME'] + '/www/log4js.json');
 var logger = log4js.getLogger('skoopServer');
-logger.setLevel('TRACE');
+var logLevel = process.env['LOG_LEVEL'];
+
+if (!logLevel)
+	logLevel = 'INFO';
+
+logger.setLevel(logLevel);
 
 var app = module.exports = express.createServer();
 
@@ -60,6 +64,26 @@ app.all('*', function(req, res, next) {
  */
 app.get('/', function(req, res) {
 	res.json({"methods": ["get: Search on any Skoop property; Sort:any Skoop property; Limit: number of values", "create?user=X&attributes={any skoop properties}", "update?skoop={}"]});
+});
+
+/*
+ * Return the server log
+ */
+app.get('/logs', function(req, res) {
+	fs.readFile(process.env['HOME'] + '/www/logs/skoopServer.log', 'ascii', function(err, data){
+		if (err)
+			logError(err, 400, res);
+		else {
+			var lines = data.split("\n");
+			res.contentType('text/html');
+
+			lines.forEach(function (line) {
+				res.write('<p>' + line + '</p>');
+			});
+
+			res.end();
+		}
+	});
 });
 
 /*
