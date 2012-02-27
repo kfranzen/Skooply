@@ -9,7 +9,7 @@ var http = require('http'),
 	log4js = require('log4js');
 
 // setup logger
-log4js.configure(process.env['HOME'] + '/www/log4js.json');
+log4js.configure(process.env['HOME'] + '/www/log4js.json', { 'cwd' : process.env['HOME'] + '/www/logs' });
 var logger = log4js.getLogger('skoopServer');
 var logLevel = process.env['LOG_LEVEL'];
 
