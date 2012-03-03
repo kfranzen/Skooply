@@ -21,6 +21,24 @@ b[0]&&b[0].ownerDocument||c);var h=[],i;for(var j=0,k;(k=a[j])!=null;j++){typeof
 /* Popup Functions */
 var elemZeroMemo = {};
 
+var nav_bar_border_radius = '6px';
+var nav_bar_active = '#ec3069';
+var nav_bar_disabled = '#cbcbc1';
+var nav_bar_complete = '#83b749';
+var panel_background_color = '#edede7';
+
+var nav_bar_height = '20px';
+var nav_bar_width = '400px';
+
+var top_nav_pos = '60px';
+var props_bar_first_pos = '340px';
+var props_bar_second_pos = '88px';
+var complete_bar_first_pos = '370px';
+var complete_bar_second_pos = '117px';
+
+var panel_height = '250px';
+var panel_left_offset = '25px';
+
 var styleZero = {
   fontWeight: 'normal',
   //color: primaryTxtClr,
@@ -74,7 +92,7 @@ var styleShadow = {
     display: 'block', 
     textAlign: 'center', 
     //border: 'solid 1px black', 
-    height: '305px', 
+    height: '405px', 
     width: '455px', 
     position: 'fixed', 
     left: '149px', 
@@ -102,7 +120,7 @@ var stylePopup = {
     display: 'block', 
     textAlign: 'center', 
     //border: 'solid 1px black', 
-    height: '300px', 
+    height: '400px', 
     width: '450px', 
     position: 'fixed', 
     left: '150px', 
@@ -130,11 +148,87 @@ var styleTitle = {
     left: '20px', 
     top: '15px', 
     float: 'left',
-    //backgroundColor: 'white',
+    backgroundColor: 'white',
     //zIndex: 10000000,
     fontSize: '15px',
     fontWeight: 'bold',
     color: 'black',
+};
+
+//************ URL Panel *******************/
+
+var styleNavBarURL = {
+
+    display: 'block',  
+    height: nav_bar_height, 
+    width: nav_bar_width, 
+    position: 'absolute', 
+    left: '20px', 
+    top: '60px',
+    color: 'white',
+    
+    //border: 'solid 1px black',
+    backgroundColor: nav_bar_active,
+    textAlign: 'left',
+    paddingTop: '5px',
+    paddingLeft: '10px',
+    
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
+    
+    cursor: 'hand',
+	cursor: 'pointer',
+	
+	zIndex: '10000000',
+};
+
+var styleURLPanel = {
+
+    display: 'block', 
+    textAlign: 'center', 
+    position: 'absolute',
+    border: 'solid 1px' + nav_bar_active, 
+    height: panel_height, 
+    width: nav_bar_width, 
+    left: panel_left_offset, 
+    top: '70px', 
+    float: 'left',
+    visible: 'true',
+    
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
+    backgroundColor: panel_background_color,
+    //zIndex: '10000000',
+};
+
+var styleURLCompleteButton = {
+
+    display: 'block', 
+    textAlign: 'center',
+    position: 'absolute', 
+    border: 'solid 2px' + nav_bar_complete, 
+    height: '25px', 
+    width: '340px', 
+    left: panel_left_offset, 
+    top: '235px', 
+    float: 'left',
+    visible: 'true',
+    backgroundColor: 'white',
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
+    //zIndex: '10000000',
+    
+    cursor: 'hand',
+	cursor: 'pointer',
 };
 
 //************ Props Panel *******************/
@@ -142,43 +236,68 @@ var styleTitle = {
 var styleNavBarProps = {
 
     display: 'block',  
-    height: '20px', 
-    width: '400px', 
+    height: nav_bar_height, 
+    width: nav_bar_width, 
     position: 'absolute', 
     left: '20px', 
-    top: '60px',
+    top: props_bar_first_pos,
     color: 'white',
     
     //border: 'solid 1px black',
-    backgroundColor: '#ec3069',
+    backgroundColor: nav_bar_disabled,
     textAlign: 'left',
     paddingTop: '5px',
     paddingLeft: '10px',
     
-    '-moz-border-radius': '3px',
-    '-webkit-border-radius': '3px',
-    '-opera-border-radius': '3px',
-    '-khtml-border-radius': '3px',
-    'border-radius': '3px',
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
     
     cursor: 'hand',
 	cursor: 'pointer',
+	
+	zIndex: '10000000',
 };
 
 var stylePropsPanel = {
 
     display: 'block', 
     textAlign: 'center', 
-    //border: 'solid 1px black', 
-    height: '180px', 
-    width: '420px', 
-    position: 'fixed', 
-    left: '170px', 
-    top: '210px', 
+    position: 'absolute',
+    border: 'solid 1px' + nav_bar_active, 
+    height: panel_height, 
+    width: nav_bar_width, 
+    left: panel_left_offset, 
+    top: '100px', 
     float: 'left',
     visible: 'true',
-    //backgroundColor: 'white',
-    zIndex: '10000000',
+    
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
+    backgroundColor: panel_background_color,
+    //zIndex: '10000000',
+};
+
+var styleVendor = {
+
+    display: 'block', 
+    textAlign: 'left', 
+    border: 'solid 1px grey', 
+    height: '25px', 
+    width: '200px', 
+    position: 'absolute', 
+    left: '180px', 
+    top: '30px', 
+    //float: 'left',
+    backgroundColor: 'white',
+    //zIndex: 10000000
+    color: 'black',
+    'padding-left': '5px',
 };
 
 var styleName = {
@@ -190,9 +309,9 @@ var styleName = {
     width: '200px', 
     position: 'absolute', 
     left: '180px', 
-    top: '20px', 
+    top: '70px', 
     //float: 'left',
-    //backgroundColor: 'white',
+    backgroundColor: 'white',
     //zIndex: 10000000
     color: 'black',
     'padding-left': '5px',
@@ -206,8 +325,9 @@ var stylePrice = {
     height: '25px', 
     width: '100px', 
     left: '180px', 
-    top: '80px',
-    position: 'absolute', 
+    top: '120px',
+    position: 'absolute',
+    backgroundColor: 'white', 
     float: 'left',
     color: 'black',
     'padding-left': '5px',
@@ -258,12 +378,13 @@ var styleImagePicker = {
 
     display: 'block', 
     textAlign: 'left', 
-    border: 'solid 1px grey', 
+    border: 'solid 1px' + nav_bar_active, 
     height: '110px', 
     width: '136px', 
     position: 'absolute', 
-    left: '0px', 
-    top: '0px', 
+    backgroundColor: 'white',
+    left: '10px', 
+    top: '20px', 
     float: 'left',
 };
 
@@ -290,48 +411,106 @@ var styleCreateSkoop = {
 	cursor: 'pointer',
 };
 
-//************ Share Panel *******************/
+var stylePropsCompleteButton = {
 
-var styleNavBarShare = {
-
-    display: 'block',  
-    height: '20px', 
-    width: '400px', 
+    display: 'block', 
+    textAlign: 'center',
     position: 'absolute', 
-    left: '20px', 
-    top: '270px',
-    color: 'white',
-    
-    //border: 'solid 1px black',
-    backgroundColor: '#ec3069',
-    textAlign: 'left',
-    paddingTop: '5px',
-    paddingLeft: '10px',
-    
-    '-moz-border-radius': '3px',
-    '-webkit-border-radius': '3px',
-    '-opera-border-radius': '3px',
-    '-khtml-border-radius': '3px',
-    'border-radius': '3px',
+    border: 'solid 2px' + nav_bar_complete, 
+    height: '25px', 
+    width: '340px', 
+    left: panel_left_offset, 
+    top: '235px', 
+    float: 'left',
+    visible: 'true',
+    backgroundColor: 'white',
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
+    //zIndex: '10000000',
     
     cursor: 'hand',
 	cursor: 'pointer',
 };
 
-var styleSharePanel = {
+
+//************ Finish Panel *******************/
+
+var styleNavBarFinish = {
+
+    display: 'block',  
+    height: nav_bar_height, 
+    width: nav_bar_width, 
+    position: 'absolute', 
+    left: '20px', 
+    top: complete_bar_first_pos,
+    color: 'white',
+    
+    //border: 'solid 1px black',
+    backgroundColor: nav_bar_disabled,
+    textAlign: 'left',
+    paddingTop: '5px',
+    paddingLeft: '10px',
+    
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
+    
+    cursor: 'hand',
+	cursor: 'pointer',
+	zIndex: '10000000',
+};
+
+var styleFinishPanel = {
 
     display: 'block', 
     textAlign: 'center', 
-    border: 'solid 1px black', 
-    height: '200px', 
-    width: '420px', 
-    position: 'fixed', 
-    left: '170px', 
-    top: '200px', 
+    position: 'absolute',
+    border: 'solid 1px' + nav_bar_active, 
+    height: panel_height, 
+    width: nav_bar_width, 
+    left: panel_left_offset, 
+    top: '130px', 
     float: 'left',
-    //backgroundColor: 'white',
+    visible: 'true',
+    
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
+    backgroundColor: panel_background_color,
     //zIndex: '10000000',
 };
+
+var styleFinishCompleteButton = {
+
+    display: 'block', 
+    textAlign: 'center',
+    position: 'absolute', 
+    border: 'solid 2px' + nav_bar_complete, 
+    height: '25px', 
+    width: '340px', 
+    left: panel_left_offset, 
+    top: '235px', 
+    float: 'left',
+    visible: 'true',
+    backgroundColor: 'white',
+    '-moz-border-radius': nav_bar_border_radius,
+    '-webkit-border-radius': nav_bar_border_radius,
+    '-opera-border-radius': nav_bar_border_radius,
+    '-khtml-border-radius': nav_bar_border_radius,
+    'border-radius': nav_bar_border_radius,
+    //zIndex: '10000000',
+    
+    cursor: 'hand',
+	cursor: 'pointer',
+};
+
 
 var useInline = {
   label: 1,
@@ -838,6 +1017,9 @@ getImageLinks = function(includeSrc) {
 
 var pop_window = null;
 var props_panel = null;
+var retailer_name = null;
+var retailer_title = null;
+var retailer_price = null;
 var image_array = null;
 var image_index = 0;
 
@@ -858,54 +1040,76 @@ function createMainPopup() {
     pop_window.appendChild(logo);
     $("#skooply_logo").attr('src','http://localhost:2404/SkooplyWS/Skooply/scraping/skooply_logo_small.jpg');
     
-    // make prop nav bar
-    nav_bar_props = shmCreateElement('div', { id: 'nav_bar_props', innerHTML: 'Choose Skoop options' }, styleNavBarProps);
-    pop_window.appendChild(nav_bar_props);
-    
-    // make share nav bar
-    nav_bar_share = shmCreateElement('div', { id: 'nav_bar_props', innerHTML: 'Share with your network' }, styleNavBarShare);
-    pop_window.appendChild(nav_bar_share);
-    
-           
-    
     return pop_window;
 }
 
-function createPropsPanel(retailer_title, retailer_price, image_array)
+function createNavBars()
+{
+    // make bar to enter an URL
+    nav_bar_url = shmCreateElement('div', { id: 'nav_bar_url' }, styleNavBarURL);
+    pop_window.appendChild(nav_bar_url);
+    
+    // make bar to put info in
+    nav_bar_props = shmCreateElement('div', { id: 'nav_bar_props' }, styleNavBarProps);
+    pop_window.appendChild(nav_bar_props);
+    
+    // make bar to create skoop
+    nav_bar_finish = shmCreateElement('div', { id: 'nav_bar_finish' }, styleNavBarFinish);
+    pop_window.appendChild(nav_bar_finish);
+}
+
+function createURLPanel()
+{
+    url_panel = shmCreateElement('div', { id: 'url_panel', valign: 'top', align: 'center'}, styleURLPanel);
+    pop_window.appendChild(url_panel);
+    
+    url_panel_complete_button = shmCreateElement('div', { id: 'url_panel_complete_button', valign: 'top', align: 'center'}, styleURLCompleteButton);
+    url_panel.appendChild(url_panel_complete_button);
+    $("#url_panel_complete_button").bind("click", function() { doState1() });
+    
+    return url_panel;
+}
+
+function createPropsPanel(retailer_name, retailer_title, retailer_price, image_array)
 {
     props_panel = shmCreateElement('div', { id: 'props_panel', valign: 'top', align: 'center'}, stylePropsPanel);
     pop_window.appendChild(props_panel);
-    
-    name_text = shmCreateElement('div', { id: 'name_text' }, {position: 'absolute', top: '15x', left: '180px', fontSize: '9px', color: 'grey'});
-    props_panel.appendChild(name_text);
-    $("#name_text").text("Name: ");
-    
+ 
     name_div = shmCreateElement('input', { id: 'name_container' }, styleName);
     props_panel.appendChild(name_div);
     $("#name_container").val(retailer_title);
-    
-    price_text = shmCreateElement('div', { id: 'price_text' }, {position: 'absolute', top: '55px', left: '180px', fontSize: '9px', color: 'grey'});
-    props_panel.appendChild(price_text);
-    $("#price_text").text("Price: ");
     
     price_div = shmCreateElement('input', { id: 'price_container' }, stylePrice);
     props_panel.appendChild(price_div);
     $("#price_container").val(retailer_price);
     
-    create_skoop_div = shmCreateElement('div', { id: 'create_skoop_div'}, styleCreateSkoop);
-    props_panel.appendChild(create_skoop_div);
-    $("#create_skoop_div").bind("click", function() { createSkoop() });
+    vendor_div = shmCreateElement('input', { id: 'vendor_container' }, styleVendor);
+    props_panel.appendChild(vendor_div);
+    $("#vendor_container").val(retailer_name);
     
-    create_skoop_button = shmCreateElement('img', { id: 'create_skoop_button'},{position: 'absolute'});
-    create_skoop_div.appendChild(create_skoop_button);
-    $("#create_skoop_button").attr('src','http://localhost:2404/SkooplyWS/Skooply/scraping/action_button.gif');
+    discount_text = shmCreateElement('div', { id: 'discount_text' }, {position: 'absolute', top: '55px', left: '180px', fontSize: '9px', color: 'grey'});
+    props_panel.appendChild(discount_text);
+    $("#discount_text").text("I want a discount of");
     
-    create_skoop_text = shmCreateElement('div', { id: 'create_skoop_button_text', innerHTML: 'Skoopit!'},{position: 'absolute', top: '10px', left: '25px'});
-    create_skoop_div.appendChild(create_skoop_text);
+    props_panel_complete_button = shmCreateElement('div', { id: 'props_panel_complete_button', valign: 'top', align: 'center'}, stylePropsCompleteButton);
+    props_panel.appendChild(props_panel_complete_button);
+    $("#props_panel_complete_button").bind("click", function() { doState2() });
     
     image_picker = createImagePicker(props_panel);
     
     return props_panel;
+}
+
+function createFinishPanel()
+{
+    finish_panel = shmCreateElement('div', { id: 'finish_panel', valign: 'top', align: 'center'}, styleFinishPanel);
+    pop_window.appendChild(finish_panel);
+    
+    finish_panel_complete_button = shmCreateElement('div', { id: 'finish_panel_complete_button', valign: 'top', align: 'center'}, styleFinishCompleteButton);
+    finish_panel.appendChild(finish_panel_complete_button);
+    $("#finish_panel_complete_button").bind("click", function() { createSkoop() });
+    
+    return finish_panel;
 }
 
 //******* Image Picker Functions ***************//
@@ -977,8 +1181,6 @@ function createSkoop()
     cur_price = encodeURIComponent($("#price_container").val());
     cur_url = encodeURIComponent(window.location);
     
-    //cur_vendor = getVendorFromURL(cur_url);
-    
     url += "?";
     url += "user=" + cur_user;
     url += "&url=" + cur_url; 
@@ -986,46 +1188,75 @@ function createSkoop()
     url += "&price=" + cur_price;
     url += "&image=" + cur_image;
     
-    /*
-    args = "{";
-    args += " user: \"" + cur_user + "\"";
-    args += ", url: \"" + cur_url  + "\""; 
-    args += ", product: \"" + cur_title  + "\"";
-    //args += ", price: \"" + cur_price  + "\"";
-    args += ", image: \"" + cur_image  + "\"";
-    args += " }";
-    */
-    
     doAjaxGet(url, args);
 }
 
-function getVendorFromURL()
+function getVendor()
 {
-// TODO
-    return "";
+    name = "Unknown";
+    vendor_url = window.location;
+    
+    /*
+    vendor_url = vendor_url.replace("http://","");
+    vendor_url = vendor_url.replace("https://","");
+    
+    segs = vendor_url.split( '/' );
+    if(segs.length > 0)
+    {
+        name = segs[0];
+    }
+    */
+    
+    return name;
+}
+
+//******** Transitions *************************//
+function doState0()
+{
+}
+
+function doState1()
+{
+    $('#nav_bar_url').css('background-color',nav_bar_complete);
+    $('#url_panel').css('display','none');
+    
+    $('#nav_bar_props').css('top',props_bar_second_pos);
+    $('#nav_bar_props').css('background-color',nav_bar_active);
+    
+    createPropsPanel(retailer_name, retailer_title, retailer_price, image_array);
+}
+
+function doState2()
+{
+    $('#nav_bar_url').css('background-color',nav_bar_complete);
+    $('#url_panel').css('display','none');
+
+    $('#nav_bar_props').css('top',props_bar_second_pos);
+    $('#nav_bar_props').css('background-color',nav_bar_complete);
+    $('#props_panel').css('display','none');
+    
+    $('#nav_bar_finish').css('top',complete_bar_second_pos);
+    $('#nav_bar_finish').css('background-color',nav_bar_active);
+    
+    createFinishPanel();
+    
 }
 
 //******** Main Popup **************************//
 
 function showPopover(args){
  
-    var retailer_title = getTitle();
-    var retailer_price = getPrice();
+    retailer_name = getVendor();
+    alert(retailer_name);
+    retailer_title = getTitle();
+    retailer_price = getPrice();
     image_array = getImageLinks();
     
-    // make main popup
-    if(!pop_window)
-    {
-        pop_window = createMainPopup();
+    pop_window = createMainPopup();
+
+    url_panel = createURLPanel();
         
-        props_panel = createPropsPanel(retailer_title, retailer_price, image_array);
-    }
-    else
-    {
-        $("#title_container").html(retailer_title);
-        $("#price_container").val(retailer_price);
-        $("#image_container").attr('src',image_array[0].src);
-    }
+    createNavBars();
 }
 
 //********* Transport ****************************//
@@ -1037,7 +1268,7 @@ function handleState(data)
 
 function doAjaxGet(url, args)
 {
-alert("url: " + url + " - data: " + args);
+//alert("url: " + url + " - data: " + args);
     $.ajaxSetup ({
         cache: false
     });  
