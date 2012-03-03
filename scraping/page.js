@@ -21,6 +21,9 @@ b[0]&&b[0].ownerDocument||c);var h=[],i;for(var j=0,k;(k=a[j])!=null;j++){typeof
 /* Popup Functions */
 var elemZeroMemo = {};
 
+var dialog_width = '555px';
+var dialog_height = '405px';
+
 var nav_bar_border_radius = '6px';
 var nav_bar_active = '#ec3069';
 var nav_bar_disabled = '#cbcbc1';
@@ -28,16 +31,22 @@ var nav_bar_complete = '#83b749';
 var panel_background_color = '#edede7';
 
 var nav_bar_height = '20px';
-var nav_bar_width = '400px';
+var nav_bar_width = '500px';
 
 var top_nav_pos = '60px';
 var props_bar_first_pos = '340px';
 var props_bar_second_pos = '88px';
 var complete_bar_first_pos = '370px';
-var complete_bar_second_pos = '117px';
+var complete_bar_second_pos = '116px';
+
+var complete_button_height = '25px';
+var complete_button_width = '440px';
+var complete_button_text_offset = '200px';
 
 var panel_height = '250px';
 var panel_left_offset = '25px';
+
+var input_field_width = '150px';
 
 var styleZero = {
   fontWeight: 'normal',
@@ -92,8 +101,8 @@ var styleShadow = {
     display: 'block', 
     textAlign: 'center', 
     //border: 'solid 1px black', 
-    height: '405px', 
-    width: '455px', 
+    height: dialog_height, 
+    width: dialog_width, 
     position: 'fixed', 
     left: '149px', 
     top: '119px', 
@@ -120,8 +129,8 @@ var stylePopup = {
     display: 'block', 
     textAlign: 'center', 
     //border: 'solid 1px black', 
-    height: '400px', 
-    width: '450px', 
+    height: dialog_height, 
+    width: '550px', 
     position: 'fixed', 
     left: '150px', 
     top: '120px', 
@@ -153,6 +162,15 @@ var styleTitle = {
     fontSize: '15px',
     fontWeight: 'bold',
     color: 'black',
+};
+
+var styleCompleteText = {
+    display: 'block',
+    fontWeight: 'bold',
+    position: 'absolute',
+    textAlign: 'center',
+    top: '5px',
+    left: complete_button_text_offset,
 };
 
 //************ URL Panel *******************/
@@ -207,14 +225,33 @@ var styleURLPanel = {
     //zIndex: '10000000',
 };
 
+var styleURL = {
+
+    display: 'block', 
+    textAlign: 'left', 
+    border: 'solid 1px' + nav_bar_active, 
+    height: '25px', 
+    width: '450px', 
+    position: 'absolute', 
+    left: '20px',
+    top: '20px', 
+    //float: 'left',
+    backgroundColor: 'white',
+    //zIndex: 10000000
+    color: 'black',
+    'padding-left': '5px',
+};
+
 var styleURLCompleteButton = {
 
     display: 'block', 
     textAlign: 'center',
+    fontWeight: 'bold',
+    color: nav_bar_complete,
     position: 'absolute', 
     border: 'solid 2px' + nav_bar_complete, 
-    height: '25px', 
-    width: '340px', 
+    height: complete_button_height, 
+    width: complete_button_width, 
     left: panel_left_offset, 
     top: '235px', 
     float: 'left',
@@ -241,7 +278,7 @@ var styleNavBarProps = {
     position: 'absolute', 
     left: '20px', 
     top: props_bar_first_pos,
-    color: 'white',
+    color: 'grey',
     
     //border: 'solid 1px black',
     backgroundColor: nav_bar_disabled,
@@ -287,16 +324,16 @@ var styleVendor = {
 
     display: 'block', 
     textAlign: 'left', 
-    border: 'solid 1px grey', 
+    border: 'solid 1px' + nav_bar_active, 
     height: '25px', 
-    width: '200px', 
+    width: input_field_width, 
     position: 'absolute', 
-    left: '180px', 
-    top: '30px', 
+    left: '160px', 
+    top: '20px', 
     //float: 'left',
     backgroundColor: 'white',
     //zIndex: 10000000
-    color: 'black',
+    color: 'grey',
     'padding-left': '5px',
 };
 
@@ -304,12 +341,12 @@ var styleName = {
 
     display: 'block', 
     textAlign: 'left', 
-    border: 'solid 1px grey', 
+    border: 'solid 1px' + nav_bar_active, 
     height: '25px', 
-    width: '200px', 
+    width: input_field_width, 
     position: 'absolute', 
-    left: '180px', 
-    top: '70px', 
+    left: '160px',
+    top: '50px', 
     //float: 'left',
     backgroundColor: 'white',
     //zIndex: 10000000
@@ -321,15 +358,75 @@ var stylePrice = {
 
     display: 'block', 
     textAlign: 'left', 
-    border: 'solid 1px grey', 
+    border: 'solid 1px' + nav_bar_active,
     height: '25px', 
-    width: '100px', 
-    left: '180px', 
-    top: '120px',
+    width: input_field_width, 
+    left: '160px',
+    top: '80px',
     position: 'absolute',
     backgroundColor: 'white', 
     float: 'left',
     color: 'black',
+    'padding-left': '5px',
+};
+
+var styleDiscount = {
+
+    display: 'block', 
+    textAlign: 'left', 
+    border: 'solid 1px' + nav_bar_active, 
+    height: '25px', 
+    width: '40px', 
+    position: 'absolute', 
+    left: '430px', 
+    top: '80px', 
+    //float: 'left',
+    backgroundColor: 'white',
+    //zIndex: 10000000
+    color: 'black',
+    'padding-left': '5px',
+};
+
+var styleDiscountText = {
+    
+    position: 'absolute', 
+    top: '88px', 
+    left: '325px', 
+    fontSize: '9px', 
+    color: 'grey'
+};
+
+var styleStore = {
+
+    display: 'block', 
+    textAlign: 'left', 
+    border: 'solid 1px' + nav_bar_active, 
+    height: '25px', 
+    width: input_field_width, 
+    position: 'absolute', 
+    left: '320px',
+    top: '20px', 
+    //float: 'left',
+    backgroundColor: 'white',
+    //zIndex: 10000000
+    color: 'black',
+    'padding-left': '5px',
+};
+
+var styleUPC = {
+
+    display: 'block', 
+    textAlign: 'left', 
+    border: 'solid 1px' + nav_bar_active, 
+    height: '25px', 
+    width: input_field_width, 
+    position: 'absolute', 
+    left: '320px',
+    top: '50px', 
+    //float: 'left',
+    backgroundColor: 'white',
+    //zIndex: 10000000
+    color: 'grey',
     'padding-left': '5px',
 };
 
@@ -378,7 +475,7 @@ var styleImagePicker = {
 
     display: 'block', 
     textAlign: 'left', 
-    border: 'solid 1px' + nav_bar_active, 
+    border: 'solid 2px' + nav_bar_active, 
     height: '110px', 
     width: '136px', 
     position: 'absolute', 
@@ -415,10 +512,12 @@ var stylePropsCompleteButton = {
 
     display: 'block', 
     textAlign: 'center',
+    fontWeight: 'bold',
+    color: nav_bar_complete,
     position: 'absolute', 
     border: 'solid 2px' + nav_bar_complete, 
-    height: '25px', 
-    width: '340px', 
+    height: complete_button_height, 
+    width: complete_button_width, 
     left: panel_left_offset, 
     top: '235px', 
     float: 'left',
@@ -446,7 +545,7 @@ var styleNavBarFinish = {
     position: 'absolute', 
     left: '20px', 
     top: complete_bar_first_pos,
-    color: 'white',
+    color: 'grey',
     
     //border: 'solid 1px black',
     backgroundColor: nav_bar_disabled,
@@ -491,10 +590,12 @@ var styleFinishCompleteButton = {
 
     display: 'block', 
     textAlign: 'center',
+    fontWeight: 'bold',
+    color: nav_bar_complete,
     position: 'absolute', 
     border: 'solid 2px' + nav_bar_complete, 
-    height: '25px', 
-    width: '340px', 
+    height: complete_button_height, 
+    width: complete_button_width, 
     left: panel_left_offset, 
     top: '235px', 
     float: 'left',
@@ -1048,14 +1149,17 @@ function createNavBars()
     // make bar to enter an URL
     nav_bar_url = shmCreateElement('div', { id: 'nav_bar_url' }, styleNavBarURL);
     pop_window.appendChild(nav_bar_url);
+    $('#nav_bar_url').html('Step 1: Enter a product link');
     
     // make bar to put info in
     nav_bar_props = shmCreateElement('div', { id: 'nav_bar_props' }, styleNavBarProps);
     pop_window.appendChild(nav_bar_props);
+    $('#nav_bar_props').html('Step 2: Let\'s fill in the blanks');
     
     // make bar to create skoop
     nav_bar_finish = shmCreateElement('div', { id: 'nav_bar_finish' }, styleNavBarFinish);
     pop_window.appendChild(nav_bar_finish);
+    $('#nav_bar_finish').html('Step 3: Finish');
 }
 
 function createURLPanel()
@@ -1063,9 +1167,17 @@ function createURLPanel()
     url_panel = shmCreateElement('div', { id: 'url_panel', valign: 'top', align: 'center'}, styleURLPanel);
     pop_window.appendChild(url_panel);
     
+    url_div = shmCreateElement('input', { id: 'url_container' }, styleURL);
+    url_panel.appendChild(url_div);
+    $("#url_container").val(window.location.href);
+    
     url_panel_complete_button = shmCreateElement('div', { id: 'url_panel_complete_button', valign: 'top', align: 'center'}, styleURLCompleteButton);
     url_panel.appendChild(url_panel_complete_button);
     $("#url_panel_complete_button").bind("click", function() { doState1() });
+    
+    url_panel_complete_text = shmCreateElement('div', { id: 'url_panel_complete_text'}, styleCompleteText);
+    url_panel_complete_button.appendChild(url_panel_complete_text);
+    $('#url_panel_complete_text').html('Next');
     
     return url_panel;
 }
@@ -1075,6 +1187,12 @@ function createPropsPanel(retailer_name, retailer_title, retailer_price, image_a
     props_panel = shmCreateElement('div', { id: 'props_panel', valign: 'top', align: 'center'}, stylePropsPanel);
     pop_window.appendChild(props_panel);
  
+    //***** first column *********//
+    
+    vendor_div = shmCreateElement('input', { id: 'vendor_container' }, styleVendor);
+    props_panel.appendChild(vendor_div);
+    $("#vendor_container").val('Enter Manufacturer Here');
+    
     name_div = shmCreateElement('input', { id: 'name_container' }, styleName);
     props_panel.appendChild(name_div);
     $("#name_container").val(retailer_title);
@@ -1083,17 +1201,31 @@ function createPropsPanel(retailer_name, retailer_title, retailer_price, image_a
     props_panel.appendChild(price_div);
     $("#price_container").val(retailer_price);
     
-    vendor_div = shmCreateElement('input', { id: 'vendor_container' }, styleVendor);
-    props_panel.appendChild(vendor_div);
-    $("#vendor_container").val(retailer_name);
+    //***** second column *********//
+   
+    store_div = shmCreateElement('input', { id: 'store_container' }, styleStore);
+    props_panel.appendChild(store_div);
+    $("#store_container").val(retailer_name);
     
-    discount_text = shmCreateElement('div', { id: 'discount_text' }, {position: 'absolute', top: '55px', left: '180px', fontSize: '9px', color: 'grey'});
+    upc_div = shmCreateElement('input', { id: 'upc_container' }, styleUPC);
+    props_panel.appendChild(upc_div);
+    $("#upc_container").val('Enter UPC Here');
+    
+    discount_div = shmCreateElement('input', { id: 'discount_container' }, styleDiscount);
+    props_panel.appendChild(discount_div);
+    $("#discount_container").val("5%");
+    
+    discount_text = shmCreateElement('div', { id: 'discount_text' }, styleDiscountText);
     props_panel.appendChild(discount_text);
     $("#discount_text").text("I want a discount of");
     
     props_panel_complete_button = shmCreateElement('div', { id: 'props_panel_complete_button', valign: 'top', align: 'center'}, stylePropsCompleteButton);
     props_panel.appendChild(props_panel_complete_button);
     $("#props_panel_complete_button").bind("click", function() { doState2() });
+    
+    props_panel_complete_text = shmCreateElement('div', { id: 'props_panel_complete_text'}, styleCompleteText);
+    props_panel_complete_button.appendChild(props_panel_complete_text);
+    $('#props_panel_complete_text').html('Next');
     
     image_picker = createImagePicker(props_panel);
     
@@ -1108,6 +1240,10 @@ function createFinishPanel()
     finish_panel_complete_button = shmCreateElement('div', { id: 'finish_panel_complete_button', valign: 'top', align: 'center'}, styleFinishCompleteButton);
     finish_panel.appendChild(finish_panel_complete_button);
     $("#finish_panel_complete_button").bind("click", function() { createSkoop() });
+    
+    finish_panel_complete_text = shmCreateElement('div', { id: 'finish_panel_complete_text'}, styleCompleteText);
+    finish_panel_complete_button.appendChild(finish_panel_complete_text);
+    $('#finish_panel_complete_text').html('Skoopit!');
     
     return finish_panel;
 }
@@ -1179,7 +1315,7 @@ function createSkoop()
     cur_image = encodeURIComponent(image_array[image_index].src);
     cur_title = encodeURIComponent($("#name_container").val());
     cur_price = encodeURIComponent($("#price_container").val());
-    cur_url = encodeURIComponent(window.location);
+    cur_url = encodeURIComponent(window.location.href);
     
     url += "?";
     url += "user=" + cur_user;
@@ -1194,18 +1330,14 @@ function createSkoop()
 function getVendor()
 {
     name = "Unknown";
-    vendor_url = window.location;
-    
-    /*
+    vendor_url = window.location.href;
     vendor_url = vendor_url.replace("http://","");
     vendor_url = vendor_url.replace("https://","");
-    
-    segs = vendor_url.split( '/' );
+    segs = vendor_url.split('/');
     if(segs.length > 0)
     {
         name = segs[0];
     }
-    */
     
     return name;
 }
@@ -1222,6 +1354,7 @@ function doState1()
     
     $('#nav_bar_props').css('top',props_bar_second_pos);
     $('#nav_bar_props').css('background-color',nav_bar_active);
+    $('#nav_bar_props').css('color','white');
     
     createPropsPanel(retailer_name, retailer_title, retailer_price, image_array);
 }
@@ -1237,6 +1370,7 @@ function doState2()
     
     $('#nav_bar_finish').css('top',complete_bar_second_pos);
     $('#nav_bar_finish').css('background-color',nav_bar_active);
+    $('#nav_bar_finish').css('color','white');
     
     createFinishPanel();
     
@@ -1247,7 +1381,6 @@ function doState2()
 function showPopover(args){
  
     retailer_name = getVendor();
-    alert(retailer_name);
     retailer_title = getTitle();
     retailer_price = getPrice();
     image_array = getImageLinks();
