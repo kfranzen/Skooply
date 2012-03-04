@@ -1355,7 +1355,7 @@ function MakeFinalSkoop()
     
     percent_off_image = shmCreateElement('img', {id: 'percent_off_image'}, stylePercentOffImage);
     final_image_panel.appendChild(percent_off_image);
-    percent_off_image.src = home_URL + 'percentOff.gif';
+    percent_off_image.src = home_URL + 'percent_off.gif';
     
     // Add image
     //image_div = 
