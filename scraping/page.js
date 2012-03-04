@@ -20,6 +20,7 @@ b[0]&&b[0].ownerDocument||c);var h=[],i;for(var j=0,k;(k=a[j])!=null;j++){typeof
 
 //var home_URL = "http://localhost:2404/SkooplyWS/Skooply/scraping/";
 var home_URL = "http://184.169.140.17/scraping/";
+var post_URL = "http://50.18.13.231/";
 
 /* Popup Functions */
 var elemZeroMemo = {};
@@ -1426,7 +1427,7 @@ function changeImage(direction)
 
 function createSkoop()
 {
-    url = "http://204.236.144.100/create";
+    url = post_URL + "create";
     args = "";
     
     cur_user = "gttsoft@gmail.com";
