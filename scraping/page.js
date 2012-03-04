@@ -370,6 +370,48 @@ var stylePrice = {
     'padding-left': '5px',
 };
 
+var styleCanWaitText = {
+
+    position: 'absolute', 
+    left: '162px',
+    top: '115px',
+    fontSize: '9px', 
+    color: 'grey'
+};
+
+var styleCanWait = {
+
+    display: 'block', 
+    textAlign: 'left', 
+    border: 'solid 1px' + nav_bar_active,
+    height: '25px', 
+    width: '90px', 
+    left: '220px',
+    top: '110px',
+    position: 'absolute',
+    backgroundColor: 'white', 
+    float: 'left',
+    color: 'grey',
+    'padding-left': '5px',
+};
+
+var styleCanWaitDropDown = {
+
+    display: 'block', 
+    textAlign: 'left', 
+    border: 'solid 1px' + nav_bar_active, 
+    height: '27px', 
+    width: '155px', 
+    position: 'absolute', 
+    left: '320px',
+    top: '110px', 
+    //float: 'left',
+    backgroundColor: 'white',
+    //zIndex: 10000000
+    color: 'black',
+    'padding-left': '5px',
+};
+
 var styleDiscount = {
 
     display: 'block', 
@@ -493,20 +535,7 @@ var styleImagePickerContainer = {
     //border: 'solid 1px black',
 };
 
-var styleCreateSkoop = {
 
-    display: 'block',  
-    height: '40px', 
-    width: '110px',
-    position: 'absolute',
-    left: '300px', 
-    top: '140px',
-    //border: 'solid 1px black',
-    color: 'black',
-    
-    cursor: 'hand',
-	cursor: 'pointer',
-};
 
 var stylePropsCompleteButton = {
 
@@ -1201,6 +1230,15 @@ function createPropsPanel(retailer_name, retailer_title, retailer_price, image_a
     props_panel.appendChild(price_div);
     $("#price_container").val(retailer_price);
     
+    can_wait_text = shmCreateElement('div', { id: 'can_wait_text' }, styleCanWaitText);
+    props_panel.appendChild(can_wait_text);
+    $("#can_wait_text").text("I can wait");
+    
+    can_wait_div = shmCreateElement('input', { id: 'can_wait_container' }, styleCanWait);
+    props_panel.appendChild(can_wait_div);
+    $("#can_wait_container").val('5');
+    
+    
     //***** second column *********//
    
     store_div = shmCreateElement('input', { id: 'store_container' }, styleStore);
@@ -1218,6 +1256,12 @@ function createPropsPanel(retailer_name, retailer_title, retailer_price, image_a
     discount_text = shmCreateElement('div', { id: 'discount_text' }, styleDiscountText);
     props_panel.appendChild(discount_text);
     $("#discount_text").text("I want a discount of");
+    
+    can_wait_dd = shmCreateElement('select', { id: 'can_wait_dd' }, styleCanWaitDropDown);
+    props_panel.appendChild(can_wait_dd);
+    $("#can_wait_dd").html('<option>day(s)</option><option>week(s)</option><option>month(s)</option>');
+    
+    //******* buttons ************//
     
     props_panel_complete_button = shmCreateElement('div', { id: 'props_panel_complete_button', valign: 'top', align: 'center'}, stylePropsCompleteButton);
     props_panel.appendChild(props_panel_complete_button);
