@@ -200,12 +200,10 @@ a#my-skoops div {
 #main-logo {
     display: block;
     height: 85px;
-/*
- * 2012-03-04 no absolute positioning
+    width: 200px;
     top:9px;
-    right: 21px;
+    right: 2px;
     position: absolute;
- */
     background: url(../img/skooply-logo.png) no-repeat;
 }
 
@@ -230,7 +228,7 @@ header {
     left: 0;
     text-align:center;
  */
-   border:dashed 1px black;
+   /*border:dashed 1px black;*/
    margin:0px;
    width: 100%;
    text-align:center;
