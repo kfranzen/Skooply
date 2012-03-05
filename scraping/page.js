@@ -25,6 +25,9 @@ var post_URL = "http://50.18.13.231/";
 /* Popup Functions */
 var elemZeroMemo = {};
 
+var user_to_post = 'gttsoft@gmail.com';
+var did_skoop_check = false;
+
 var dialog_width = '555px';
 var dialog_height = '405px';
 var dialog_border_radius = '6px';
@@ -54,6 +57,8 @@ var panel_left_offset = '25px';
 var input_field_width = '150px';
 
 var skoop_height = '170px';
+
+var styleSansSerifFont = 'Verdana, Arial, Helvetica, sans-serif';
 
 var styleZero = {
   fontWeight: 'normal',
@@ -86,12 +91,14 @@ var styleZero = {
 };
 
 var styleClear = {
-   height: '0',
    fontSize: '1px',
    margin: '0',
    padding: '0',
    lineHeight: '0',
+   height: '1px',
+   width: '1px',
    clear: 'both',
+   float: 'left',
 };
 
 var styleLogo = {
@@ -161,6 +168,8 @@ var styleTitle = {
 
 var styleCompleteText = {
     display: 'block',
+    fontFamily: styleSansSerifFont,
+    fontSize: '11px',
     fontWeight: 'bold',
     position: 'absolute',
     textAlign: 'center',
@@ -209,6 +218,24 @@ var styleURLPanel = {
     //zIndex: '10000000',
 };
 
+var styleURLSkoopContainer = {
+
+    display: 'block', 
+    textAlign: 'center', 
+    position: 'absolute',
+    //border: 'solid 1px' + nav_bar_active, 
+    height: '200px', 
+    width: '470px', 
+    left: '25px', 
+    top: '50px', 
+    //float: 'left',
+    visible: 'true',
+ 
+    //backgroundColor: panel_background_color,
+    //zIndex: '10000000',
+
+};
+
 var styleURL = {
 
     display: 'block', 
@@ -246,6 +273,19 @@ var styleURLCompleteButton = {
     
     cursor: 'hand',
 	cursor: 'pointer',
+};
+
+var styleNoSkoops = {
+
+    display: 'block',
+    fontWeight: 'bold',
+    position: 'absolute',
+    textAlign: 'center',
+    color: 'black',
+    fontSize: '12px',
+    top: '110px',
+    left: '45px',
+    width: '350px',
 };
 
 //************ Props Panel *******************/
@@ -294,11 +334,11 @@ var styleVendor = {
 
     display: 'block', 
     textAlign: 'left', 
-    border: 'solid 1px' + nav_bar_active, 
+    border: 'solid 1px' + nav_bar_disabled, 
     height: '25px', 
     width: input_field_width, 
     position: 'absolute', 
-    left: '160px', 
+    left: '320px', 
     top: '20px', 
     //float: 'left',
     backgroundColor: 'white',
@@ -343,6 +383,8 @@ var stylePrice = {
 var styleCanWaitText = {
 
     position: 'absolute', 
+    fontFamily: styleSansSerifFont,
+    fontSize: '9px',
     left: '162px',
     top: '115px',
     fontSize: '9px', 
@@ -402,6 +444,8 @@ var styleDiscount = {
 var styleDiscountText = {
     
     position: 'absolute', 
+    fontFamily: styleSansSerifFont,
+    fontSize: '9px',
     top: '88px', 
     left: '325px', 
     fontSize: '9px', 
@@ -416,7 +460,7 @@ var styleStore = {
     height: '25px', 
     width: input_field_width, 
     position: 'absolute', 
-    left: '320px',
+    left: '160px',
     top: '20px', 
     //float: 'left',
     backgroundColor: 'white',
@@ -429,7 +473,7 @@ var styleUPC = {
 
     display: 'block', 
     textAlign: 'left', 
-    border: 'solid 1px' + nav_bar_active, 
+    border: 'solid 1px' + nav_bar_disabled, 
     height: '25px', 
     width: input_field_width, 
     position: 'absolute', 
@@ -475,6 +519,8 @@ var styleImageIndexText = {
     //height: '20',
     width: '90px',
     position:'absolute',
+    fontFamily: styleSansSerifFont,
+    fontSize: '9px',
     display: 'block',
     marginTop: '2px',
     marginLeft: '5px',
@@ -598,14 +644,14 @@ var styleFinishCompleteButton = {
 
 var styleJoinSkoopPanel = {
 
-    display: 'block', 
-    textAlign: 'center', 
+    display: 'inline-block', 
+    margin: '10px', 
     border: 'solid 1px' + nav_bar_disabled, 
     height: skoop_height, 
     width: '200px', 
-    position: 'absolute', 
-    top: '50px', 
-    //float: 'left',
+    //position: 'absolute', 
+    //top: '50px', 
+    float: 'left',
     backgroundColor: 'white',
     zIndex: '10000000',
     
@@ -616,8 +662,8 @@ var styleJoinSkoopPanel = {
 var styleFinalSkoopPanel = {
 
     display: 'block', 
-    border: 'solid 1px' + nav_bar_disabled, 
-    height: '190px', 
+    //border: 'solid 1px' + nav_bar_disabled, 
+    height: '203px', 
     width: '450px', 
     position: 'absolute', 
     top: '20px',
@@ -625,17 +671,78 @@ var styleFinalSkoopPanel = {
     //zIndex: '10000000',
 };
 
-var styleFinalImagePanel = {
+var styleFinalImagePanelSurround = {
 
     display: 'block', 
-    border: 'solid 1px' + nav_bar_disabled, 
-    height: '190px', 
-    width: '450px', 
+    border: 'solid 3px' + nav_bar_disabled, 
+    height: '150px', 
+    width: '150px', 
     position: 'absolute', 
     top: '0px',
     left: '0px',
+    
+    opacity: '0.3',
+    filter: 'alpha(opacity=30)' 
     //zIndex: '10000000',
 };
+
+var styleFinalSocialPanel = {
+
+    display: 'block', 
+    //border: 'solid 3px' + nav_bar_disabled, 
+    height: '50px', 
+    width: '150px', 
+    position: 'absolute', 
+    top: '153px',
+    left: '3px',
+    backgroundColor: 'white',
+    //zIndex: '10000000',
+};
+
+var styleFinalSocialPanelSurround = {
+
+    display: 'block', 
+    border: 'solid 3px' + nav_bar_disabled, 
+    height: '50px', 
+    width: '150px', 
+    position: 'absolute', 
+    top: '150px',
+    left: '0px',
+    
+    opacity: '0.3',
+    filter: 'alpha(opacity=30)' 
+    //zIndex: '10000000',
+};
+
+var styleFinalImagePanel = {
+
+    display: 'block', 
+    //border: 'solid 3px' + nav_bar_disabled, 
+    height: '150px', 
+    width: '150px', 
+    position: 'absolute', 
+    top: '3px',
+    left: '3px',
+    backgroundColor: 'white',
+    //zIndex: '10000000',
+};
+
+var styleFinalInfoPanel = {
+
+    display: 'block',
+    textAlign: 'center',
+    height: '203px',
+    width: '300px',
+    position: 'absolute',
+    top: '0px',
+    left: '165px',
+    backgroundColor: 'white',
+    float: 'left',
+    visible: 'true',
+    //zIndex: '10000000',
+};
+
+// Members -------------//
 
 var styleFinalImage = {
 
@@ -643,18 +750,140 @@ var styleFinalImage = {
     position: 'absolute',
     top: '0px',
     left: '0px',
-    height: '50px',
-    width: '50px',
+    height: '150px',
+    //width: '50px',
 };
 
 var stylePercentOffImage = {
     
     display: 'block',
     position: 'absolute',
-    top: '0px',
+    top: '5px',
+    left: '-5px',
+    height: '25px',
+    //width: '50px',
+};
+
+var styleApprovalImage = {
+
+    display: 'block',
+    position: 'absolute',
+    top: '126px',
+    left: '128px',
+    height: '25px',
+    width: '25px',
+};
+
+var stylePercentOffText = {
+    
+    display: 'block',
+    //border: 'solid 1px black',
+    fontFamily: styleSansSerifFont,
+    fontSize: '9px', 
+    position: 'absolute',
+    color: 'white',
+    fontWeight: 'bold',
+    top: '16px',
     left: '0px',
-    height: '50px',
+    height: '15px',
     width: '50px',
+    fontSize: '9px',
+};
+
+var styleFinalTitleText = {
+
+    display: 'block',
+    //border: 'solid 1px black',
+    fontFamily: styleSansSerifFont, 
+    fontSize: '9px',
+    position: 'absolute',
+    color: 'grey',
+    fontWeight: 'bold',
+    top: '155px',
+    left: '10px',
+    height: '12px',
+    width: '140px',
+    fontSize: '9px',
+    overflow: 'hidden',
+    'text-overflow': 'ellipsis',
+
+};
+
+var styleWhatUserText = {
+
+    display: 'block',
+    //border: 'solid 1px black', 
+    position: 'absolute',
+    fontFamily: styleSansSerifFont,
+    fontSize: '9px',
+    color: 'grey',
+    //fontWeight: 'bold',
+    top: '170px',
+    left: '10px',
+    height: '15px',
+    width: '140px',
+    fontSize: '9px',
+
+};
+
+var styleSocialContainer = {
+
+    display: 'block',
+    //border: 'solid 1px black', 
+    position: 'absolute',
+    color: 'grey',
+    //fontWeight: 'bold',
+    top: '185px',
+    left: '10px',
+    height: '20px',
+    width: '140px',
+    fontSize: '9px',
+    backgroundColor: 'transparent',
+    float: 'left',
+    overflow: 'hidden',
+};
+
+var styleAchieveTitle = {
+
+    display: 'block',
+    //border: 'solid 1px black', 
+    position: 'absolute',
+    color: 'grey',
+    fontWeight: 'bold',
+    top: '10px',
+    left: '20px',
+    height: '20px',
+    width: '350px',
+    fontSize: '11px',
+};
+
+var styleAchieveBox = {
+
+    display: 'block',
+    border: 'solid 3px grey',
+    backgroundColor: panel_background_color, 
+    position: 'absolute',
+    color: 'grey',
+    fontWeight: 'bold',
+    top: '30px',
+    left: '30px',
+    height: '50px',
+    width: '230px',
+    fontSize: '11px',
+};
+
+var styleScoresBox = {
+
+    display: 'block',
+    //border: 'solid 1px grey',
+    //backgroundColor: panel_background_color, 
+    position: 'absolute',
+    color: 'grey',
+    top: '120px',
+    left: '30px',
+    height: '65px',
+    width: '230px',
+    fontSize: '11px',
 };
 
 var useInline = {
@@ -1223,11 +1452,10 @@ function createURLPanel()
     
     //********* Skoops to add ***************//
     
-    for(i=0; i<2; i++)
-    {   
-        offset = (i*210)+30;
-        url_panel.appendChild(MakeJoinSkoop(offset));
-    }
+    url_skoop_container_div = shmCreateElement('div', { id: 'url_skoop_container_div' }, styleURLSkoopContainer);
+    url_panel.appendChild(url_skoop_container_div);
+    
+    skoops_exist = collectMatchingSkoops(window.location.href);
     
     url_panel_complete_button = shmCreateElement('div', { id: 'url_panel_complete_button', valign: 'top', align: 'center'}, styleURLCompleteButton);
     url_panel.appendChild(url_panel_complete_button);
@@ -1319,7 +1547,8 @@ function createFinishPanel()
     $("#finish_panel_complete_button").bind("click", function() { createSkoop() });
     forceBorder('finish_panel_complete_button', nav_bar_border_radius);
    
-    finish_panel.appendChild(MakeFinalSkoop());
+    //finish_panel.appendChild(MakeFinalSkoop());
+    MakeFinalSkoop(finish_panel);
     
     finish_panel_complete_text = shmCreateElement('div', { id: 'finish_panel_complete_text'}, styleCompleteText);
     finish_panel_complete_button.appendChild(finish_panel_complete_text);
@@ -1330,38 +1559,125 @@ function createFinishPanel()
 
 //******* Skoop Block Functions ***************//
 
-function MakeJoinSkoop(offset)
+function MakeJoinSkoop(id)
 {
-    cur_id = 'join_skoop' + offset;
+    cur_id = 'join_skoop' + id;
     skoop = shmCreateElement('div', {}, styleJoinSkoopPanel);
     skoop.id = cur_id;
-    skoop.style.left = (offset + "px");
+    //skoop.style.left = (offset + "px");
     
     // TODO: add shit to the skoop
     
     return skoop;
 }
 
-function MakeFinalSkoop()
+function MakeFinalSkoop(my_parent)
 {
     // The final skoop main panel
-    skoop = shmCreateElement('div', {id: 'final_skoop_panel'}, styleFinalSkoopPanel);
+    this_skoop = shmCreateElement('div', {id: 'final_skoop_panel'}, styleFinalSkoopPanel);
+    // NOTE: if you do not join this sucker now, LOTS of CSS will fail to work
+    // like border radius, text layout and the like. Probably because it is not visible yet...
+    my_parent.appendChild(this_skoop);
+    
+    //*********** Build some panels *********************//
+    
+    final_image_panel_surround = shmCreateElement('div', {id: 'final_skoop_image_panel_surround'}, styleFinalImagePanelSurround);
+    this_skoop.appendChild(final_image_panel_surround);
     
     final_image_panel = shmCreateElement('div', {id: 'final_skoop_image_panel'}, styleFinalImagePanel);
-    skoop.appendChild(final_image_panel);
+    this_skoop.appendChild(final_image_panel);
+    
+    final_social_panel_surround = shmCreateElement('div', {id: 'final_skoop_social_panel_surround'}, styleFinalSocialPanelSurround);
+    this_skoop.appendChild(final_social_panel_surround);
+    
+    final_social_panel = shmCreateElement('div', {id: 'final_skoop_social_panel'}, styleFinalSocialPanel);
+    this_skoop.appendChild(final_social_panel);
+
+    final_info_panel = shmCreateElement('div', {id: 'final_info_panel', name: 'final_info_panel', valign: 'top', align: 'center'}, styleFinalInfoPanel);
+    this_skoop.appendChild(final_info_panel);
+    forceBorder('final_info_panel',nav_bar_border_radius);
+    
+    //******* Add the members to the image panel *************//
     
     final_image = shmCreateElement('img', {id: 'final_skoop_image'}, styleFinalImage);
     final_image_panel.appendChild(final_image);
     final_image.src = image_array[image_index].src;
     
     percent_off_image = shmCreateElement('img', {id: 'percent_off_image'}, stylePercentOffImage);
-    final_image_panel.appendChild(percent_off_image);
+    this_skoop.appendChild(percent_off_image);
     percent_off_image.src = home_URL + 'percent_off.gif';
     
-    // Add image
-    //image_div = 
+    percent_off_text = shmCreateElement('div', {id: 'percent_off_text'}, stylePercentOffText);
+    this_skoop.appendChild(percent_off_text);
+    percent_off = $("#discount_container").val();
+    $('#percent_off_text').text(percent_off + ' off');
     
-    return skoop;
+    what_user_text = shmCreateElement('div', {id: 'what_user_text'}, styleWhatUserText);
+    this_skoop.appendChild(what_user_text);
+    email_split = user_to_post.split('@');
+    $('#what_user_text').html('<b>skoop by</b>&nbsp;' + email_split[0]);
+    
+    final_title_text = shmCreateElement('div', {id: 'final_title_text'}, styleFinalTitleText);
+    this_skoop.appendChild(final_title_text);
+    final_title = $("#name_container").val();
+    final_title = GetSmallTitle(final_title);
+    $('#final_title_text').text(final_title);
+    
+    final_social_panel = shmCreateElement('div', {id: 'final_social_panel'}, styleSocialContainer);
+    this_skoop.appendChild(final_social_panel);
+    panel_html = '<img src=' + home_URL + 'plus.png style=\'float: left\' /><div style=\'width: 20px; float: left\'>1</div>';
+    panel_html += '<img src=' + home_URL + 'watcher.png style=\'float: left\' /><div style=\'width: 20px; float: left\'>3</div>';
+    panel_html += '<img src=' + home_URL + 'social.png style=\'float: left\' /><div style=\'width: 20px; float: left\'>0</div>';
+    panel_html += '<div style=\'width: 0px; float: left\'></div>';
+    $('#final_social_panel').html(panel_html);
+    
+    approval_image = shmCreateElement('img', {id: 'approval_image'}, styleApprovalImage);
+    this_skoop.appendChild(approval_image);
+    approval_image.src = home_URL + 'approved-skoop.png';
+    
+    //******* Add the members to the image panel *************//
+    
+    final_achieve_title = shmCreateElement('div', {id: 'final_achieve_title'}, styleAchieveTitle);
+    final_info_panel.appendChild(final_achieve_title);
+    $('#final_achieve_title').text("You unlocked a new achievement:");
+    
+    final_achieve_box = shmCreateElement('div', {id: 'final_achieve_box'}, styleAchieveBox);
+    final_info_panel.appendChild(final_achieve_box);
+    achieve_box_html = '<img src=' + home_URL + 'achieve.gif style=\'height: 50px; width: 50px; float: left\' />';
+    achieve_box_html += '<div id=\'acheivement_text\' style=\'position: absolute; top: 15px; left: 70px; color: grey; font-weight: bold; font-size: 11px; float: left\'>Quick Skoop Artist</div>';
+    $('#final_achieve_box').html(achieve_box_html);
+    
+    // NOTE: piggy backed on style from AchieveTitle
+    final_scores_title = shmCreateElement('div', {id: 'final_scores_title'}, styleAchieveTitle);
+    final_info_panel.appendChild(final_scores_title);
+    $('#final_scores_title').css('top','100px');
+    $('#final_scores_title').text("Your skooply score so far:");
+    
+    final_score_box = shmCreateElement('div', {id: 'final_scores_box'}, styleScoresBox);
+    final_info_panel.appendChild(final_score_box);
+    scores_box_html = '<div style=\'position: absolute; top: 0px; left: 0px; color: grey; font-weight: normal; font-size: 11px; \'>Skoops Created:</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 0px; left: 140px; color: grey; font-weight: normal; font-size: 11px; \'>24</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 15px; left: 0px; color: grey; font-weight: normal; font-size: 11px; \'>Skoops Awarded:</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 15px; left: 140px; color: grey; font-weight: normal; font-size: 11px; \'>10</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 30px; left: 0px; color: grey; font-weight: normal; font-size: 11px; \'>Skoops Joined:</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 30px; left: 140px; color: grey; font-weight: normal; font-size: 11px; \'>5</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 45px; left: 0px; color: grey; font-weight: normal; font-size: 11px; \'>Deepest Discount</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 45px; left: 140px; color: grey; font-weight: normal; font-size: 11px; \'>45%</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 60px; left: 0px; color: grey; font-weight: normal; font-size: 11px; \'>Fastest Award:</div>';
+    scores_box_html += '<div style=\'position: absolute; top: 60px; left: 140px; color: grey; font-weight: normal; font-size: 11px; \'>22 hours</div>';
+    $('#final_scores_box').html(scores_box_html);
+    
+    return this_skoop;
+}
+
+// Break titles that have colon
+function GetSmallTitle(title_in)
+{
+    title_split = title_in.split(':');
+    if(title_split.length>1)
+        title_in = title_split[1];
+        
+    return title_in;
 }
 
 //******* Image Picker Functions ***************//
@@ -1423,14 +1739,14 @@ function changeImage(direction)
     $("#image_change_text").html(getImageIndexText());
 }
 
-//******** Create Skoop Functions *************************//
+//******** Ajax Skoop Functions *************************//
 
 function createSkoop()
 {
     url = post_URL + "create";
     args = "";
     
-    cur_user = "gttsoft@gmail.com";
+    cur_user = user_to_post;
     cur_image = encodeURIComponent(image_array[image_index].src);
     cur_title = encodeURIComponent($("#name_container").val());
     cur_price = encodeURIComponent($("#price_container").val());
@@ -1459,6 +1775,15 @@ function getVendor()
     }
     
     return name;
+}
+
+function collectMatchingSkoops(href)
+{
+    url = post_URL;
+    url += "get?url=";
+    url += encodeURIComponent(href);
+    
+    doAjaxGet(url, "");
 }
 
 //******** Transitions *************************//
@@ -1499,7 +1824,7 @@ function doState2()
 //******** Main Popup **************************//
 
 function showPopover(args){
- 
+
     retailer_name = getVendor();
     retailer_title = getTitle();
     retailer_price = getPrice();
@@ -1525,7 +1850,48 @@ function forceBorder(id, radius)
 
 function handleState(data)
 {
-    alert(data);
+    if(!did_skoop_check)
+    {
+        did_skoop_check = true;
+        
+        if(false /*data.length > 0*/)
+        {
+            $.each( data, function(i) 
+            {
+                url_skoop_container_div.appendChild(MakeJoinSkoop(i));
+            }); 
+
+/*
+            for(i=0; i<data.length; i++)
+            {   
+                url_skoop_container_div.appendChild(MakeJoinSkoop(i));
+            }
+            */
+            
+            url_skoop_container_div.appendChild(shmCreateElement('div',{},styleClear));
+        }
+        else
+        {
+            no_skoops_text = shmCreateElement('div', { id: 'no_skoops_test' }, styleNoSkoops);
+            url_panel.appendChild(no_skoops_text);
+            $('#no_skoops_test').html('No skoops match this link. You are clear to skoop it first! Hit next below to continue.');
+        }
+    }
+    else
+    {
+        //alert(data);
+        
+        // Set up the box to look like success
+        $('#final_achieve_box').css('backgroundColor','white');
+        
+        $('#acheivement_text').css('color',nav_bar_complete);
+        $('#acheivement_text').css('font-size','14px');
+        $('#acheivement_text').text('Skoop Success!!!');
+        
+        $('#final_achieve_title').css('display','none');
+    }
+    
+    data = null;
 }
 
 function doAjaxGet(url, args)
@@ -1544,5 +1910,5 @@ function doAjaxGet(url, args)
 
 //******************* END ********************//
 
-showPopover("");
+showPopover(user_to_post);
 
