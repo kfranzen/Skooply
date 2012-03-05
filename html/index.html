@@ -359,6 +359,13 @@
 <script src="js/script.js"></script>
 <!-- end scripts-->
 <script language="javascript">
+
+$(document).ready(function() {
+    $('#location-sub-menu').hide();
+    $('#browse-sub-menu').hide();
+    $('#about-sub-menu').hide();
+});
+
 $(window).load(function() {
       $('#skoop-grid-container').masonry('reload');
 });
