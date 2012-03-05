@@ -78,7 +78,7 @@
 	<div id="taskbar">
 	   <div id="taskbar-button-container">
 	       <ul>
-	           <li><a href="#" id="user-settings"><div><span><img src="img/icon-profile-medium.png" alt="icon-profile-medium" width="56" height="56" />James Gaughighan<span class="taskbar-text-smaller">User Settings</span></span></div></a></li>
+	           <li><a href="#" id="user-settings"><div><span><img src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/41464_601694530_3816_q.jpg" alt="icon-profile-medium" width="56" height="56" />Kirk Franzen<span class="taskbar-text-smaller">User Settings</span></span></div></a></li>
 	           <li><a href="#" id="log-out"><div><span>Log out</span></div></a></li>
 	           <li><a href="create-a-skoop.html" id="add-skoop"><div><span>Add skoop</span></div></a></li>
 	           <li><a href="#" id="watched-skoops"><div><span>Skoops I am Watching</span></div></a></li>
@@ -95,14 +95,12 @@
     <div id="account-info" ></div>
     <div id="fb-root"></div>
     <script>
-            var DEBUG = false;
-
             // plug one of these into the FB init
             var caFBapiId      = '321366807889494';
             var labasseFBapiId = '184593301631496';
             var skooplyFBapiId = '249285641824001';
             var FBapiId = skooplyFBapiId;
-            
+
             window.fbAsyncInit = function() {
               FB.init({
                 appId: FBapiId,
@@ -287,95 +285,7 @@
 			      </li>
         </ul>
     </div> <!-- main-nav-container -->
- 
-    <!-- ------------------------------------------------------------------------ -->
-    <!-- These two <div> are for Facebook. The 1st is where FB puts output.       -->
-    <!-- I don't know about the second one.                                       -->
-    <!-- ------------------------------------------------------------------------ -->
     
-    
-          <script>
-            var DEBUG = false;
-
-            // plug one of these into the FB init
-            var caFBapiId      = '321366807889494';
-            var labasseFBapiId = '184593301631496';
-            var skooplyFBapiId = '249285641824001';
-            var FBapiId = caFBapiId;
-            
-            window.fbAsyncInit = function() {
-              FB.init({
-                appId: FBapiId,
-                channelURL: '/channel.html', // Channel File
-                status: true, // check login status
-                cookie: true, // enable cookies to allow the server to access the session
-                oauth: true,  // enable OAuth 2.0
-                xfbml: true   // parse XFBML
-              });
-
-              /**
-              * taken verbatim from http://www.fbrell.com/saved/3250b3721872b15fbe4418da699e588c
-              * This assumes the user is logged in and renders their profile picture,
-              * name and a logout link.
-              */
-              function showLoginInfo() {
-                FB.api(
-                {
-                  method: 'fql.query',
-                  query: 'SELECT name, pic_square FROM user WHERE uid=' + FB.getUserID()
-                },
-                function(response) {
-                  document.getElementById('account-info').innerHTML = (
-                    '<img src="' + response[0].pic_square + '"> ' +
-                    response[0].name +
-                    ' <img onclick="FB.logout()" style="cursor: pointer;"' +
-                        'src="https://s-static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">'
-                  );
-
-                  // insert login info into CA tables
-                  InsertUserInfoIntoDB(response);
-                });
-              }
-
-              /**
-              * This assumes the user is logged out, and renders a login button.
-              */
-              function showLoginButton() {
-                document.getElementById('account-info').innerHTML = (
-                  '<img onclick="FB.login()" style="cursor: pointer;"' +
-                       'src="https://s-static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">'
-                );
-              }
-
-              /**
-              * This will be called once on page load, and every time the status changes.
-              */
-              function onStatus(response) {
-                if (response.status === 'connected') {
-                  showLoginInfo();
-                } else {
-                  showLoginButton();
-                }
-              }
-              FB.getLoginStatus(function(response) {
-                onStatus(response); // once on page load
-                FB.Event.subscribe('auth.statusChange', onStatus); // every status change
-              });
-            };
-
-            // Load the SDK Asynchronously
-            (function(d) {
-              var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
-              js = d.createElement('script'); js.id = id; js.async = true;
-              js.src = "//connect.facebook.net/en_US/all.js";
-              d.getElementsByTagName('head')[0].appendChild(js);
-            } (document));
-
-          </script>
-    
-    
-
-   
 	</header>
 	<div id="main" role="main">
         <div id="user-info-loupe" hidden>User Info</div>
