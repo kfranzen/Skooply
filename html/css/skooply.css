@@ -1,0 +1,757 @@
+/* =============================================================================
+   Primary styles
+   Author: Gabriel Jackson
+   ========================================================================== */
+
+body {
+    background-color: #FAFAF8;
+}
+
+#container, body {
+    height: 100%;
+}
+
+#container {
+  
+}
+
+form#search {
+    display: block;
+    float: left;
+}
+
+input#search {
+    font-family: Segoe UI, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: #666661;
+    width: 300px;
+    height: 35px;
+    padding: 0;
+    margin: 0;
+    margin-top: 22px;
+    margin-left: 30px;
+    padding-left: 5px;
+    font-weight: normal;
+    border-collapse: collapse;
+    border: #E0E0D5 4px solid;
+    overflow: hidden;
+}
+
+
+#taskbar {
+    display: block;
+    width: 55px;
+    height: 100%;
+    background-color: #EDEDE6;
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    background: #EDEDE6 url(../img/taskbar-drop-shadow.png) repeat-y;
+}
+
+#taskbar-button-container {
+    position: relative;
+    top: 105px;
+}
+
+#taskbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#taskbar ul li a {
+    display: block;
+    width: 42px;
+    height: 48px;
+    background: url(../img/taskbar-button-bg.png) no-repeat;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+}
+
+#taskbar ul li a#user-settings {
+    display: block;
+    width: 42px;
+    height: 84px;
+    background: url(../img/taskbar-button-bg-big.png) no-repeat;
+    overflow: hidden;
+    position: relative;
+}
+
+
+#taskbar ul li a span {
+    visibility: hidden;
+}
+
+#taskbar ul li a#user-settings:hover {
+    cursor: pointer;
+    background-position: 0px -82px;
+    text-decoration: none;
+}
+
+#taskbar ul li a:hover {
+    cursor: pointer;
+    background-position: 0px -48px;
+        text-decoration: none;
+}
+
+a#log-out:hover div:after, a#add-skoop:hover div:after, a#watched-skoops:hover div:after, a#my-skoops:hover div:after {
+    display: block;
+    width: 200px;
+    height: 36px;
+    background: #ec3069;
+    position: fixed;
+    z-index: 999;
+    right: 55px;
+    color: white;
+    text-align: left;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    overflow: hidden;
+    line-height: 34px;
+    padding-left: 10px;
+    border-radius: 5px 0 0 5px;
+}
+
+a#user-settings:hover div {
+    top: 107px;
+    display: block;
+    width: 300px;
+    height: 64px;
+    background: #ec3069;
+    position: fixed;
+    z-index: 999;
+    right: 55px;
+    color: white;
+    text-align: left;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    overflow: hidden;
+    line-height: 22px;
+    padding-left: 10px;
+    padding-top: 8px;
+    border-radius: 5px 0 0 5px; 
+}
+
+a#user-settings:hover div span {
+    visibility: visible;
+}
+
+a#user-settings:hover div span img {
+    margin-right: 8px;
+    float: left;
+}
+
+.taskbar-text-smaller {
+    font-size: 12px;
+    float: left;
+    font-weight: normal;
+}
+
+a#user-settings div {
+    background: url(../img/icon-profile-mini.png) no-repeat 3px 5px;  
+}
+
+a#log-out:hover div:after {
+    content: "Log out";
+    top: 192px;
+}
+
+a#log-out div {
+    background: url(../img/icon-taskbar-lock-locked.png) no-repeat 3px 5px;
+}
+
+a#add-skoop:hover div:after {
+    content: "Add a skoop";
+    top: 240px;
+}
+
+a#add-skoop div {
+    background: url(../img/icon-taskbar-add-skoop.png) no-repeat 3px 5px;
+}
+
+a#watched-skoops:hover div:after {
+    content: "Skoops I am watching";
+    top: 288px;
+}
+
+a#watched-skoops div {
+    background: url(../img/icon-taskbar-watched-skoop.png) no-repeat 3px 7px;
+}
+
+a#my-skoops:hover div:after {
+    content: "My skoops";
+    top: 336px;
+}
+
+a#my-skoops div {
+    background: url(../img/icon-taskbar-my-skoops.png) no-repeat 3px 7px;
+}
+
+#main-logo-container{
+  width:200px;
+  margin-left:50px;
+}
+
+#main-logo {
+    display: block;
+    height: 85px;
+/*
+ * 2012-03-04 no absolute positioning
+    top:9px;
+    right: 21px;
+    position: absolute;
+ */
+    background: url(../img/skooply-logo.png) no-repeat;
+}
+
+#main-logo a:hover {
+    top: 11px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
+#main-logo p {
+    visibility: hidden;
+}
+
+header {
+/*
+    display: block;
+    position: absolute;
+    height: 90px;
+    width: 100%;
+    top:0;
+    left: 0;
+    text-align:center;
+ */
+   border:dashed 1px black;
+   margin:0px;
+   width: 100%;
+   text-align:center;
+}
+
+/* 2012-04-04 this is the Facebook div */
+#account-info{
+   border:dotted 2px blue;
+   
+   /* This is what I'd like to do but the menu min-width is screwing that.
+    * I'll have to kludge an absolute position for now.
+   float:left;
+   margin:0px 0px 0px 0px;
+   height:50px;
+   width:250px;
+  */
+  
+   height:50px;
+   width:250px;
+   top:130px;
+   right: 60px;
+   position: absolute; 
+}
+
+#fb-root{
+}
+
+
+#main {
+/*
+ * why is this pushed so far down?
+    margin-right: 55px;
+    margin-top: 91px;
+    border-top: dotted #CBCBC1 1px;
+*/
+    margin-right: 55px;
+    margin-top: 20px;
+    margin-left: 10px;
+    border: dotted #CBCBC1 1px;
+}
+
+footer {
+
+}
+
+
+/* skoop formatting */
+.slides_container {
+    width: 490px;
+    height: 430px;
+    display: block;
+    border: solid 5px #EDEDE6;
+    margin-left: auto;
+    margin-right: auto;
+    /*box-shadow: 0px 0px 10px rgba(0,0,0,0.25);*/
+    background: #ccccc1;
+    overflow: hidden;
+ 
+}
+
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+.slides_container div {
+    display: block;
+    width: 490px;
+    height: 430px;
+    padding: 0;
+    margin: 0;
+    background: white;
+}
+
+.pagination .current a {
+	color:white;
+	background: #FF1F68;
+}
+
+.pagination {
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    margin-top: 5px;
+    text-align: center;
+    height: 25px;
+ }
+
+
+.pagination li {
+    font-weight: bold;
+	list-style:none;
+    display: inline;
+}
+
+.pagination li a {
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    background-color: #ffffff;
+    color: #666661;
+}
+
+.centered {
+    margin: 0 auto;
+}
+
+#featured-skoops {
+    width: 470px;
+    height: 230px;
+    display: block;
+    border: solid 5px #EDEDE6;
+    margin: 10px 0 10px 0; 
+    margin-left: auto;
+    margin-right: auto;
+    /*box-shadow: 0px 0px 10px rgba(0,0,0,0.25);*/
+    background: #ccccc1;
+    overflow: hidden; 
+}
+
+#featured-skoops>div {
+    display: block;
+    width: 480px;
+    height: 230px;
+    padding: 0;
+    margin: 0;
+    background: aqua;
+}
+
+#skoop-grid-container {
+    clear: both;
+}
+
+.skoop-container {
+    display: block;
+    margin: 10px;
+    overflow: show;
+}
+
+
+.skoop {
+    display: block;
+    border: solid 5px #EDEDE6;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 230px; 
+   
+    /*box-shadow: 1px 1px 5px rgba(0,0,0,0.25)*/
+}
+
+.skoop>img {
+    max-width: 230px;
+    border-bottom: solid 5px #EDEDE6;
+}
+
+
+div.skoop-controller {
+    display: none;
+    border: dotted 1px #ED3169;
+    width: 238px;
+    min-height: 240px;
+    background: rgba(255,255,255,0.9);
+    position: absolute;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    padding: 0 0 0 0 ;
+    border-radius: 5px;
+}
+
+.skoop-controller>button {
+    text-align: center;
+    color: white;
+    background: #60615B;
+    border: none;
+    border-collapse: collapse;
+    padding: 4px;
+    margin: 10px auto 10px auto;
+    display: block;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.skoop-controller>button:first-child {
+    margin-top: 45px;
+}
+
+.skoop-controller>button:hover {
+    background: #ED3169;
+}
+
+.skoop-details {
+    color: #666661;
+    display: block;
+    padding: 5px 0;
+}
+
+.skoop-status-container {
+    display: block;
+    right: -195px;
+    position: relative;
+    width: 35px;
+    height: 35px;
+    bottom: 39px;
+    margin-bottom: -40px;
+}
+
+div.skoop-status-container:hover:before {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    padding: 10px 4px 4px 4px;
+    display: block;
+    width: 222px;
+    height: 55px;
+    left: -195px;
+    top: -34px;
+    position: absolute;
+}
+
+.skoop-status-container.approved {
+        background: transparent url(../img/approved-skoop.png) right bottom no-repeat;
+}
+
+.approved:hover:before {
+    content: "This skoop is ready to buy!";
+    background: #66b83c url(../img/approved-skoop.png) right bottom no-repeat;
+    text-align: center;
+}
+
+.skoop-status-container.pending {
+        background: transparent url(../img/pending-skoop.png) right bottom no-repeat;
+}
+
+.pending:hover:before {
+    content: "This skoop is pending and waiting for you to join the deal.";
+    background: #ff955e url(../img/pending-skoop.png) right bottom no-repeat;
+    text-align: center;
+}
+
+
+.skoop-status-container.expired {
+        background: transparent url(../img/expired-skoop.png) right bottom no-repeat;
+}
+.expired:hover:before {
+    content: "This skoop is not available at this time.";
+    background: #ef4d4d url(../img/expired-skoop.png) right bottom no-repeat;
+    text-align: center;
+}
+
+.approved-skoop-info {
+    display: block;
+    clear: both;
+    float: left;
+    background: #EDEDE6;
+    width: 206px;
+    margin-bottom: 6px;
+    padding: 6px;
+}
+
+div.approved-skoop-info:hover {
+    background: #ccccc1;
+}
+
+.approved-skoop-info>img {
+    display: block;
+    float: left;
+    margin-right: 6px;
+}
+
+.approved-skoop-info>a {
+    font-size: 14px !important;
+    color: #666661;
+}
+
+.approved-skoop-info>a:hover {
+    background: transparent;
+    color: #ED3169;
+}
+div.skoop-details h2, div.skoop-details h3, div.skoop-details p {
+    margin: 0;
+    padding: 0;
+}
+
+.skoop-details h2 {
+    font-size: 1em;
+    margin-top: 0;
+}
+
+.skoop-details h3 {
+    font-size: 0.8em;
+}
+
+.skoop-details p {
+    font-size: 0.8em;
+}
+
+.small-curl {
+    float: left;
+    display: block;
+    width: 6px;
+    height: 10px;
+    background: url(../img/discount-curl-small.png) no-repeat;
+    margin-top: 0px;
+    margin-left: -10px;
+    position: absolute;
+}
+
+.discount span{
+    float: left;
+    max-width: 190px;
+    display: block;
+    background: #ff1f68;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    float: left;
+    margin-top: 10px;
+    margin-left: -10px;
+    padding: 5px 15px 5px 10px;
+    position: absolute;
+    border-radius: 0 0 0 7px;
+    opacity: 0.7;
+}
+
+.discount span:hover {
+    opacity: 1.0;
+}
+
+div.skoop-details {
+    clear: both;
+    float: left;
+    margin: 0 0 1px 5px;
+}
+
+.skoop-info-icons {
+
+}
+.skoop-info-icons>ul {
+    display: block;
+    float: left;
+    list-style-type: none;
+    margin: 8px 0;
+    padding: 0;
+    font-size: 10px;
+    
+}
+
+.skoop-info-icons>ul>li {
+    float: left;
+    border-right: 1px solid #CCCCC6;
+    padding-right: 3px;
+    margin-right: 3px;
+}
+
+.skoop-info-icons>ul>li:last-child {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skooped-by-info-icon>img, .watched-by-info-icon>img, .comments-info-icon>img {
+    background: url(../img/skoop-info-icons.png) no-repeat top left;
+    display: block;
+    width: 13px;
+    height: 13px;
+    float: left;
+    margin-right: 3px;
+}
+
+.watched-by-info-icon>img {
+    background-position: -12px 0;
+    width: 18px;
+    
+}
+
+.comments-info-icon>img {
+    background-position: -29px 0;
+    width: 21px;
+    
+}
+
+.user-thumbs-container {
+    clear: both;
+}
+
+.user-thumb-50px {
+    font-size: 50px;
+    width: 50px;
+    height: 50px;
+    display: block;
+    background: url(../img/profile-pics-50.png) no-repeat;
+    float: left;
+    margin: 0 6px 6px 0;
+}
+
+.user-thumb-50px:hover {
+/*    border: 3px solid #EA4332;
+    width: 44px;
+    height: 44px; */
+}
+
+.user0 {
+    background-position: 0 0;
+}
+
+.user1 {
+    background-position: -1em 0;
+}
+
+.user-thumb-50px + .user2 {
+    background-position: -2em 0;
+}
+.user3 {
+    background-position: -3em 0;
+}
+.user4 {
+    background-position: -4em 0;
+}
+.user5 {
+    background-position: 0em -1em;
+}
+.user6 {
+    background-position: -1em -1em;
+}
+.user7 {
+    background-position: -2em -1em;
+}
+.user8 {
+    background-position: -3em -1em;
+}
+
+.user9 {
+    background-position: 0em -2em;
+}
+
+.user10 {
+    background-position: -1em -2em;
+}
+
+.user11 {
+    background-position: -2em -2em;
+}
+
+.user12 {
+    background-position: -3em -2em;
+}
+
+.user13 {
+    background-position: -4em -2em;
+}
+
+.user14 {
+    background-position: 0em -3em;
+}
+
+
+.quick-comment-on-skoop {
+    float: left;
+}
+
+.quick-comment-on-skoop > form {
+    float: left;
+    width: 120px;
+}
+
+.quick-comment-on-skoop > form > fieldset > textarea {
+    max-width: 156px;
+    width: 156px;
+    height: 47px;
+    resize: none;
+    border-collapse: collapse;
+    border: 1px dotted #666661;
+    color: #666661;
+    font-size: 10px;
+}
+
+#search-result-header {
+    margin: 25px auto;
+    display: block;
+    padding: 0;
+    width: 80%;
+}
+
+#search-result-header > h3 {
+    display: block;
+    color: #666661;
+    padding: 0;
+    margin-right: 35px;
+}
+
+a#create-a-skoop {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    background: #ED3169 url(../img/icon-add.png) no-repeat 10px center;
+    padding: 25px 25px 25px 65px;
+    margin: 0;
+    text-decoration: none;
+    border-radius: 10px;
+    display: block;
+}
+
+a#create-a-skoop:hover {
+    background-color: #666661;
+}
+
+#user-info-loupe {
+    position: absolute;
+    display: block;
+    width: 180px;
+    min-height: 180px;
+    background: transparent url(../img/user-info-loupe-bg.png) left bottom no-repeat;
+    top: 1px;
+    left: 1px;
+    color: white;
+    padding: 16px;
+    border-radius: 10px 10px 10px 0;
+    display: none;
+    z-index: 10002;
+}
