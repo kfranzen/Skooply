@@ -1,0 +1,116 @@
+
+#main-nav-drop-down {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background: #FAFAF8;
+}
+
+#main-nav-drop-down * a {
+    text-decoration: none;
+    color: white;
+    padding:  5px 10px 5px 10px;
+    display: block;
+}
+
+#main-nav-drop-down ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#main-nav-drop-down h3 {
+    color: white;
+    margin: 0 10px 0 0;
+    padding: 5px;
+    background: #666661;
+/*    border-bottom: solid 1px #CBCBC1; */
+}
+
+ul#main-nav-drop-down>li>a {
+	display: block;
+    padding: 37px 20px 38px 20px;
+    border-right: dotted #CBCBC1 1px;
+    color: #666661;
+    text-decoration: none;
+    margin: 0;
+	position: relative;
+	float: left;
+	background: #FAFAF8;	
+}
+
+ul#main-nav-drop-down>li>a:hover {
+	background: #FAFAF8 url(../img/main-nav-item-rollover-gradient.png) repeat-x bottom;
+}
+
+ul#main-nav-drop-down>li>a:after {
+    padding-left: 4px;
+    content: url(../img/icon-down-arrow.png) ;
+}
+
+
+div#location-sub-menu {
+    z-index: 999;
+    position: absolute;
+    display: block;
+    background: rgba(102,102,97,0.9);
+    border-radius: 0 5px 5px 5px;
+    height: auto;
+    box-shadow: 0 0 5px rgba(0,0,0,0.55);
+    min-width: 150px;
+    min-height: 200px;
+    padding: 15px;
+    top: 89px;
+    left: 388px;
+}
+
+div#browse-sub-menu {
+    z-index: 999;
+    position: absolute;
+    display: block;
+    background: rgba(102,102,97,0.9);
+    border-radius: 0 5px 5px 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.55);
+    padding: 15px;
+    top: 89px;
+    left: 565px;
+}
+
+div#about-sub-menu {
+    z-index: 999;
+    position: absolute;
+    display: block;
+    background: rgba(102,102,97,0.9);
+    border-radius: 0 5px 5px 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.55);
+    padding: 15px;
+    min-width: 90px;
+    min-height: 100px;
+    top: 89px;
+    left: 661px;
+}
+
+.dropdown-column {
+    display: block;
+    float: left;
+    border-right: dotted 1px #CCCCC1;
+    margin-right: 10px;
+}
+
+.dropdown-column:last-child {
+    border: none;
+}
+
+#main-nav-container {
+/*
+ * 2012-04-04 why is this so wide?
+ * So the submenus line up nicely.
+ * and you can't float:left b/c the submenus screw up
+ */
+    display: block;
+    height: 90px;
+    min-width: 895px;
+    z-index: 999;
+
+}
