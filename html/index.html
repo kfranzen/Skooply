@@ -22,13 +22,13 @@
   <!------------------------------------------------------------------------------>
   <style>
     #theSkoop{
-      border: solid 3px #edede7;
-      /*border-radius:15px;*/
-      margin: 5px; 
-      text-align: left;
-      width: 200px;
-      height: auto;
-      /*float: left;*/
+     border: solid 3px #edede7;
+     /*border-radius:15px;*/
+     margin: 5px; 
+     text-align: center; /* NOTE THIS WILL TOTALLY HOSE LAYOUT IF YOU CHANGE IT */
+     width: 200px;
+     height: auto;
+     float: left;
     }
     
     .skoopImageBox {
@@ -47,6 +47,7 @@
         width: 150px;
         height: auto;
         font-weight: bold;
+        text-align: left;
     }
     
     .skoopWhoText {
@@ -313,11 +314,10 @@
   <script id="skoopTemplate" type="text/x-jQuery-tmpl">
       <div id="theSkoop" class="skoop-container" >
           <img class="skoopImageBox" src=${image} alt="Picture of a skoop" />
-          <span class="skoopInfoText">${product}</span><br/>
-          <span class="skoopWhoText"><b>skoop by</b> ${user}</span><br/>
-          <span class="skoopPriceText">${price}</span><br/>
-          
-      </div>
+        <span class="skoopInfoText">${product}</span><br/>
+        <span class="skoopWhoText"><b>skoop by</b> ${user}</span><br/>
+        <span class="skoopPriceText">${price}</span><br/>
+        </div>
   </script>
   
 
