@@ -153,7 +153,8 @@ a#user-settings:hover div span img {
 }
 
 a#user-settings div {
-    background: url(../img/icon-profile-mini.png) no-repeat 3px 5px;  
+    /* background: url(../img/icon-profile-mini.png) no-repeat 3px 5px;  */
+    background: url(http://profile.ak.fbcdn.net/hprofile-ak-snc4/41464_601694530_3816_q.jpg) no-repeat 3px 5px;  
 }
 
 a#log-out:hover div:after {
