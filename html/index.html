@@ -13,7 +13,9 @@
 	<meta name="author" content="skooply.com">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/H5BP.css">
+	<link rel="stylesheet" href="css/menu.css">
+	<link rel="stylesheet" href="css/skooply.css">
 	
   <!------------------------------------------------------------------------------>
   <!-- per the masonry website, style the skoop. this style is referenced later -->
@@ -32,136 +34,226 @@
 <body>
 
 <div id="container">
-    	<div id="taskbar">
-    	   <div id="taskbar-button-container">
-    	       <ul>
-    	           <li><a href="#" id="user-settings"><div><span><img src="img/icon-profile-medium.png" alt="icon-profile-medium" width="56" height="56" />James Gaughighan<span class="taskbar-text-smaller">User Settings</span></span></div></a></li>
-    	           <li><a href="#" id="log-out"><div><span>Log out</span></div></a></li>
-    	           <li><a href="create-a-skoop.html" id="add-skoop"><div><span>Add skoop</span></div></a></li>
-    	           <li><a href="#" id="watched-skoops"><div><span>Skoops I am Watching</span></div></a></li>
-    	           <li><a href="#" id="my-skoops"><div><span>My skoops</span></div></a></li>
-    	       </ul>
-    	   </div>
-    	</div>
+	<div id="taskbar">
+	   <div id="taskbar-button-container">
+	       <ul>
+	           <li><a href="#" id="user-settings"><div><span><img src="img/icon-profile-medium.png" alt="icon-profile-medium" width="56" height="56" />James Gaughighan<span class="taskbar-text-smaller">User Settings</span></span></div></a></li>
+	           <li><a href="#" id="log-out"><div><span>Log out</span></div></a></li>
+	           <li><a href="create-a-skoop.html" id="add-skoop"><div><span>Add skoop</span></div></a></li>
+	           <li><a href="#" id="watched-skoops"><div><span>Skoops I am Watching</span></div></a></li>
+	           <li><a href="#" id="my-skoops"><div><span>My skoops</span></div></a></li>
+	       </ul>
+	   </div>
+	</div>
+	
 	<header>
-        <div id="main-logo-container">
-            <div id="main-logo">
-                <a href="/index.html" title="skooply home">
-                    <p>skooply</p>            
-                </a>    
-            </div>
-        </div>
-        <form id="search" method="get">
-            <fieldset>
-                <input id=search name=search type=text placeholder="I want to save money on..." title="Start typing to perform a search" tabindex="1" accesskey="`" onfocus="" formaction="search-results.php" >
-            </fieldset>
-        </form>
-        <div id="main-nav-container">
-            <ul id="main-nav-drop-down">
-                <li id="location"><a href="#">in San Francisco, CA</a>
-                        <div id="location-sub-menu">
-                            <div class="dropdown-column">
-                                <ul>
-                                    <li><a href=#>Austin, TX</a></li>
-                                    <li><a href=#>Baltimore, MD</a></li>
-                                    <li><a href=#>Boston, MA</a></li>
-                                    <li><a href=#>Charlotte, NC</a></li>
-                                    <li><a href=#>Chicago, IL</a></li>
-                                    <li><a href=#>Columbus, OH</a></li>
-                                    <li><a href=#>Dallas, TX</a></li>
-                                    <li><a href=#>Detroit, MI</a></li>
-                                </ul>
-                            </div>
-                            <div class="dropdown-column">
-                                <ul>
-                                    <li><a href=#>El Paso, TX</a></li>
-                                    <li><a href=#>Fort Worth, TX</a></li>
-                                    <li><a href=#>Houston, TX</a></li>
-                                    <li><a href=#>Indianapolis, IN</a></li>
-                                    <li><a href=#>Jacksonville, FL</a></li>
-                                    <li><a href=#>Los Angeles, CA</a></li>
-                                    <li><a href=#>Memphis, TN</a></li>
-                                    <li><a href=#>New York, NY</a></li>
-                                </ul>
-                            </div>
-                            <div class="dropdown-column">
-                                <ul>
-                                    <li><a href=#>Philadelphia, PA</a></li>
-                                    <li><a href=#>Phoenix, AZ</a></li>
-                                    <li><a href=#>San Antonio, TX</a></li>
-                                    <li><a href=#>San Diego, CA</a></li>
-                                    <li><a href=#>San Francisco, CA</a></li>
-                                    <li><a href=#>San Jose, CA</a></li>
-                                    <li><a href=#>Seattle, WA</a></li>
-                                    <li><a href=#>Washington, DC</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                </li>
-                <li id="browse"><a href="#">Browse</a>
-                    <div id="browse-sub-menu">
+    <div id="main-logo-container">
+            <a id="main-logo" href="/index.html" title="skooply home">
+              <p>skooply</p>
+            </a>    
+    </div>
+    <form id="search" method="get">
+        <fieldset>
+            <input id="search" name=search type=text placeholder="I want to save money on..." title="Start typing to perform a search" 
+                   tabindex="1" accesskey="`" onfocus="" formaction="search-results.php" >
+        </fieldset>
+    </form>
+    <div id="main-nav-container" >
+        <ul id="main-nav-drop-down">
+            <li id="location"><a href="#">in San Francisco, CA</a>
+                    <div id="location-sub-menu">
                         <div class="dropdown-column">
-                            <ul title="Browse by Category">
-                                <li><h3>By Category</h3></li>
-                                <li><a href="#">Hotels</a></li>
-                                <li><a href="#">Dining</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Electronics</a></li>
-                                <li><a href="#">Home &amp; Garden</a></li>
-                                <li><a href="#">Toys</a></li>
-                                <li><a href="#">Furniture</a></li>
-                                <li><a href="#">Bedding &amp; Bath</a></li>
-                                <li><a href="#">Jewelry</a></li>
-                                <li><a href="#">Baby</a></li>
-                                <li><a href="#">Health &amp; Beauty</a></li>
-                                <li><a href="#">See all categories</a></li>
+                            <ul>
+                                <li><a href=#>Austin, TX</a></li>
+                                <li><a href=#>Baltimore, MD</a></li>
+                                <li><a href=#>Boston, MA</a></li>
+                                <li><a href=#>Charlotte, NC</a></li>
+                                <li><a href=#>Chicago, IL</a></li>
+                                <li><a href=#>Columbus, OH</a></li>
+                                <li><a href=#>Dallas, TX</a></li>
+                                <li><a href=#>Detroit, MI</a></li>
                             </ul>
                         </div>
                         <div class="dropdown-column">
-                            <ul title="Browse by Price">
-                                <li><h3>By Price</h3></li>
-                                <li><a href="#">$1 - $25</a></li>
-                                <li><a href="#">$26 - $50</a></li>
-                                <li><a href="#">$51 - $100</a></li>
-                                <li><a href="#">$101 - $200</a></li>
-                                <li><a href="#">$201 - $500</a></li>
-                                <li><a href="#">$501 - $1000</a></li>
-                                <li><a href="#">$1001 - $2500</a></li>
-                                <li><a href="#">$2501 - $5000</a></li>
-                                <li><a href="#">$5000 and up</a></li>
+                            <ul>
+                                <li><a href=#>El Paso, TX</a></li>
+                                <li><a href=#>Fort Worth, TX</a></li>
+                                <li><a href=#>Houston, TX</a></li>
+                                <li><a href=#>Indianapolis, IN</a></li>
+                                <li><a href=#>Jacksonville, FL</a></li>
+                                <li><a href=#>Los Angeles, CA</a></li>
+                                <li><a href=#>Memphis, TN</a></li>
+                                <li><a href=#>New York, NY</a></li>
                             </ul>
                         </div>
                         <div class="dropdown-column">
-                            <ul title="Browse by Time">
-                                <li><h3>By Time</h3></li>
-                                <li><a href="#">Newest</a></li>
-                                <li><a href="#">Expiring Soonest</a></li>
+                            <ul>
+                                <li><a href=#>Philadelphia, PA</a></li>
+                                <li><a href=#>Phoenix, AZ</a></li>
+                                <li><a href=#>San Antonio, TX</a></li>
+                                <li><a href=#>San Diego, CA</a></li>
+                                <li><a href=#>San Francisco, CA</a></li>
+                                <li><a href=#>San Jose, CA</a></li>
+                                <li><a href=#>Seattle, WA</a></li>
+                                <li><a href=#>Washington, DC</a></li>
                             </ul>
-                            <ul title="Browse by User">
-                                <li><h3>By User</h3></li>
-                                <li><a href="#">Most Successful</a></li>
-                                <li><a href="#">Most Prolific</a></li>
-                                <li><a href="#">Browse by User Badges</a></li>
-                                <li><a href="#">Browse Users by Location</a></li>
-                            </ul>
-                        </div>                    
-                    </div> 
-                </li>
-                <li id="about"><a href="#">About</a>
-                     <div id="about-sub-menu">
-                        <ul>
-                            <li><a href=#>What is skooply.com</a></li>
-                            <li><a href=#>Skoop-it Button &amp; Plug-in</a></li>
-                            <li><a href=#>Tips &amp; Tricks</a></li>
-                            <li><a href=#>Help &amp; Support</a></li>
-                            <li><a href=#>About us</a></li>
-                            <li><a href=#>Careers</a></li>
-                            <li><a href=#>Copyright</a></li>
+                        </div>
+                    </div>
+            </li>
+            <li id="browse"><a href="#">Browse</a>
+                <div id="browse-sub-menu">
+                    <div class="dropdown-column">
+                        <ul title="Browse by Category">
+                            <li><h3>By Category</h3></li>
+                            <li><a href="#">Hotels</a></li>
+                            <li><a href="#">Dining</a></li>
+                            <li><a href="#">Shoes</a></li>
+                            <li><a href="#">Electronics</a></li>
+                            <li><a href="#">Home &amp; Garden</a></li>
+                            <li><a href="#">Toys</a></li>
+                            <li><a href="#">Furniture</a></li>
+                            <li><a href="#">Bedding &amp; Bath</a></li>
+                            <li><a href="#">Jewelry</a></li>
+                            <li><a href="#">Baby</a></li>
+                            <li><a href="#">Health &amp; Beauty</a></li>
+                            <li><a href="#">See all categories</a></li>
                         </ul>
-                    </div> 
-   				</li>
-           </ul>
-        </div>
+                    </div>
+                    <div class="dropdown-column">
+                        <ul title="Browse by Price">
+                            <li><h3>By Price</h3></li>
+                            <li><a href="#">$1 - $25</a></li>
+                            <li><a href="#">$26 - $50</a></li>
+                            <li><a href="#">$51 - $100</a></li>
+                            <li><a href="#">$101 - $200</a></li>
+                            <li><a href="#">$201 - $500</a></li>
+                            <li><a href="#">$501 - $1000</a></li>
+                            <li><a href="#">$1001 - $2500</a></li>
+                            <li><a href="#">$2501 - $5000</a></li>
+                            <li><a href="#">$5000 and up</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-column">
+                        <ul title="Browse by Time">
+                            <li><h3>By Time</h3></li>
+                            <li><a href="#">Newest</a></li>
+                            <li><a href="#">Expiring Soonest</a></li>
+                        </ul>
+                        <ul title="Browse by User">
+                            <li><h3>By User</h3></li>
+                            <li><a href="#">Most Successful</a></li>
+                            <li><a href="#">Most Prolific</a></li>
+                            <li><a href="#">Browse by User Badges</a></li>
+                            <li><a href="#">Browse Users by Location</a></li>
+                        </ul>
+                    </div>                    
+                </div> 
+            </li>
+            <li id="about"><a href="#">About</a>
+                 <div id="about-sub-menu">
+                    <ul>
+                        <li><a href=#>What is skooply.com</a></li>
+                        <li><a href=#>Skoop-it Button &amp; Plug-in</a></li>
+                        <li><a href=#>Tips &amp; Tricks</a></li>
+                        <li><a href=#>Help &amp; Support</a></li>
+                        <li><a href=#>About us</a></li>
+                        <li><a href=#>Careers</a></li>
+                        <li><a href=#>Copyright</a></li>
+                    </ul>
+                </div> 
+			      </li>
+        </ul>
+    </div> <!-- main-nav-container -->
+ 
+    <!-- ------------------------------------------------------------------------ -->
+    <!-- These two <div> are for Facebook. The 1st is where FB puts output.       -->
+    <!-- I don't know about the second one.                                       -->
+    <!-- ------------------------------------------------------------------------ -->
+    <div id="account-info" ></div>
+    <div id="fb-root"></div>
+    
+          <script>
+            var DEBUG = false;
+
+            // plug one of these into the FB init
+            var caFBapiId      = '321366807889494';
+            var labasseFBapiId = '184593301631496';
+            var skooplyFBapiId = '249285641824001';
+            var FBapiId = caFBapiId;
+            
+            window.fbAsyncInit = function() {
+              FB.init({
+                appId: FBapiId,
+                channelURL: '/channel.html', // Channel File
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                oauth: true,  // enable OAuth 2.0
+                xfbml: true   // parse XFBML
+              });
+
+              /**
+              * taken verbatim from http://www.fbrell.com/saved/3250b3721872b15fbe4418da699e588c
+              * This assumes the user is logged in and renders their profile picture,
+              * name and a logout link.
+              */
+              function showLoginInfo() {
+                FB.api(
+                {
+                  method: 'fql.query',
+                  query: 'SELECT name, pic_square FROM user WHERE uid=' + FB.getUserID()
+                },
+                function(response) {
+                  document.getElementById('account-info').innerHTML = (
+                    '<img src="' + response[0].pic_square + '"> ' +
+                    response[0].name +
+                    ' <img onclick="FB.logout()" style="cursor: pointer;"' +
+                        'src="https://s-static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">'
+                  );
+
+                  // insert login info into CA tables
+                  InsertUserInfoIntoDB(response);
+                });
+              }
+
+              /**
+              * This assumes the user is logged out, and renders a login button.
+              */
+              function showLoginButton() {
+                document.getElementById('account-info').innerHTML = (
+                  '<img onclick="FB.login()" style="cursor: pointer;"' +
+                       'src="https://s-static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">'
+                );
+              }
+
+              /**
+              * This will be called once on page load, and every time the status changes.
+              */
+              function onStatus(response) {
+                if (response.status === 'connected') {
+                  showLoginInfo();
+                } else {
+                  showLoginButton();
+                }
+              }
+              FB.getLoginStatus(function(response) {
+                onStatus(response); // once on page load
+                FB.Event.subscribe('auth.statusChange', onStatus); // every status change
+              });
+            };
+
+            // Load the SDK Asynchronously
+            (function(d) {
+              var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
+              js = d.createElement('script'); js.id = id; js.async = true;
+              js.src = "//connect.facebook.net/en_US/all.js";
+              d.getElementsByTagName('head')[0].appendChild(js);
+            } (document));
+
+          </script>
+    
+    
+
+   
 	</header>
 	<div id="main" role="main">
         <div id="user-info-loupe" hidden>User Info</div>
