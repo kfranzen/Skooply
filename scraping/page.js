@@ -1917,7 +1917,7 @@ function handleState(data)
         $('#final_achieve_title').css('display','none');
         
         // Wire up event for closing the dialog
-        $("#finish_panel_complete_button").unbind("click", function() { createSkoop() });
+        $("#finish_panel_complete_button").unbind();
         $("#finish_panel_complete_button").bind("click", function() { closePopover() });
         $("#finish_panel_complete_text").text("Close Dialog");
     }
