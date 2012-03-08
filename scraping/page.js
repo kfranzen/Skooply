@@ -156,14 +156,25 @@ var styleTitle = {
     height: '25px', 
     width: '350px', 
     position: 'absolute', 
-    left: '20px', 
+    left: '40px', 
     top: '15px', 
     float: 'left',
     backgroundColor: 'white',
     //zIndex: 10000000,
-    fontSize: '15px',
+    fontSize: '18px',
     fontWeight: 'bold',
     color: 'black',
+};
+
+var styleClose = {
+
+    position: 'absolute', 
+    top: '10px', 
+    left: '10px',
+    
+    cursor: 'hand',
+	cursor: 'pointer',
+    
 };
 
 var styleCompleteText = {
@@ -1416,6 +1427,11 @@ function createMainPopup() {
     logo.src = home_URL + 'skooply_logo_small.jpg';
     //$("#skooply_logo").attr('src',home_URL + 'skooply_logo_small.jpg');
     
+    close_dialog = shmCreateElement('img', { id: 'close_dialog'}, styleClose);
+    pop_window.appendChild(close_dialog);
+    close_dialog.src = home_URL + 'close.gif';
+    $("#close_dialog").bind("click", function() { closePopover() });
+    
     return pop_window;
 }
 
@@ -1750,6 +1766,9 @@ function createSkoop()
     cur_image = encodeURIComponent(image_array[image_index].src);
     cur_title = encodeURIComponent($("#name_container").val());
     cur_price = encodeURIComponent($("#price_container").val());
+    cur_discount = encodeURIComponent($("#discount_container").val());
+    cur_discount = cur_discount.replace("%25","");
+    
     cur_url = encodeURIComponent(window.location.href);
     
     url += "?";
@@ -1758,6 +1777,7 @@ function createSkoop()
     url += "&product=" + cur_title;
     url += "&price=" + cur_price;
     url += "&image=" + cur_image;
+    url += "&terms={\"discount\":\"" + cur_discount + "\"}";
     
     doAjaxGet(url, args);
 }
@@ -1846,6 +1866,12 @@ function forceBorder(id, radius)
     $('#'+id).css('border-radius', radius);
 }
 
+function closePopover()
+{
+    $("#main_shadow").hide();
+    $("#main_win").hide();
+}
+
 //********* Transport ****************************//
 
 function handleState(data)
@@ -1889,6 +1915,11 @@ function handleState(data)
         $('#acheivement_text').text('Skoop Success!!!');
         
         $('#final_achieve_title').css('display','none');
+        
+        // Wire up event for closing the dialog
+        $("#finish_panel_complete_button").unbind();
+        $("#finish_panel_complete_button").bind("click", function() { closePopover() });
+        $("#finish_panel_complete_text").text("Close Dialog");
     }
     
     data = null;
