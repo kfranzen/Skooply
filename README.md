@@ -1,17 +1,24 @@
-This is the repo for the Skooply project.
+skooply.com code base
+===
 
-It contains all code used in running the site.
+This is the main repo for skooply.com. It contains all code for setting up the skooply servers.
 
-It currently doesn't contain setup and configuration info for setting up a local development site.
+###The code is divided into several folders.
 
-The dev site will be located on the AWS server.
+* Node Modules - All custom Node.js modules used by the skoop server
+* Html - All code for the skooply.com website
+* Scraping - All code for the page scraping bookmarklet
+* The code for the skoopServer is contained in the top level directory
+* Web Services - All code for any non Node.js web Services
+* Postgres - All SQL for the account and reporting database
+*
+The website is implemented entirely in HTML, CSS, and Javascript
 
-There are three parts to the project.
+The skoopServer is implemented using Node.js and custom node modules.
 
-The HTML, CSS, and JS files for the UI.
+###More info
 
-The JS files for the client and server side processing.
+* skoop.md 		  - The definition of a skoop
+* skoopserver.md - The API definition for the skoopServer
+* webservice.md  - The API definition for additional web services
 
-.Net files for existing customer and vendor loging and validation.
-
-SQL files for creation of the account database. These are currently SQL Server formatted but will migrate to Postgres long term.
