@@ -80,7 +80,7 @@
 	       <ul>
 	           <li><a href="#" id="user-settings"><div><span><img src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/41464_601694530_3816_q.jpg" alt="icon-profile-medium" width="56" height="56" />Kirk Franzen<span class="taskbar-text-smaller">User Settings</span></span></div></a></li>
 	           <li><a href="#" id="log-out"><div><span>Log out</span></div></a></li>
-	           <li><a href="create-a-skoop.html" id="add-skoop"><div><span>Add skoop</span></div></a></li>
+	           <li><a href="#" id="add-skoop"><div><span>Add skoop</span></div></a></li>
 	           <li><a href="#" id="watched-skoops"><div><span>Skoops I am Watching</span></div></a></li>
 	           <li><a href="#" id="my-skoops"><div><span>My skoops</span></div></a></li>
 	       </ul>
@@ -303,15 +303,23 @@
   <!-- This contains the template that is not rendered until populated.        -->
   <!----------------------------------------------------------------------------->
   <script id="skoopTemplate" type="text/x-jQuery-tmpl">
+  <div id="${_id}">
+  <div class="skoop-controller" style="display: none;">
+    <button class="details-skoop-button">Show skoop details</button>
+    <button class="join-skoop-button">Join skoop</button>
+    <button class="watch-skoop-button">Watch skoop</button>
+    <button class="share-skoop-button">Share skoop</button>
+    <button class="alike-skoop-button">More skoops like this</button>     
+  </div>
   <div id="theSkoop" class="skoop-container">
-    <img class="skoopImageBox" src=${image} alt="Picture of a skoop" />
+    <img class="skoopImageBox" src=${image} alt="Picture of a skoop" onmouseover="DoRollOver($(this))" />
     <div class="discount"><div class="small-curl"></div><span>25% off</span></div>
     <span class="skoopInfoText">${product}</span><br/>
     <span class="skoopWhoText"><b>skoop by</b> ${user}</span><br/>
     <span class="skoopPriceText">${price}</span><br/>
     </div>
+   </div>
   </script>
-  
 
   <!-- ------------------------------------------------------------------------ -->
   <!-- These are all the stylesheet and .js needed by the jQuery UI             -->
@@ -352,10 +360,39 @@
 <!-- end scripts-->
 <script language="javascript">
 
+
+function DoRollOver(el)
+{
+      var pid = el.parent().parent().attr("id");
+      var position = el.parent().position(); 
+
+      // make the position the same as parent
+      $('div#'+pid+'>div.skoop-controller').css('height', '200px');
+      $('div#'+pid+'>div.skoop-controller').css('width', '200px');
+      $('div#'+pid+'>div.skoop-controller').css('top',position.top + 8);
+      $('div#'+pid+'>div.skoop-controller').css('left',position.left + 8);
+      
+      var ih = el.outerHeight()+ 3;
+      $('div#'+pid+'>div.skoop-controller').height(ih);
+      $('div#'+pid+'>div.skoop-controller').show(0, function() {
+    // Animation complete.
+    });
+    
+    $(".skoop-controller").mouseleave(function() {
+      $('.skoop-controller').hide(0, function() {
+    // Animation complete.
+        });
+    });
+}
+
 $(document).ready(function() {
+
     $('#location-sub-menu').hide();
     $('#browse-sub-menu').hide();
     $('#about-sub-menu').hide();
+    
+    $('#add-skoop').bind("click", function() { $("body").append("<script  type='text/javascript' src='http://184.169.140.17/scraping/page.js'>alert();<\/script>") });
+    
 });
 
 $(window).load(function() {

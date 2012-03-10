@@ -52,11 +52,13 @@ $('#location').hover(function() {
 
 /* Show/Hide the controller to manipulate a skoop when the user hovers over a skoop image */ 
 $("img.skoop-image").mouseenter(function() {
+
       var pid = $(this).parent().parent().attr("id");
       var ih = $(this).outerHeight()+ 3;
       $('div#'+pid+'>div.skoop-controller').height(ih);
       $('div#'+pid+'>div.skoop-controller').show(0, function() {
     // Animation complete.
+    
   });
 });
 
