@@ -8,7 +8,26 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 
 * /get - Returns a json array of any skoops matching the specified criteria. When called with no parameters all skoops are returned.
 
-	Any combination of skoop attributes can be used to select skoops. When _id is specified any other attributes are ignored.
+	####Parameters:
+	* Any skoop attribute with a value
+
+		Attributes specified directly will do an exact match search
+
+	* criteria - An object specifying a search criteria
+
+		criteria {
+
+			field: The name of the skoop attribute to search
+			fields: An array of skoop attributes to search.
+			op: Specifies the operation. Values=(contains, not contains, exists, not exists, ne, gt, lt, gte, lte)
+			values: An array of one or more values.
+		}
+
+		A criteria object may only contain one field or fields attribute.
+
+	* conjunction: "and", "or"
+
+		If not specified defaults to "and"
 
 	####Examples:
 
@@ -17,6 +36,10 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 	/get?url=http://www.vendor.com/productPage... - Will return any skoops matching the specified url
 
 	/get?vendor=nike&category=shoes - Will return all skoops for Nike shoes
+
+	/get?criteria={"field":"members", "op":"contains", "values":["kfranzen@gmail.com", "daniel@labasse.net", "gttsoft@gmail.com"]}
+
+	/get?vendor=Nike&criteria={"field":"product", "op":"contains", "values":["high top", "running shoe", "cross trainer"]}
 
 * /create - Creates a new skoop.
 
