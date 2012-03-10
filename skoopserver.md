@@ -9,25 +9,35 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 * /get - Returns a json array of any skoops matching the specified criteria. When called with no parameters all skoops are returned.
 
 	####Parameters:
-	* Any skoop attribute with a value
+	* skoop.attribute = value
 
 		Attributes specified directly will do an exact match search
 
-	* criteria - An object specifying a search criteria
+	* criteria = An object specifying a search criteria
 
 		criteria {
 
 			field: The name of the skoop attribute to search
 			fields: An array of skoop attributes to search.
-			op: Specifies the operation. Values=(contains, not contains, exists, not exists, ne, gt, lt, gte, lte)
+			op: Specifies the operation. Values=(like, contains, not contains, exists, not exists, ne, gt, lt, gte, lte)
 			values: An array of one or more values.
 		}
 
 		A criteria object may only contain one field or fields attribute.
 
-	* conjunction: "and", "or"
+		When using "op":"like" the search performs a regex search of the form '/^value/'. Like only allows one value.
+
+		#####Extended fields
+
+		The value of criteria.field can be set to "text". When "text" is specified all text fields will be searched for the specified text values.
+
+	* conjunction = "and", "or"
 
 		If not specified defaults to "and"
+
+	* sort = skoop.attribute
+
+	* limit = number of skoops to return
 
 	####Examples:
 
@@ -40,6 +50,8 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 	/get?criteria={"field":"members", "op":"contains", "values":["kfranzen@gmail.com", "daniel@labasse.net", "gttsoft@gmail.com"]}
 
 	/get?vendor=Nike&criteria={"field":"product", "op":"contains", "values":["high top", "running shoe", "cross trainer"]}
+
+	/get?criteria={"field":"product","op":"like","values":["bike"]}
 
 * /create - Creates a new skoop.
 
