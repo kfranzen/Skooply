@@ -99,6 +99,7 @@ input#search {
 
 a#log-out:hover div:after, a#add-skoop:hover div:after, a#watched-skoops:hover div:after, a#my-skoops:hover div:after {
     display: block;
+    
     width: 200px;
     height: 36px;
     background: #ec3069;
@@ -113,7 +114,12 @@ a#log-out:hover div:after, a#add-skoop:hover div:after, a#watched-skoops:hover d
     overflow: hidden;
     line-height: 34px;
     padding-left: 10px;
-    border-radius: 5px 0 0 5px;
+    
+    -moz-border-radius: 5px 0 0 5px;
+-webkit-border-radius:5px 0 0 5px;
+-opera-border-radius:5px 0 0 5px;
+-khtml-border-radius:5px 0 0 5px;
+border-radius:5px 0 0 5px;
 }
 
 a#user-settings:hover div {
@@ -154,7 +160,7 @@ a#user-settings:hover div span img {
 
 a#user-settings div {
     /* background: url(../img/icon-profile-mini.png) no-repeat 3px 5px;  */
-    background: url(http://profile.ak.fbcdn.net/hprofile-ak-snc4/41464_601694530_3816_q.jpg) no-repeat 3px 5px;  
+    background: url(http://www.skooply.com/html/img/icon-profile-mini.png) no-repeat 3px 5px;  
 }
 
 a#log-out:hover div:after {
@@ -395,13 +401,18 @@ div.skoop-controller {
     border: dotted 1px #ED3169;
     width: 238px;
     min-height: 240px;
+    background: grey; /* IE8 doesn't understand rgba so it gracefully degrades */
     background: rgba(255,255,255,0.9);
     position: absolute;
     z-index: 10000;
     top: 0;
     left: 0;
     padding: 0 0 0 0 ;
-    border-radius: 5px;
+    -moz-border-radius: 5px;
+-webkit-border-radius:5px;
+-opera-border-radius:5px;
+-khtml-border-radius:5px;
+border-radius:5px;
 }
 
 .skoop-controller>button {
@@ -414,7 +425,13 @@ div.skoop-controller {
     margin: 10px auto 10px auto;
     display: block;
     width: 150px;
-    border-radius: 5px;
+    
+     -moz-border-radius: 5px;
+-webkit-border-radius:5px;
+-opera-border-radius:5px;
+-khtml-border-radius:5px;
+border-radius:5px;
+
 }
 
 .skoop-controller>button:first-child {
