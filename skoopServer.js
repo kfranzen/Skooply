@@ -3,6 +3,7 @@ var http = require('http'),
 	querystring = require('querystring'),
 	skoopdb = require('skoopdb'),
 	Skoop = require('skoop'),
+	skoopSearch = require('skoopsearch'),
 	fs = require('fs'),
 	path = require('path'),
 	url = require('url'),
@@ -60,6 +61,7 @@ app.all('*', function(req, res, next) {
  });
 
 /*
+ * /
  * Returns the available API
  */
 app.get('/', function(req, res) {
@@ -87,6 +89,7 @@ app.get('/logs', function(req, res) {
 });
 
 /*
+ * /get
  * Returns a list of matching skoops
  * @param Skoop.property: Search on any Skoop property
  * @param sort: sort on any Skoop.property
@@ -94,18 +97,8 @@ app.get('/logs', function(req, res) {
  */
 app.get('/get', function(req, res) {
 	var fields = parseQueryStr(req.query);
-   var sort = fields.sort;
-   var limit = fields.limit;
-   var options = {};
-   var query = parseSkoopProperties(fields);
-
-	if (sort)
-		options['sort'] = sort;
-
-	if (limit)
-		options['limit'] = limit;
-
-	skoopDb.fetch(query, options, function(err, skoops) {
+	var search = new skoopSearch.Search(skoopDb, fields);
+	search.execute(function(err, skoops) {
 		if (err == null)
 			res.json(skoops, null, 200);
 		else
@@ -115,6 +108,7 @@ app.get('/get', function(req, res) {
 
 
 /*
+ * /create
  * Create skoop using get
  * Takes a list of attributes for a skoop or an array of sets of attributes
  */
@@ -138,6 +132,7 @@ app.get('/create', function(req, res) {
 });
 
 /*
+ * /update
  * Update skoop
  * Takes a skoop and updates it
  */
@@ -170,6 +165,7 @@ app.get('/update', function(req, res) {
 });
 
 /*
+ * /remove
  * Remove a skoop by id or remove all skoops matching the specified criteria
  * If _id is provided it is used exclusively to remove the Object
  * If _id is not provided all other provided fields are used to remove matching objects
@@ -189,6 +185,7 @@ app.get('/remove', function (req, res) {
 });
 
 /*
+ * /addImage
  * Add and image for a skoop
 * Requires a skoop _id and an image file
 */
@@ -223,6 +220,7 @@ app.post('/addImage', function(req, res) {
 });
 
 /*
+ * /getImage
  * Get the image for a skoop
 * Requires a skoop _id
 * Returns the image
@@ -283,21 +281,6 @@ function parseQueryStr(query) {
 	}
 
 	return fields;
-}
-
-function parseSkoopProperties (fields) {
-	var properties = {};
-	var skoop = new Skoop.Skoop(1, {});
-	var keys = Object.keys(skoop);
-
-	for (prop in fields) {
-		for (var i = 0; i < keys.length; i++) {
-			if (prop === keys[i])
-				properties[prop] = fields[keys[i]];
-		}
-	}
-
-	return properties;
 }
 
 function fetchImage(skoop) {

@@ -41,17 +41,29 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 
 	####Examples:
 
-	/get?user=testuser@email.com - Will return all skoops created by the specified user.
+	Search for skoops created by testuser@email.com
 
-	/get?url=http://www.vendor.com/productPage... - Will return any skoops matching the specified url
+		/get?user=testuser@email.com - Will return all skoops created by the specified user.
 
-	/get?vendor=nike&category=shoes - Will return all skoops for Nike shoes
+	Search for skoops matching the specified url
 
-	/get?criteria={"field":"members", "op":"contains", "values":["kfranzen@gmail.com", "daniel@labasse.net", "gttsoft@gmail.com"]}
+		/get?url=http://www.vendor.com/productPage...
 
-	/get?vendor=Nike&criteria={"field":"product", "op":"contains", "values":["high top", "running shoe", "cross trainer"]}
+	Search for skoops on Nike shoes
 
-	/get?criteria={"field":"product","op":"like","values":["bike"]}
+		/get?vendor=nike&category=shoes
+
+	Search for skoops that have any of the specified emails as members
+
+		/get?criteria={"field":"members", "op":"contains", "values":["kfranzen@gmail.com", "daniel@labasse.net", "gttsoft@gmail.com"]}
+
+	Search for skoops on Nike high tops, running shoes, and cross trainers
+
+		/get?vendor=Nike&criteria={"field":"product", "op":"contains", "values":["high top", "running shoe", "cross trainer"]}
+
+	Search for skoops with product names starting with bike
+
+		/get?criteria={"field":"product","op":"like","values":["bike"]}
 
 * /create - Creates a new skoop.
 
@@ -64,7 +76,9 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 
 	####Examples:
 
-	/create?user=testuser@email.com&url=http://lastbuy.com/product2
+	Create a skoop for testuser@email.com for the specified product URL
+
+		/create?user=testuser@email.com&url=http://lastbuy.com/product2
 
 * /update - Update any skoops matching the selection criteria
 
@@ -86,9 +100,13 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 
 		#####Examples
 
-		/update?selector={"user":"testuser@email.com", "product":"high tops"}&attributes={"category":"shoes"}
+		Update skoops created by testuser@email.com on the product high tops
 
-		/update?selector={"_id":4FA3456..."}&attributes={"addmembers":["testuser2@email.com", "testuser3@email.com"]}
+			/update?selector={"user":"testuser@email.com", "product":"high tops"}&attributes={"category":"shoes"}
+
+		Update the skoop matching the specified _id
+
+			/update?selector={"_id":4FA3456..."}&attributes={"addmembers":["testuser2@email.com", "testuser3@email.com"]}
 
 * /remove - Remove any skoops matching the specified attributes
 
@@ -96,4 +114,10 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 
 	#####Examples
 
-	/remove?_id=4FA56...
+	Remove the skoop with the specified _id
+
+		/remove?_id=4FA56...
+
+	Remove all skoops for a user
+
+		/remove?user=testuser@email.com
