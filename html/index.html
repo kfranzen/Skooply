@@ -18,17 +18,24 @@
 	<link rel="stylesheet" href="css/skooply.css">
 	
   <!------------------------------------------------------------------------------>
-  <!-- per the masonry website, style the skoop. this style is referenced later -->
+  <!-- this style is referenced later -->
   <!------------------------------------------------------------------------------>
   <style>
+    .skoop-parent{
+        display: 'inline-block';
+        float: left;
+    }
+  
     #theSkoop{
      border: solid 3px #edede7;
+     display: 'inline-block'
      /*border-radius:15px;*/
      margin: 5px; 
-     text-align: center; /* NOTE THIS WILL TOTALLY HOSE LAYOUT IF YOU CHANGE IT */
+     
      width: 200px;
-     height: auto;
+     height: 400px;
      float: left;
+     background-color:#FAFAF8;
     }
     
     .skoopImageBox {
@@ -71,6 +78,7 @@
     }
   </style>
   
+  
 </head>
 <body>
 
@@ -80,7 +88,7 @@
 	       <ul>
 	           <li><a href="#" id="user-settings"><div><span><img src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/41464_601694530_3816_q.jpg" alt="icon-profile-medium" width="56" height="56" />Kirk Franzen<span class="taskbar-text-smaller">User Settings</span></span></div></a></li>
 	           <li><a href="#" id="log-out"><div><span>Log out</span></div></a></li>
-	           <li><a href="#" id="add-skoop"><div><span>Add skoop</span></div></a></li>
+	           <li id="add-skoop-menu"><a href="#" id="add-skoop"><div><span>Add skoop</span></div></a></li>
 	           <li><a href="#" id="watched-skoops"><div><span>Skoops I am Watching</span></div></a></li>
 	           <li><a href="#" id="my-skoops"><div><span>My skoops</span></div></a></li>
 	       </ul>
@@ -303,7 +311,7 @@
   <!-- This contains the template that is not rendered until populated.        -->
   <!----------------------------------------------------------------------------->
   <script id="skoopTemplate" type="text/x-jQuery-tmpl">
-  <div id="${_id}">
+  <div class="skoop-parent" id="${_id}">
   <div class="skoop-controller" style="display: none;">
     <button class="details-skoop-button">Show skoop details</button>
     <button class="join-skoop-button">Join skoop</button>
@@ -312,7 +320,7 @@
     <button class="alike-skoop-button">More skoops like this</button>     
   </div>
   <div id="theSkoop" class="skoop-container">
-    <img class="skoopImageBox" src=${image} alt="Picture of a skoop" onmouseover="DoRollOver($(this))" />
+    <img class="skoopImageBox" src=${image} alt="Picture of a skoop" onmouseover="doRollOver($(this))" />
     <div class="discount"><div class="small-curl"></div><span>25% off</span></div>
     <span class="skoopInfoText">${product}</span><br/>
     <span class="skoopWhoText"><b>skoop by</b> ${user}</span><br/>
@@ -325,81 +333,24 @@
   <!-- These are all the stylesheet and .js needed by the jQuery UI             -->
   <!-- 2012-02-29 replaced local jqueryUI scripts w/ google jqueryUI 1.8.16     -->
   <!-- ------------------------------------------------------------------------ -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+  <script src="js/jquery.min.js" type="text/javascript"></script>
+  <script src="js/jquery-ui.min.js" type="text/javascript"></script>
  
-  <!----------------------------------------------------------------------------------------------------------------> 
+ <!----------------------------------------------------------------------------------------------------------------> 
   <!-- this is the needed .js to provide the templating                                                           -->
   <!----------------------------------------------------------------------------------------------------------------> 
-  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
-
+  <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+  
   <!----------------------------------------------------------------------------------------------------------------> 
-  <!-- These are two .js for laying out the dynamic tiles and css                                                 -->
+  <!-- this is the needed .js to provide the menusand stuff                                                       -->
   <!----------------------------------------------------------------------------------------------------------------> 
- 	<script src="js/libs/modernizr-2.0.6.min.js"></script>
-	<script src="js/libs/jquery-masonry.js"></script>
-
+  <script src="js/script.js"></script>
  
   <!--------------------------------------------------------------------------------------->
   <!-- This script will add the skoops from the DB to the main container div             -->
   <!--------------------------------------------------------------------------------------->
-  <script type="text/javascript">
-	  $(function() {
-	    var getSkoopUrl = 'http://50.18.13.231/get?callback=?';
-	    $("#skoop-grid-container").empty();
-	    $.getJSON(getSkoopUrl, function(data) {
-	      $("#skoopTemplate").tmpl(data).appendTo("#skoop-grid-container");
-	    }); // .getJSON
-	  });
-  </script>  
-
-
-<!-- These two scripts claim to fix bugs in masonry/jquery, but I don't believe it. It is a menu problem. -->
-<script src="js/plugins.js"></script>
-<script src="js/script.js"></script>
-<!-- end scripts-->
-<script language="javascript">
-
-
-function DoRollOver(el)
-{
-      var pid = el.parent().parent().attr("id");
-      var position = el.parent().position(); 
-
-      // make the position the same as parent
-      $('div#'+pid+'>div.skoop-controller').css('height', '200px');
-      $('div#'+pid+'>div.skoop-controller').css('width', '200px');
-      $('div#'+pid+'>div.skoop-controller').css('top',position.top + 8);
-      $('div#'+pid+'>div.skoop-controller').css('left',position.left + 8);
-      
-      var ih = el.outerHeight()+ 3;
-      $('div#'+pid+'>div.skoop-controller').height(ih);
-      $('div#'+pid+'>div.skoop-controller').show(0, function() {
-    // Animation complete.
-    });
-    
-    $(".skoop-controller").mouseleave(function() {
-      $('.skoop-controller').hide(0, function() {
-    // Animation complete.
-        });
-    });
-}
-
-$(document).ready(function() {
-
-    $('#location-sub-menu').hide();
-    $('#browse-sub-menu').hide();
-    $('#about-sub-menu').hide();
-    
-    $('#add-skoop').bind("click", function() { $("body").append("<script  type='text/javascript' src='http://184.169.140.17/scraping/page.js'>alert();<\/script>") });
-    
-});
-
-$(window).load(function() {
-      $('#skoop-grid-container').masonry('reload');
-});
-</script>
-	
+  <script src="js/layout.js"></script>
+<!-- end scripts-->	
 
 </body>
 </html>

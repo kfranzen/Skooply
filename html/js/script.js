@@ -1,7 +1,7 @@
 
 /* The function below will determine the height of the individual skoops and pass the info to masonry, 
 so that the skoop containers are the proper height. It's a known issue with masonry/jquery*/
-
+/*
 $('#skoop-grid-container').imagesLoaded( function( $images, $proper, $broken ) {
   // callback provides three arguments:
   // $images: the jQuery object with all images
@@ -18,19 +18,21 @@ $('#skoop-grid-container').imagesLoaded( function( $images, $proper, $broken ) {
         columnWidth: 10,
     });
 });
+*/
 
 /*When user resizes the browser window, force a reshuffle of the skoops */
-
+/*
 $(window).resize(function() {
     $('#skoop-grid-container').masonry('reload');
 });
+*/
+
+var add_hover_clear = true;
 
 /* Main navigation show/hide */
-
 $('#location-sub-menu').hide();
 $('#about-sub-menu').hide();
 $('#browse-sub-menu').hide();
-
 
 $('#browse').hover(function() {
   $('#browse-sub-menu').fadeToggle('fast', function() {
@@ -51,24 +53,39 @@ $('#location').hover(function() {
 });
 
 /* Show/Hide the controller to manipulate a skoop when the user hovers over a skoop image */ 
-$("img.skoop-image").mouseenter(function() {
+function doRollOver(el)
+{
+      var pid = el.parent().parent().attr("id");
+      
+      var position = el.parent().position(); 
 
-      var pid = $(this).parent().parent().attr("id");
-      var ih = $(this).outerHeight()+ 3;
+      // make the position the same as parent
+      $('div#'+pid+'>div.skoop-controller').css('height', '205px');
+      $('div#'+pid+'>div.skoop-controller').css('width', '205px');
+      $('div#'+pid+'>div.skoop-controller').css('top',position.top + 10);
+      $('div#'+pid+'>div.skoop-controller').css('left',position.left + 10);
+      
+      var ih = el.outerHeight()+ 3;
       $('div#'+pid+'>div.skoop-controller').height(ih);
       $('div#'+pid+'>div.skoop-controller').show(0, function() {
     // Animation complete.
+    });
     
-  });
-});
-
-
-$(".skoop-controller").mouseleave(function() {
-      $('.skoop-controller').hide(0, function() {
-    // Animation complete.
-  });
-  
-});
+    // For some reason (mostly likely because they aren't
+    // rendred yet, we can seem to add the hover hide
+    // function event handlers until here...so do it once
+    if(add_hover_clear)
+    {
+        add_hover_clear = false;
+        
+        $(".skoop-controller").mouseleave(function() {
+              $('.skoop-controller').hide(0, function() {
+            // Animation complete.
+          });
+          
+        });
+    }
+}
 
 /* Show/Hide the bubble over the user thumbnails in the skoops*/
 
@@ -80,15 +97,4 @@ $(".user-thumb-50px").hover(function() {
       $('#user-info-loupe').fadeToggle(0, function() {
     // Animation complete.
   });
-});
-
-/* Create the "Featured Skoop" slider window complete with pagination links*/
-
-$(function(){
-	$('#slides').slides({
-		preload: true,
-		generatePagination: true,
-		hoverPause: true,
-		play: 5000
-	});
 });
