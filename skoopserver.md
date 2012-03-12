@@ -35,7 +35,9 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 
 		If not specified defaults to "and"
 
-	* sort = skoop.attribute
+	* sort = skoop.attribute or { skoop.attribute : -1 }
+
+		In the second version -1 indicates a descending sort. 1 is an ascending sort. Multiple fields can be specified in normal JSON notation.
 
 	* limit = number of skoops to return
 
