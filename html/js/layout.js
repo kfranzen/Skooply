@@ -96,7 +96,8 @@ doLayout = function(){
     document.body.appendChild(main_layout);
     
     $(function() {
-	    var getSkoopUrl = 'http://50.18.13.231/get?sort=create&callback=?';
+	    var getSkoopUrl = 'http://50.18.13.231/get?';
+	    getSkoopUrl += 'sort={%22update%22:-1}&limit=20';
 	    $("#main_layout").empty();
 	    $.getJSON(getSkoopUrl, function(data) {
 	    $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
@@ -109,6 +110,23 @@ doLayout = function(){
     
 };
 
+doUpdateLayout = function() {
+
+    $(function() {
+	    //var getSkoopUrl = 'http://50.18.13.231/get?sort=create&limit=2&callback=?';
+	    var getLatestUrl = 'http://50.18.13.231/get?criteria={%22field%22:%22updated%22,%22op%22:%22gt%22,%22values%22:[';
+	    getLatestUrl += new Date().getTime();
+	    getLatestUrl += ']}&sort={%22update%22:-1}';
+	    
+	    $.getJSON(getLatestUrl, function(data) {
+	        $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
+	    }); // .getJSON
+	    
+	  });
+};
+
 $(document).ready(function() {
     doLayout();
+    
+    window.setInterval(doUpdateLayout, 10000);
 });
