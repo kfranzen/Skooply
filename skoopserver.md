@@ -37,7 +37,7 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 
 	* sort = skoop.attribute or { skoop.attribute : -1 }
 
-		In the second version -1 indicates a descending sort. 1 is an ascending sort. Multiple fields can be specified in normal JSON notation.
+		In the second version -1 indicates a descending sort. 1 is an ascending sort and is the default. Multiple fields can be specified in normal JSON notation.
 
 	* limit = number of skoops to return
 
@@ -66,6 +66,9 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 	Search for skoops with product names starting with bike
 
 		/get?criteria={"field":"product","op":"like","values":["bike"]}
+
+	Search skoops for any text matches and sort by the updated timestamp
+		/get?criteria={"field":"text", "op":"contains", "values": [ "Dragon BCD" ]}&sort={"updated":-1}
 
 * /create - Creates a new skoop.
 
