@@ -68,6 +68,7 @@ Definition of the API exposed by the skoop server for accessing and modifying sk
 		/get?criteria={"field":"product","op":"like","values":["bike"]}
 
 	Search skoops for any text matches and sort by the updated timestamp
+
 		/get?criteria={"field":"text", "op":"contains", "values": [ "Dragon BCD" ]}&sort={"updated":-1}
 
 * /create - Creates a new skoop.

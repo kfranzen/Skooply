@@ -2,7 +2,7 @@
   "appenders": [
     {
       "type": "file",
-      "filename": "logs/skoopServer.log",
+      "filename": "/home/ubuntu/www/logs/skoopServer.log",
       "maxLogSize": 20480,
       "backups": 5,
       "pollInterval": 15,
