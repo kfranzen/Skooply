@@ -86,9 +86,30 @@
 	<div id="taskbar">
 	   <div id="taskbar-button-container">
 	       <ul>
-	           <li><a href="#" id="user-settings"><div><span><img src="http://profile.ak.fbcdn.net/hprofile-ak-snc4/41464_601694530_3816_q.jpg" alt="icon-profile-medium" width="56" height="56" />Kirk Franzen<span class="taskbar-text-smaller">User Settings</span></span></div></a></li>
-	           <li><a href="#" id="log-out"><div><span>Log out</span></div></a></li>
-	           <li id="add-skoop-menu"><a href="#" id="add-skoop"><div><span>Add skoop</span></div></a></li>
+	           <li>
+	             <a href="#" id="user-settings">
+	                <div id="userImage">
+	                  <span id="LoginLogout">
+	                     <!-- img src="" alt="icon-profile-medium" width="56" height="56" / -->
+	                     <!-- span class="taskbar-text-smaller">User Settings</span -->
+	                  </span>
+	                </div>
+	             </a>
+	           </li>
+	           <li>
+	             <a href="#" id="log-out">
+	               <div>
+	                 <span>Log out</span>
+	               </div>
+	             </a>
+	           </li>
+	           <li id="add-skoop-menu">
+	             <a href="#" id="add-skoop">
+	               <div>
+	                  <span>Add skoop</span>
+	               </div>
+	             </a>
+	           </li>
 	           <li><a href="#" id="watched-skoops"><div><span>Skoops I am Watching</span></div></a></li>
 	           <li><a href="#" id="my-skoops"><div><span>My skoops</span></div></a></li>
 	       </ul>
@@ -97,85 +118,96 @@
 	
 	<header>
     <!-- ------------------------------------------------------------------------ -->
-    <!-- These two <div> are for Facebook. The 1st is where FB puts output.       -->
-    <!-- I don't know about the second one.                                       -->
+    <!-- This div is used by FB as the target of its injected js code (I think)   -->
+    <!-- I write FB visuals into skooply_auth                                     -->
     <!-- ------------------------------------------------------------------------ -->
-    <div id="account-info" ></div>
     <div id="fb-root"></div>
     <script>
-            // plug one of these into the FB init
-            var caFBapiId      = '321366807889494';
-            var labasseFBapiId = '184593301631496';
-            var skooplyFBapiId = '249285641824001';
-            var FBapiId = skooplyFBapiId;
+      // plug one of these into the FB init
+      var caFBapiId      = '321366807889494';
+      var labasseFBapiId = '184593301631496';
+      var skooplyFBapiId = '249285641824001';
+      var FBapiId = caFBapiId;
 
-            window.fbAsyncInit = function() {
-              FB.init({
-                appId: FBapiId,
-                channelURL: '/channel.html', // Channel File
-                status: true, // check login status
-                cookie: true, // enable cookies to allow the server to access the session
-                oauth: true,  // enable OAuth 2.0
-                xfbml: true   // parse XFBML
-              });
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: FBapiId,
+          channelURL: '/channel.html', // Channel File
+          status: true, // check login status
+          cookie: true, // enable cookies to allow the server to access the session
+          oauth: true,  // enable OAuth 2.0
+          xfbml: true   // parse XFBML
+        });
 
-              /**
-              * taken verbatim from http://www.fbrell.com/saved/3250b3721872b15fbe4418da699e588c
-              * This assumes the user is logged in and renders their profile picture,
-              * name and a logout link.
-              */
-              function showLoginInfo() {
-                FB.api(
-                {
-                  method: 'fql.query',
-                  query: 'SELECT name, pic_square FROM user WHERE uid=' + FB.getUserID()
-                },
-                function(response) {
-                  document.getElementById('account-info').innerHTML = (
-                    '<img src="' + response[0].pic_square + '"> ' +
-                    response[0].name +
-                    ' <img onclick="FB.logout()" style="cursor: pointer;"' +
-                        'src="https://s-static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">'
-                  );
+        /**
+        * taken verbatim from http://www.fbrell.com/saved/3250b3721872b15fbe4418da699e588c
+        * This assumes the user is logged in and renders their profile picture,
+        * name and a logout link.
+        */
+        function showLoginInfo() {
+          FB.api(
+          {
+            method: 'fql.query',
+            query: 'SELECT name, pic_square FROM user WHERE uid=' + FB.getUserID()
+          },
+          function(response) {
+            /*
+            document.getElementById('skooply_auth').innerHTML = (
+            '<img src="' + response[0].pic_square + '"> '
+            //+ response[0].name +
+            +  ' <img onclick="FB.logout()" style="cursor: pointer;"' +
+            'src="https://s-static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">'
+            );
+            */
+            //alert(response[0].name + ' user is logged in');
+            //alert('pic is at ' + response[0].pic_square);
+            //$("#userImage").css("background", 'url(' + response[0].pic_square + ') no-repeat');
 
-                });
-              }
-              /**
-              * This assumes the user is logged out, and renders a login button.
-              */
-              function showLoginButton() {
-                document.getElementById('account-info').innerHTML = (
-                  '<img onclick="FB.login()" style="cursor: pointer;"' +
-                       'src="https://s-static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">'
-                );
-              }
+            // 2012-04-16 add FB stuff to the newly-named "userImage" div
+            var FBLoginInfo = '<img src="' + response[0].pic_square + '"> ' + response[0].name +
+                              ' <img onclick="FB.logout()" style="cursor: pointer;"' + 'src="https://s-static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">'
+            document.getElementById('LoginLogout').innerHTML = FBLoginInfo;
 
-              /**
-              * This will be called once on page load, and every time the status changes.
-              */
-              function onStatus(response) {
-                if (response.status === 'connected') {
-                  showLoginInfo();
-                } else {
-                  showLoginButton();
-                }
-              }
-              FB.getLoginStatus(function(response) {
-                onStatus(response); // once on page load
-                FB.Event.subscribe('auth.statusChange', onStatus); // every status change
-              });
-            };
+          } // function(response)
+          ); // end FB.api()
+        } // showLoginInfo()
 
-            // Load the SDK Asynchronously
-            (function(d) {
-              var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
-              js = d.createElement('script'); js.id = id; js.async = true;
-              js.src = "//connect.facebook.net/en_US/all.js";
-              d.getElementsByTagName('head')[0].appendChild(js);
-            } (document));
+        /**
+        * This assumes the user is logged out, and renders a login button.
+        */
+        function showLoginButton() {
+          document.getElementById('LoginLogout').innerHTML = (
+            '<img onclick="FB.login()" style="cursor: pointer;"' +
+                 'src="https://s-static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">'
+          );
+        }
 
-          </script>
+        /**
+        * This will be called once on page load, and every time the status changes.
+        */
+        function onStatus(response) {
+          if (response.status === 'connected') {
+            showLoginInfo();
+          } else {
+            showLoginButton();
+          }
+        }
+        FB.getLoginStatus(function(response) {
+          onStatus(response); // once on page load
+          FB.Event.subscribe('auth.statusChange', onStatus); // every status change
+        });
+      };
 
+      // Load the SDK Asynchronously
+      (function(d) {
+        var js, id = 'facebook-jssdk'; if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        d.getElementsByTagName('head')[0].appendChild(js);
+      } (document));
+
+    </script>
+    
     <div id="main-logo-container">
             <a id="main-logo" href="/index.html" title="skooply home">
               <p>skooply</p>
