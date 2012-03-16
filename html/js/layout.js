@@ -89,6 +89,8 @@ function shmCreateElement(tagName, props, styles, children) {
   return element;
 }
 
+var last_update_time = 0;
+
 doLayout = function(){
     
     // Main container
@@ -99,7 +101,11 @@ doLayout = function(){
     getSkoopUrl += 'sort={%22updated%22:-1}&limit=20&callback=?';
     $("#main_layout").empty();
     $.getJSON(getSkoopUrl, function(data) {
+    last_update_time = data[0]['created']; // Timestamp of first (most recent)
+    
     $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
+    
+    alert(last_update_time);
     }); // .getJSON
 	  
 	// no empty div, no flow
@@ -112,10 +118,17 @@ doUpdateLayout = function() {
     
     //var getSkoopUrl = 'http://50.18.13.231/get?sort=create&limit=2&callback=?';
     var getLatestUrl = 'http://50.18.13.231/get?criteria={%22field%22:%22updated%22,%22op%22:%22gt%22,%22values%22:[';
-    getLatestUrl += new Date().getTime();
+    getLatestUrl += last_update_time;
     getLatestUrl += ']}&sort={%22updated%22:-1}';
     
     $.getJSON(getLatestUrl, function(data) {
+        if(data.length>0)
+        {
+            if(data[0]['created']>last_update_time)
+            {
+                last_update_time = data[0]['created'];
+            }
+        }
         $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
     }); // .getJSON
 };
