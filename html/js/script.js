@@ -87,19 +87,6 @@ function doRollOver(el)
     }
 }
 
-function handleDiscount(input)
-{
-alert(input);
-    if(input!=null)
-    {
-        return input;
-    }
-    else
-    {
-        return "35%";
-    }
-}
-
 /* Show/Hide the bubble over the user thumbnails in the skoops*/
 
 $(".user-thumb-50px").hover(function() {
