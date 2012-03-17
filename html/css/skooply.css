@@ -75,7 +75,8 @@ input#search {
     display: block;
     width: 42px;
     height: 84px;
-    background: url(../img/taskbar-button-bg-big.png) no-repeat;
+    /*background: url(../img/taskbarBtn-gear.png) no-repeat;   this is the "gear" icon */
+    background: url(../img/icon-taskbar-lock-unlocked.png) no-repeat; 
     overflow: hidden;
     position: relative;
 }
@@ -83,12 +84,6 @@ input#search {
 
 #taskbar ul li a span {
     visibility: hidden;
-}
-
-#taskbar ul li a#user-settings:hover {
-    cursor: pointer;
-    background-position: 0px -82px;
-    text-decoration: none;
 }
 
 #taskbar ul li a:hover {
@@ -116,16 +111,33 @@ a#log-out:hover div:after, a#add-skoop:hover div:after, a#watched-skoops:hover d
     padding-left: 10px;
     
     -moz-border-radius: 5px 0 0 5px;
--webkit-border-radius:5px 0 0 5px;
--opera-border-radius:5px 0 0 5px;
--khtml-border-radius:5px 0 0 5px;
-border-radius:5px 0 0 5px;
+    -webkit-border-radius:5px 0 0 5px;
+    -opera-border-radius:5px 0 0 5px;
+    -khtml-border-radius:5px 0 0 5px;
+    border-radius:5px 0 0 5px;
+}
+
+
+a#user-settings div {
+    background: url(../img/icon-taskbar-lock-unlocked.png) no-repeat 3px 5px;
+ /* background: url(../img/icon-profile-mini.png) no-repeat 3px 5px;  */
+ /* background: url(http://www.skooply.com/html/img/icon-profile-mini.png) no-repeat 3px 5px;  */
+}
+
+#taskbar ul li a#user-settings:hover {
+    cursor: pointer;
+    background-position: 0px -82px;
+    text-decoration: none;
 }
 
 a#user-settings:hover div {
     top: 107px;
     display: block;
+    /* orignally real big
     width: 300px;
+    height: 64px;
+    */
+    width: 200px;
     height: 64px;
     background: #ec3069;
     position: fixed;
@@ -152,15 +164,11 @@ a#user-settings:hover div span img {
     float: left;
 }
 
+
 .taskbar-text-smaller {
     font-size: 12px;
     float: left;
     font-weight: normal;
-}
-
-a#user-settings div {
-    /* background: url(../img/icon-profile-mini.png) no-repeat 3px 5px;  */
-    background: url(http://www.skooply.com/html/img/icon-profile-mini.png) no-repeat 3px 5px;  
 }
 
 a#log-out:hover div:after {
@@ -226,40 +234,11 @@ a#my-skoops div {
 }
 
 header {
-/*
-    display: block;
-    position: absolute;
-    height: 90px;
-    width: 100%;
-    top:0;
-    left: 0;
-    text-align:center;
- */
-   /*border:dashed 1px black;*/
    margin:0px;
    width: 100%;
    text-align:center;
 }
 
-/* 2012-04-04 this is the Facebook div */
-#account-info{
-   
-   /* This is what I'd like to do but the menu min-width is screwing that.
-    * I'll have to kludge an absolute position for now.
-   float:left;
-   margin:0px 0px 0px 0px;
-   height:50px;
-   width:250px;
-  */
-  
-   /*border:solid 1px #E0E0D5;
-   visibility:hidden;*/
-   height:50px;
-   width:250px;
-   top:15px;
-   right: 225px;
-   position: absolute;
-}
 
 #fb-root{
 }
