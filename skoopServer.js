@@ -320,7 +320,7 @@ function storeImage(skoop, uri) {
 	skoopDb.addImage(skoop._id.toString(), uri, function (err, imgId) {
 		if (err == null) {
 			logger.trace('Added image for skoop: ' + skoop._id.toString());
-			skoop.image = "http://204.236.144.100/getImage?_id=" + skoop._id;
+			skoop.image = "http://50.18.13.231/getImage?_id=" + skoop._id;
 			var selector = { '_id' : skoop._id.toString() };
 			var fields = { 'image' : skoop.image };
 
