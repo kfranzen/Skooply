@@ -105,7 +105,7 @@ doLayout = function(){
     
     $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
     
-    alert(last_update_time);
+    //alert(last_update_time);
     }); // .getJSON
 	  
 	// no empty div, no flow
