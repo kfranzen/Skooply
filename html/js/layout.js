@@ -101,7 +101,7 @@ doLayout = function(){
     getSkoopUrl += 'sort={%22updated%22:-1}&limit=20&callback=?';
     $("#main_layout").empty();
     $.getJSON(getSkoopUrl, function(data) {
-    last_update_time = data[0]['created']; // Timestamp of first (most recent)
+    last_update_time = data[0]['updated']; // Timestamp of first (most recent)
     
     $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
     
@@ -124,10 +124,9 @@ doUpdateLayout = function() {
     $.getJSON(getLatestUrl, function(data) {
         if(data.length>0)
         {
-        alert(last_update_time + " + " + data.length);
-            if(data[0]['created']>last_update_time)
+            if(data[0]['updated']>last_update_time)
             {
-                last_update_time = data[0]['created'];
+                last_update_time = data[0]['updated'];
                 
             }
             $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
