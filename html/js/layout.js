@@ -124,12 +124,15 @@ doUpdateLayout = function() {
     $.getJSON(getLatestUrl, function(data) {
         if(data.length>0)
         {
+        alert(last_update_time + " + " + data.length);
             if(data[0]['created']>last_update_time)
             {
                 last_update_time = data[0]['created'];
+                
             }
+            $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
         }
-        $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
+        
     }); // .getJSON
 };
 
