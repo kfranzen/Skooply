@@ -116,7 +116,6 @@ doLayout = function(){
 
 doUpdateLayout = function() {
     
-    //var getSkoopUrl = 'http://50.18.13.231/get?sort=create&limit=2&callback=?';
     var getLatestUrl = 'http://50.18.13.231/get?criteria={%22field%22:%22updated%22,%22op%22:%22gt%22,%22values%22:[';
     getLatestUrl += last_update_time;
     getLatestUrl += ']}&sort={%22updated%22:-1}';
@@ -127,7 +126,6 @@ doUpdateLayout = function() {
             if(data[0]['updated']>last_update_time)
             {
                 last_update_time = data[0]['updated'];
-                
             }
             $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
         }
