@@ -7,7 +7,8 @@ var http = require('http'),
 	fs = require('fs'),
 	path = require('path'),
 	url = require('url'),
-	log4js = require('log4js');
+	log4js = require('log4js'),
+	ec2 = require('ec2');
 
 // setup logger
 log4js.configure(process.env['HOME'] + '/www/log4js.json', { 'cwd' : process.env['HOME'] + '/www/logs' });
@@ -320,13 +321,20 @@ function storeImage(skoop, uri) {
 	skoopDb.addImage(skoop._id.toString(), uri, function (err, imgId) {
 		if (err == null) {
 			logger.trace('Added image for skoop: ' + skoop._id.toString());
-			skoop.image = "http://50.18.13.231/getImage?_id=" + skoop._id;
-			var selector = { '_id' : skoop._id.toString() };
-			var fields = { 'image' : skoop.image };
+			ec2.getPublicIp(function(err, ip) {
+				if (err) {
+					// TODO: should update the skoop with bad image or original
+					logger.error(err);
+				} else {
+					skoop.image = "http://" + ip + "/getImage?_id=" + skoop._id;
+					var selector = { '_id' : skoop._id.toString() };
+					var fields = { 'image' : skoop.image };
 
-			skoopDb.update(selector, fields, function(err) {
-				if (err)
-					logError(err, 400);
+					skoopDb.update(selector, fields, function(err) {
+						if (err)
+							logError(err, 400);
+					});
+				}
 			});
 		} else {
 			// TODO: should update the skoop with bad image or original url
