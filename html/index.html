@@ -77,44 +77,143 @@
       margin: 5px;
     }
   </style>
-  
+ 
+	
+  <!------------------------------------------------------------------------------>
+  <!-- Styles for the new "suckerfish" menus                                    -->
+  <!------------------------------------------------------------------------------>
+  <style type="text/css">
+	  #sideMenu{ 
+    
+      /* this is taken from skooply.css */
+      position: relative;
+      top: 115px;
+      background: #EDEDE6 url(./img/taskbar-drop-shadow.png) repeat-y;
+
+		  padding: 0;
+		  margin: 0;
+		  list-style:none;
+		  float : right;
+		  width : 50px;
+	  }
+  	
+	  #sideMenu ul { /* all lists */
+		  padding: 0;
+		  margin: 0;
+		  list-style: none;
+		  float : left;
+		  width : 11em;
+	  }
+  	
+	  #sideMenu li { /* all list items */
+		  position : relative;
+		  float : left;
+		  line-height : 1.25em;
+		  margin-bottom : 0px;
+		  width: 11em;
+	  }
+  	
+	  /* This is the flyout, initially hidden*/
+	  #sideMenu li ul{ 
+		  position : absolute;
+		  left: -999em;           /* hidden */
+		  margin-left : -16.65em; /* this ('-') is what makes it fly out to the right */
+		  margin-top : -3.75em;
+		  z-index:999;		  
+	  }
+  	
+	  /* the label of the flyout */
+	  #sideMenu li a {
+	  /*
+		  width: 11em;
+		  height : 2em;
+	  */
+      width: 42px;
+      height: 48px;
+		  display : block;
+		  font-weight : bold;
+		  text-decoration : none;
+		  padding : 0 0.5em;
+		  background-color : White;
+		  color : #ec3069;
+	    background: #EDEDE6 url(./img/taskbar-drop-shadow.png) repeat-y;
+  }
+  	
+	  /* the flyout will have reversed colors */
+	  #sideMenu li ul a
+	  {
+		  background-color : #ec3069;
+		  color : white;
+		  width: 11em;
+		  height :48px;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 34px;
+ 	    
+      -moz-border-radius: 5px 0 0 5px;
+      -webkit-border-radius:5px 0 0 5px;
+      -opera-border-radius:5px 0 0 5px;
+      -khtml-border-radius:5px 0 0 5px;
+      border-radius:5px 0 0 5px;
+		  }
+  	
+	  /* when we hover, reverse the color of the label and round the corners */
+	  #sideMenu li a:hover
+	  {
+		  background-color : #ec3069;
+		  color : white;
+  	    
+      -moz-border-radius:   0px 5px 5px 0px;
+      -webkit-border-radius:0px 5px 5px 0px;
+      -opera-border-radius: 0px 5px 5px 0px;
+      -khtml-border-radius: 0px 5px 5px 0px;
+      border-radius:        0px 5px 5px 0px;
+	  }
+  	
+	  /* and show the flyout <ul> */
+	  #sideMenu li:hover ul, #sideMenu li li:hover ul, #sideMenu li li li:hover ul, #sideMenu li.sfhover ul, #sideMenu li li.sfhover ul, #sideMenu li li li.sfhover ul { /* lists nested under hovered list items */
+		  left: auto;
+      z-index: 999;
+
+ }
+
+  </style>
+    
   
 </head>
 <body>
 
 <div id="container">
-	<div id="taskbar">
-	   <div id="taskbar-button-container">
-	       <ul>
-	           <li>
-	             <a href="#" id="user-settings">
-	                <div id="userImage">
-	                  <span id="LoginLogout">
-	                     <!-- img src="" alt="icon-profile-medium" width="56" height="56" / -->
-	                     <!-- span class="taskbar-text-smaller">User Settings</span -->
-	                  </span>
-	                </div>
-	             </a>
-	           </li>
-	           <li>
-	             <a href="#" id="log-out">
-	               <div>
-	                 <span>Log out</span>
-	               </div>
-	             </a>
-	           </li>
-	           <li id="add-skoop-menu">
-	             <a href="#" id="add-skoop">
-	               <div>
-	                  <span>Add skoop</span>
-	               </div>
-	             </a>
-	           </li>
-	           <li><a href="#" id="watched-skoops"><div><span>Skoops I am Watching</span></div></a></li>
-	           <li><a href="#" id="my-skoops"><div><span>My skoops</span></div></a></li>
-	       </ul>
-	   </div>
-	</div>
+  <ul id="sideMenu">
+	      <li>
+	        <a href="#"> <img id="loginLogoutImage" src="./img/icon-taskbar-lock-unlocked.png"/> </a>
+		      <ul>
+			      <li><a href="#" id="loginLogoutHL"></a></li>
+		      </ul>
+	      </li>
+
+	      <li>
+	        <a href="#"> <img src="./img/icon-taskbar-add-skoop.png"/> </a>
+		      <ul>
+			      <li><a href="#">Add a Skoop</a></li>
+		      </ul>
+	      </li>
+
+	      <li>
+	        <a href="#"> <img src="./img/icon-taskbar-watched-skoop.png"/> </a>
+		      <ul>
+			      <li><a href="#" >Skoops I am watching</a></li>
+		      </ul>
+	      </li>
+
+	      <li>
+	        <a href="#"> <img src="./img/icon-taskbar-my-skoops.png"/> </a>
+		      <ul>
+			      <li><a href="#">My Skoops</a></li>
+		      </ul>
+	      </li>
+
+      </ul>	
 	
 	<header>
     <!-- ------------------------------------------------------------------------ -->
@@ -146,29 +245,18 @@
         */
         function showLoginInfo() {
           FB.api(
-          {
-            method: 'fql.query',
-            query: 'SELECT name, pic_square FROM user WHERE uid=' + FB.getUserID()
-          },
-          function(response) {
-            /*
-            document.getElementById('skooply_auth').innerHTML = (
-            '<img src="' + response[0].pic_square + '"> '
-            //+ response[0].name +
-            +  ' <img onclick="FB.logout()" style="cursor: pointer;"' +
-            'src="https://s-static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">'
-            );
-            */
-            //alert(response[0].name + ' user is logged in');
-            //alert('pic is at ' + response[0].pic_square);
-            //$("#userImage").css("background", 'url(' + response[0].pic_square + ') no-repeat');
+            {
+              method: 'fql.query',
+              query: 'SELECT name, pic_square FROM user WHERE uid=' + FB.getUserID()
+            },
+            function(response) {
+              // Add users picture to the menus
+              $("#loginLogoutImage").attr("src", response[0].pic_square);
 
-            // 2012-04-16 add FB stuff to the newly-named "userImage" div
-            var FBLoginInfo = '<img src="' + response[0].pic_square + '"> ' + response[0].name +
-                              ' <img onclick="FB.logout()" style="cursor: pointer;"' + 'src="https://s-static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">'
-            document.getElementById('LoginLogout').innerHTML = FBLoginInfo;
+              var fbLogout = "<img onclick='FB.logout()' style='cursor: pointer;' src='./img/fb_logout.jpg'/>";
+              $("#loginLogoutHL").html(fbLogout);
 
-          } // function(response)
+            } // function(response)
           ); // end FB.api()
         } // showLoginInfo()
 
@@ -176,10 +264,9 @@
         * This assumes the user is logged out, and renders a login button.
         */
         function showLoginButton() {
-          document.getElementById('LoginLogout').innerHTML = (
-            '<img onclick="FB.login()" style="cursor: pointer;"' +
-                 'src="https://s-static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">'
-          );
+          var fbLogin = '<img onclick="FB.login()" style="cursor: pointer;"' + 'src="https://s-static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif"/>';
+          $('#loginLogoutHL').html(fbLogin);
+          $("#loginLogoutImage").attr("src", "./img/icon-taskbar-lock-unlocked.png");
         }
 
         /**
@@ -329,7 +416,7 @@
 	</header>
 	<div id="main" role="main">
         <div id="user-info-loupe" hidden>User Info</div>
-        <div id="skoop-grid-container" class="centered clearfix"></div>
+        <div id="skoop-grid-container" class="centered clearfix" ></div>
 	</div>
 	
 	<footer>
