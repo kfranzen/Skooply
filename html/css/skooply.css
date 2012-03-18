@@ -19,7 +19,7 @@ form#search {
     float: left;
 }
 
-input#search {
+input#searchTB {
     font-family: Segoe UI, Helvetica, Arial, sans-serif;
     font-size: 18px;
     color: #666661;

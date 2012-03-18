@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="css/H5BP.css">
 	<link rel="stylesheet" href="css/menu.css">
 	<link rel="stylesheet" href="css/skooply.css">
+	<link rel="Stylesheet" href="css/smoothness/jquery-ui-1.8.16.custom.css"
 	
   <!------------------------------------------------------------------------------>
   <!-- this style is referenced later -->
@@ -302,7 +303,7 @@
     </div>
     <form id="search" method="get">
         <fieldset>
-            <input id="search" name=search type=text placeholder="I want to save money on..." title="Start typing to perform a search" 
+            <input id="searchTB" name=search type=text placeholder="I want to save money on..." title="Start typing to perform a search" 
                    tabindex="1" accesskey="`" onfocus="" formaction="search-results.php" >
         </fieldset>
     </form>
@@ -469,6 +470,49 @@
   <!-- This script will add the skoops from the DB to the main container div             -->
   <!--------------------------------------------------------------------------------------->
   <script src="js/layout.js"></script>
+  
+  <!---------------------------------------------------------------------------------------------------------------->
+  <!-- This is the script that does the autocomplete of search input.                                             -->
+  <!----------------------------------------------------------------------------------------------------------------> 
+  <script>
+    $(function($) {
+    var autoOpts = {
+        minLength: 2,
+        source: function(req, resp) {
+          var getSkoopUrl = 'http://50.18.13.231/get?callback=?';
+          $.getJSON(getSkoopUrl, function(data) {
+            // We'll push products into this array
+            var suggestions = [];
+            target = new RegExp('.*' + req.term + '.*', "i");
+
+            // for each array element get the product and push on the suggestion[]
+            $.each(data, function(i, skoop) {
+              if (skoop.product.match(target))
+                suggestions.push(skoop.product);
+            });
+
+            // OK, now we have an array of products to return to the list of suggestions
+            resp(suggestions);
+
+          }); // getJSON()
+        } // end of  source
+        , // start of second option to autoOpts
+        select: function(e, ui) {
+          var getSkoopUrl = 'http://50.18.13.231/get?callback=?&product=' + ui.item.value;
+          $("#main_layout").empty();
+          $.getJSON(getSkoopUrl, function(data) {
+            $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
+          }); // .getJSON            
+        }
+
+      }; // end of autoOpts
+
+      // Make the searchTB <input> and autocomplete widget
+      $("#searchTB").autocomplete(autoOpts);
+    });
+   </script>
+  
+  
 <!-- end scripts-->	
 
 </body>
