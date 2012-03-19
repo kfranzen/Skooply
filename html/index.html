@@ -476,25 +476,44 @@
   <!----------------------------------------------------------------------------------------------------------------> 
   <script>
     $(function($) {
-    var autoOpts = {
+      var autoOpts = {
         minLength: 2,
         source: function(req, resp) {
+          /*This is the original search where I did all the work now done by the server
           var getSkoopUrl = 'http://50.18.13.231/get?callback=?';
+          $.getJSON(getSkoopUrl, function(data) {
+          // We'll push products into this array
+          var suggestions = [];
+          target = new RegExp('.*' + req.term + '.*', "i");
+
+            // for each array element get the product and push on the suggestion[]
+          $.each(data, function(i, skoop) {
+          if (skoop.product.match(target))
+          suggestions.push(skoop.product);
+          });
+
+            // OK, now we have an array of products to return to the list of suggestions
+          resp(suggestions);
+          }); // getJSON()
+          */
+
+          /**/
+          //alert('req.term is ' + req.term);
+          var getSkoopUrl = 'http://50.18.13.231/get?criteria={"field":"text","op":"like", "values":[%22' + req.term + '%22]}';
           $.getJSON(getSkoopUrl, function(data) {
             // We'll push products into this array
             var suggestions = [];
-            target = new RegExp('.*' + req.term + '.*', "i");
 
             // for each array element get the product and push on the suggestion[]
             $.each(data, function(i, skoop) {
-              if (skoop.product.match(target))
-                suggestions.push(skoop.product);
+              suggestions.push(skoop.product);
             });
 
             // OK, now we have an array of products to return to the list of suggestions
             resp(suggestions);
-
           }); // getJSON()
+          /**/
+
         } // end of  source
         , // start of second option to autoOpts
         select: function(e, ui) {
