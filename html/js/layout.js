@@ -104,8 +104,7 @@ doLayout = function(){
     last_update_time = data[0]['updated']; // Timestamp of first (most recent)
     
     $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
-    
-    //alert(last_update_time);
+   
     }); // .getJSON
 	  
 	// no empty div, no flow
