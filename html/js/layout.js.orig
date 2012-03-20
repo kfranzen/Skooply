@@ -105,7 +105,12 @@ main_layout = shmCreateElement('div', { id: 'main_layout' }, { position: 'absolu
     last_update_time = data[0]['created']; // Timestamp of first (most recent)
     
     $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
+<<<<<<< HEAD
    
+=======
+    
+    alert(last_update_time);
+>>>>>>> 861519420fe04d08ca2172e500dd0c57529fc44f
     }); // .getJSON
 	  
 	// no empty div, no flow
@@ -124,11 +129,10 @@ doUpdateLayout = function() {
     $.getJSON(getLatestUrl, function(data) {
         if(data.length>0)
         {
-            if(data[0]['updated']>last_update_time)
+            if(data[0]['created']>last_update_time)
             {
-                last_update_time = data[0]['updated'];
+                last_update_time = data[0]['created'];
             }
-            $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
         }
         $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
     }); // .getJSON

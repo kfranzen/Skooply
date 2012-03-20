@@ -9,6 +9,7 @@ body {
 
 #container, body {
     height: 100%;
+  background-color:#ededed;
 }
 
 #container {
@@ -240,14 +241,10 @@ a#my-skoops div {
 
 header {
    margin:0px;
+   padding: 2px;
    width: 100%;
    text-align:center;
 }
-
-
-#fb-root{
-}
-
 
 #main {
 /*
@@ -257,9 +254,8 @@ header {
     border-top: dotted #CBCBC1 1px;
 */
     margin-right: 55px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 10px;
-    border: dotted #CBCBC1 1px;
 }
 
 footer {
@@ -355,6 +351,8 @@ footer {
 
 #skoop-grid-container {
     clear: both;
+    overflow:auto;
+ /*   border: dotted #CBCBC1 1px; */
 }
 
 .skoop-container {
