@@ -102,7 +102,7 @@ main_layout = shmCreateElement('div', { id: 'main_layout' }, { position: 'absolu
     getSkoopUrl += 'sort={%22updated%22:-1}&limit=20&callback=?';
     $("#main_layout").empty();
     $.getJSON(getSkoopUrl, function(data) {
-    last_update_time = data[0]['created']; // Timestamp of first (most recent)
+    last_update_time = data[0]['updated']; // Timestamp of first (most recent)
     
     $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
    
@@ -117,7 +117,6 @@ main_layout = shmCreateElement('div', { id: 'main_layout' }, { position: 'absolu
 
 doUpdateLayout = function() {
     
-    //var getSkoopUrl = 'http://50.18.13.231/get?sort=create&limit=2&callback=?';
     var getLatestUrl = 'http://50.18.13.231/get?criteria={%22field%22:%22updated%22,%22op%22:%22gt%22,%22values%22:[';
     getLatestUrl += last_update_time;
     getLatestUrl += ']}&sort={%22updated%22:-1}';
@@ -129,7 +128,6 @@ doUpdateLayout = function() {
             {
                 last_update_time = data[0]['updated'];
             }
-            $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
         }
         $("#skoopTemplate").tmpl(data).prependTo("#main_layout");
     }); // .getJSON
