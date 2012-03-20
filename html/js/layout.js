@@ -106,6 +106,7 @@ main_layout = shmCreateElement('div', { id: 'main_layout' }, { position: 'absolu
     
     $("#skoopTemplate").tmpl(data).appendTo("#main_layout");
    
+   
     }); // .getJSON
 	  
 	// no empty div, no flow
