@@ -37,6 +37,7 @@
      height: 400px;
      float: left;
      background-color:#FAFAF8;
+     background-color:#edede1;
     }
     
     .skoopImageBox {
@@ -84,67 +85,93 @@
   <!-- Styles for the new "suckerfish" menus                                    -->
   <!------------------------------------------------------------------------------>
   <style type="text/css">
+     /*
+     * This is the top/main menu.  These styles are taken from skooply.css 
+     * Some color info:
+     *  #ec3069 - pinkish red
+     *  #EDEDE6 - sort of a creamy white w/ a little gray
+     *  #a9a9a1 - a gray
+     */
 	  #sideMenu{ 
-    
-      /* this is taken from skooply.css */
       position: relative;
       top: 115px;
+      /*
+		  background-color:#dcdcd1;
       background: #EDEDE6 url(./img/taskbar-drop-shadow.png) repeat-y;
-
-		  padding: 0;
+      */
+		  padding: 3px;
 		  margin: 0;
 		  list-style:none;
 		  float : right;
 		  width : 50px;
 	  }
   	
-	  #sideMenu ul { /* all lists */
+  	/* 
+  	 * All lists (<ul>) initially look at least like this
+  	 * but "deeper" lists are initially hidden (by some styles later on.)
+  	 */
+	  #sideMenu ul  
+	  {
 		  padding: 0;
-		  margin: 0;
+		  margin: 0px;
 		  list-style: none;
 		  float : left;
 		  width : 11em;
 	  }
   	
-	  #sideMenu li { /* all list items */
+  	/* all list items. These never change */
+	  #sideMenu li { 
 		  position : relative;
 		  float : left;
 		  line-height : 1.25em;
 		  margin-bottom : 0px;
 		  width: 11em;
 	  }
-  	
-	  /* This is the flyout, initially hidden*/
-	  #sideMenu li ul{ 
-		  position : absolute;
-		  left: -999em;           /* hidden */
-		  margin-left : -16.65em; /* this ('-') is what makes it fly out to the right */
-		  margin-top : -3.75em;
-		  z-index:999;		  
-	  }
-  	
-	  /* the label of the flyout */
+   	
+	  /* 
+	   * This is the label that is next to its flyout <UL>.
+	   * Hovering over this (a later style) will cause the flyout to ... fly out!
+	   */
 	  #sideMenu li a {
-	  /*
-		  width: 11em;
-		  height : 2em;
-	  */
+	    margin:3px;
       width: 42px;
       height: 48px;
 		  display : block;
 		  font-weight : bold;
 		  text-decoration : none;
-		  padding : 0 0.5em;
-		  background-color : White;
-		  color : #ec3069;
-	    background: #EDEDE6 url(./img/taskbar-drop-shadow.png) repeat-y;
-  }
+		  padding : 0px;
+	    background: #EDEDE6  url(./img/taskbar-drop-shadow.png) repeat-y;	    
+    }
+    
+    #sideMenu li a img{
+      margin:0px;
+    }
+    
+    #sideMenu li ul a {
+      padding-top:0px;
+    }
+
+ 	
+	  /* 
+	   * Finally, this is the flyout, initially hidden. 
+	   * Note that this is just a container, so you can't really style it for show.
+	   * It contains the <li> that is shown, and you style that up all pretty.
+	   */
+	  #sideMenu li ul{ 
+		  position : absolute;
+		  left: -999em;           /* hidden */
+		  margin-top : -4.20em;   /* this ('-') moves the flyout down                */
+		  margin-left : -14.70em; /* this ('-') is what makes it fly out to the left */
+		  z-index:999;		  
+	  }
   	
-	  /* the flyout will have reversed colors */
+	  /* This <a> is what is **in** the the flyout <ul> */
 	  #sideMenu li ul a
 	  {
-		  background-color : #ec3069;
-		  color : white;
+		  background-color : #a9a9a1;
+		  background-color : #cdcdd1;
+		  background-color : #edede6;
+		  color : #a9a9a1;
 		  width: 11em;
 		  height :48px;
       font-weight: bold;
@@ -158,26 +185,13 @@
       border-radius:5px 0 0 5px;
 		  }
   	
-	  /* when we hover, reverse the color of the label and round the corners */
-	  #sideMenu li a:hover
-	  {
-		  background-color : #ec3069;
-		  color : white;
-  	    
-      -moz-border-radius:   0px 5px 5px 0px;
-      -webkit-border-radius:0px 5px 5px 0px;
-      -opera-border-radius: 0px 5px 5px 0px;
-      -khtml-border-radius: 0px 5px 5px 0px;
-      border-radius:        0px 5px 5px 0px;
-	  }
-  	
-	  /* and show the flyout <ul> */
-	  #sideMenu li:hover ul, #sideMenu li li:hover ul, #sideMenu li li li:hover ul, #sideMenu li.sfhover ul, #sideMenu li li.sfhover ul, #sideMenu li li li.sfhover ul { /* lists nested under hovered list items */
-		  left: auto;
-      z-index: 999;
-
- }
-
+	  /* 
+	   * This hover will fly out the flyout <ul>
+	   */
+	  #sideMenu li:hover ul, #sideMenu li li:hover ul, #sideMenu li li li:hover ul, #sideMenu li.sfhover ul, #sideMenu li li.sfhover ul, #sideMenu li li li.sfhover ul {
+		  left: auto;   /* make it appear */
+      z-index: 999; /* make it appear on top of everything else */
+    }
   </style>
     
   
@@ -186,35 +200,35 @@
 
 <div id="container">
   <ul id="sideMenu">
-	      <li>
-	        <a href="#"> <img id="loginLogoutImage" src="./img/icon-taskbar-lock-unlocked.png"/> </a>
-		      <ul>
-			      <li><a href="#" id="loginLogoutHL"></a></li>
-		      </ul>
-	      </li>
+    <li>
+      <a href="#"> <img id="loginLogoutImage" src="./img/icon-taskbar-lock-unlocked.png"/> </a>
+      <ul>
+	      <li><a href="#" id="loginLogoutHL"></a></li>
+      </ul>
+    </li>
 
-	      <li>
-	        <a href="#"> <img src="./img/icon-taskbar-add-skoop.png"/> </a>
-		      <ul>
-			      <li><a href="#">Add a Skoop</a></li>
-		      </ul>
-	      </li>
+    <li>
+      <a href="#"> <img src="./img/icon-taskbar-add-skoop.png"/> </a>
+      <ul>
+	      <li><a href="#">Add a Skoop</a></li>
+      </ul>
+    </li>
 
-	      <li>
-	        <a href="#"> <img src="./img/icon-taskbar-watched-skoop.png"/> </a>
-		      <ul>
-			      <li><a href="#" >Skoops I am watching</a></li>
-		      </ul>
-	      </li>
+    <li>
+      <a href="#"> <img src="./img/icon-taskbar-watched-skoop.png"/> </a>
+      <ul>
+	      <li><a href="#" >Skoops I am watching</a></li>
+      </ul>
+    </li>
 
-	      <li>
-	        <a href="#"> <img src="./img/icon-taskbar-my-skoops.png"/> </a>
-		      <ul>
-			      <li><a href="#">My Skoops</a></li>
-		      </ul>
-	      </li>
+    <li>
+      <a href="#"> <img src="./img/icon-taskbar-my-skoops.png"/> </a>
+      <ul>
+	      <li><a href="#">My Skoops</a></li>
+      </ul>
+    </li>
 
-      </ul>	
+  </ul>	
 	
 	<header>
     <!-- ------------------------------------------------------------------------ -->
@@ -227,7 +241,7 @@
       var caFBapiId      = '321366807889494';
       var labasseFBapiId = '184593301631496';
       var skooplyFBapiId = '249285641824001';
-      var FBapiId = skooplyFBapiId;
+      var FBapiId = caFBapiId;
 
       window.fbAsyncInit = function() {
         FB.init({

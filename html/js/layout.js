@@ -95,7 +95,7 @@ doLayout = function(){
     
     // Main container
 main_layout = shmCreateElement('div', { id: 'main_layout' }, { position: 'absolute', top: '100px', left: '0px', width: '95%', display: 'block', overflow: 'hidden', 
-                                        margin:'10px', background:'#ededed', border:'solid 3px #cbcbc1', 'border-radius':'10px'  });
+                                        margin:'10px', background:'#ededed' });
     document.body.appendChild(main_layout);
     
     var getSkoopUrl = 'http://50.18.13.231/get?';
