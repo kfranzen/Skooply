@@ -134,8 +134,8 @@
 	   */
 	  #sideMenu li a {
 	    margin:3px;
-      width: 42px;
-      height: 48px;
+      width:54px;
+      height:54px;
 		  display : block;
 		  font-weight : bold;
 		  text-decoration : none;
@@ -143,14 +143,10 @@
 	    background: #EDEDE6  url(./img/taskbar-drop-shadow.png) repeat-y;	    
     }
     
-    #sideMenu li a img{
-      margin:0px;
-    }
     
-    #sideMenu li ul a {
-      padding-top:0px;
+    #sideMenu li a img{
+      margin:12px;
     }
-
  	
 	  /* 
 	   * Finally, this is the flyout, initially hidden. 
@@ -160,20 +156,18 @@
 	  #sideMenu li ul{ 
 		  position : absolute;
 		  left: -999em;           /* hidden */
-		  margin-top : -4.20em;   /* this ('-') moves the flyout down                */
-		  margin-left : -14.70em; /* this ('-') is what makes it fly out to the left */
+		  margin-top : -4.65em;   /* this ('-') moves the flyout down                */
+		  margin-left : -14.90em; /* this ('-') is what makes it fly out to the left */
 		  z-index:999;		  
 	  }
   	
 	  /* This <a> is what is **in** the the flyout <ul> */
 	  #sideMenu li ul a
 	  {
-		  background-color : #a9a9a1;
-		  background-color : #cdcdd1;
 		  background-color : #edede6;
 		  color : #a9a9a1;
-		  width: 11em;
-		  height :48px;
+		  width: 200px;
+		  height :54px;     /* same as its <a> */
       font-weight: bold;
       font-size: 18px;
       line-height: 34px;
@@ -217,7 +211,7 @@
     <li>
       <a href="#"> <img src="./img/icon-taskbar-watched-skoop.png"/> </a>
       <ul>
-	      <li><a href="#" >Skoops I am watching</a></li>
+	      <li><a href="#" >Watched Skoops</a></li>
       </ul>
     </li>
 
@@ -241,7 +235,7 @@
       var caFBapiId      = '321366807889494';
       var labasseFBapiId = '184593301631496';
       var skooplyFBapiId = '249285641824001';
-      var FBapiId = skooplyFBapiId;
+      var FBapiId = caFBapiId;
 
       window.fbAsyncInit = function() {
         FB.init({
@@ -265,10 +259,10 @@
               query: 'SELECT name, pic_square FROM user WHERE uid=' + FB.getUserID()
             },
             function(response) {
-              // Add users picture to the menus
-              $("#loginLogoutImage").attr("src", response[0].pic_square);
+              // Replace login icon with user's picture.  Need to remove the margin around the smaller icon
+              $("#loginLogoutImage").attr("src", response[0].pic_square).css('margin', '0px');
 
-              var fbLogout = "<img onclick='FB.logout()' style='cursor: pointer;' src='./img/fb_logout.jpg'/>";
+              var fbLogout = "<img onclick='FB.logout()' style='cursor: pointer; float:right; margin-right:10px; margin-top:15px;' src='./img/fb_logout.jpg'/>";
               $("#loginLogoutHL").html(fbLogout);
 
             } // function(response)
@@ -281,7 +275,8 @@
         function showLoginButton() {
           var fbLogin = '<img onclick="FB.login()" style="cursor: pointer;"' + 'src="https://s-static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif"/>';
           $('#loginLogoutHL').html(fbLogin);
-          $("#loginLogoutImage").attr("src", "./img/icon-taskbar-lock-unlocked.png");
+          // show the login icon and add margin
+          $("#loginLogoutImage").attr("src", "./img/icon-taskbar-lock-unlocked.png").css('margin', '12px');
         }
 
         /**
