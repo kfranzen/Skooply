@@ -380,7 +380,7 @@ div.skoop-controller {
     width: 238px;
     min-height: 240px;
     background: grey; /* IE8 doesn't understand rgba so it gracefully degrades */
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.75);
     position: absolute;
 /*    z-index: 10000;  */
     top: 0;
