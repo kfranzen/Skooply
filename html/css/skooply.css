@@ -41,6 +41,21 @@ input#searchTB {
     overflow: hidden;
 }
 
+
+#taskbar {
+    display: block;
+    width: 55px;
+    height: 100%;
+    background-color: #EDEDE6;
+    
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow:visible;
+    background: #EDEDE6 url(../img/taskbar-drop-shadow.png) repeat-y;
+}
+
+
 /** This taskbar Div is not needed b/c the menu UL is a block element **/
 /** all the below is related to the rt hand side taskbar flyout **
 

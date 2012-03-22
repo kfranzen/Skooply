@@ -93,6 +93,13 @@
      *  #a9a9a1 - a gray
      */
 	  #sideMenu{ 
+	  /* 2012-03-21 late trying to get back the gray ride side vertical.*/
+    position: relative;
+    top: 105px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;	  
+/*	  
       position: relative;
       top: 115px;
 		  padding: 3px;
@@ -103,6 +110,7 @@
 		  
 		  background-color:#dcdcd1;
       background: #EDEDE6 url(./img/taskbar-drop-shadow.png) repeat-y;		  
+*/
 	  }
   	
   	/* 
@@ -196,6 +204,8 @@
 <body>
 
 <div id="container">
+ <!-- 2012-03-21 late, trying to restore the taskbar div that makes a gray rt hand side -->
+ <div id="taskbar">
   <ul id="sideMenu">
     <li>
       <a href="#"> <img id="loginLogoutImage" src="./img/icon-taskbar-lock-unlocked.png"/> </a>
@@ -226,7 +236,7 @@
     </li>
 
   </ul>	
-	
+ </div>	
 	<header>
     <!-- ------------------------------------------------------------------------ -->
     <!-- This div is used by FB as the target of its injected js code (I think)   -->
