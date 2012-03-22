@@ -26,10 +26,9 @@ app.configure(function() {
 	app.enable("jsonp callback");
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
-	app.use(log4js.connectLogger(logger, { level: log4js.levels.INFO }));
+	app.use(log4js.connectLogger(logger, { level: logLevel }));
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
-	app.use(express.session({secret:"skooply"}));
 	app.use(express.methodOverride());
 	app.use(require('stylus').middleware({ src: __dirname + '/public' }));
 	app.use(app.router);

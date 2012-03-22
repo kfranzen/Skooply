@@ -1,15 +1,18 @@
 /* =============================================================================
    Primary styles
    Author: Gabriel Jackson
+   Some color info:
+   #FAFAF8 - is the original off-white used for the background
+   #DCDCD1 - is a popular skooply lite-med gray
+   #CBCBC1 - is a darker gray used for borders (e.g., search box)
    ========================================================================== */
 
 body {
-    background-color: #FAFAF8;
 }
 
 #container, body {
-    height: 100%;
-  background-color:#ededed;
+  height: 100%;
+  background-color:#FAFAF8;
 }
 
 #container {
@@ -33,7 +36,7 @@ input#searchTB {
     padding-left: 5px;
     font-weight: normal;
     border-collapse: collapse;
-    border: #E0E0D5 4px solid;
+    border: #cbcbc1 4px solid;
     overflow: hidden;
 }
 
@@ -57,9 +60,6 @@ input#searchTB {
     position: relative;
     top: 105px;
 }
-
-
-
 
 #taskbar ul {
     list-style-type: none;
@@ -384,7 +384,7 @@ div.skoop-controller {
     width: 238px;
     min-height: 240px;
     background: grey; /* IE8 doesn't understand rgba so it gracefully degrades */
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.75);
     position: absolute;
 /*    z-index: 10000;  */
     top: 0;

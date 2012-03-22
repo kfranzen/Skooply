@@ -67,9 +67,9 @@ function doRollOver(el)
       
       var ih = el.outerHeight()+ 3;
       $('div#'+pid+'>div.skoop-controller').height(ih);
-      $('div#'+pid+'>div.skoop-controller').show(0, function() {
-    // Animation complete.
-    });
+      $('div#' + pid + '>div.skoop-controller').fadeIn('normal', function() {
+        // Animation complete.
+      });
     
     // For some reason (mostly likely because they aren't
     // rendred yet, we can seem to add the hover hide
@@ -84,6 +84,19 @@ function doRollOver(el)
           });
           
         });
+    }
+}
+
+function handleDiscount(input)
+{
+alert(input);
+    if(input!=null)
+    {
+        return input;
+    }
+    else
+    {
+        return "35%";
     }
 }
 

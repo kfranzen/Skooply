@@ -212,12 +212,21 @@
       </ul>
     </li>
 
+<<<<<<< HEAD
 	      <li onclick="showPopover()">
 	        <a href="#"> <img src="./img/icon-taskbar-add-skoop.png"/> </a>
 		      <ul>
 			      <li><a href="#">Add a Skoop</a></li>
 		      </ul>
 	      </li>
+=======
+    <li>
+      <a href="#"> <img src="./img/icon-taskbar-add-skoop.png"/> </a>
+      <ul>
+	      <li><a href="#">Add a Skoop</a></li>
+      </ul>
+    </li>
+>>>>>>> 9f6314c94855cb611cadee12323a920da0d0b3d1
 
     <li>
       <a href="#"> <img src="./img/icon-taskbar-watched-skoop.png"/> </a>
