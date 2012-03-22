@@ -94,7 +94,7 @@ var last_update_time = 0;
 doLayout = function(){
     
     // Main container
-main_layout = shmCreateElement('div', { id: 'main_layout' }, { position: 'absolute', top: '100px', left: '0px', width: '95%', display: 'block', overflow: 'hidden', 
+    main_layout = shmCreateElement('div', { id: 'main_layout' }, { position: 'absolute', top: '100px', left: '0px', width: '95%', display: 'block', overflow: 'hidden', 
                                         margin:'10px', background:'#ededed', border:'solid 3px #cbcbc1', 'border-radius':'10px'  });
     document.body.appendChild(main_layout);
     

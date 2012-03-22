@@ -193,7 +193,7 @@
 		      </ul>
 	      </li>
 
-	      <li>
+	      <li onclick="showPopover()">
 	        <a href="#"> <img src="./img/icon-taskbar-add-skoop.png"/> </a>
 		      <ul>
 			      <li><a href="#">Add a Skoop</a></li>
@@ -434,7 +434,7 @@
   <div class="skoop-parent" id="${_id}">
   <div class="skoop-controller" style="display: none;">
     <button class="details-skoop-button">Show skoop details</button>
-    <button class="join-skoop-button">Join skoop</button>
+    <button class="join-skoop-button" onclick="JoinSkoop('${_id}')">Join skoop</button>
     <button class="watch-skoop-button">Watch skoop</button>
     <button class="share-skoop-button">Share skoop</button>
     <button class="alike-skoop-button">More skoops like this</button>     
@@ -470,6 +470,11 @@
   <!-- This script will add the skoops from the DB to the main container div             -->
   <!--------------------------------------------------------------------------------------->
   <script src="js/layout.js"></script>
+  
+  <!--------------------------------------------------------------------------------------->
+  <!-- This script will add the skoops from the DB to the main container div             -->
+  <!--------------------------------------------------------------------------------------->
+  <script src="js/popup.js"></script>
   
   <!---------------------------------------------------------------------------------------------------------------->
   <!-- This is the script that does the autocomplete of search input.                                             -->
