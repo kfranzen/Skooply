@@ -95,15 +95,14 @@
 	  #sideMenu{ 
       position: relative;
       top: 115px;
-      /*
-		  background-color:#dcdcd1;
-      background: #EDEDE6 url(./img/taskbar-drop-shadow.png) repeat-y;
-      */
 		  padding: 3px;
 		  margin: 0;
 		  list-style:none;
 		  float : right;
 		  width : 50px;
+		  
+		  background-color:#dcdcd1;
+      background: #EDEDE6 url(./img/taskbar-drop-shadow.png) repeat-y;		  
 	  }
   	
   	/* 
@@ -143,7 +142,7 @@
 	    background: #EDEDE6  url(./img/taskbar-drop-shadow.png) repeat-y;	    
     }
     
-    
+    /* the Skooply icon images are 30x30 so add 12+12 margins to center them */
     #sideMenu li a img{
       margin:12px;
     }
@@ -164,11 +163,12 @@
 	  /* This <a> is what is **in** the the flyout <ul> */
 	  #sideMenu li ul a
 	  {
-		  background-color : #edede6;
-		  border-top:solid 2px #CBCBC1;
-		  border-bottom:solid 2px #CBCBC1;
-		  color : #a9a9a1;
+		  background-color : #EC3069;
+		  border-top:solid 2px #EC3069;
+		  border-bottom:solid 2px #EC3069;
+		  color : #FAFAF8;
 		  width: 200px;
+		  width: 254px;     /* 2012-03-21 late change: I changed this width to include the icon so as to cover it up in pink */
 		  height :54px;     /* same as its <a> */
       font-weight: bold;
       font-size: 18px;
@@ -188,15 +188,7 @@
 		  left: auto;   /* make it appear */
       z-index: 999; /* make it appear on top of everything else */
     }
-    
-    /*
-     * And when you do that, add 2x margin top & bottom to match the flyout
-     */
-    #sideMenu li:hover a{
-		  border-top:solid 2px #CBCBC1;
-		  border-bottom:solid 2px #CBCBC1;
-    }
-    
+   
   </style>
     
   
