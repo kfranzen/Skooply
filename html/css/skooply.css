@@ -1,6 +1,10 @@
 /* =============================================================================
    Primary styles
    Author: Gabriel Jackson
+   Some color info:
+   #FAFAF8 - is the original off-white used for the background
+   #DCDCD1 - is a popular skooply lite-med gray
+   #CBCBC1 - is a darker gray used for borders (e.g., search box)
    ========================================================================== */
 
 body {
@@ -8,7 +12,7 @@ body {
 
 #container, body {
   height: 100%;
-  background-color:#dcdcd1;
+  background-color:#FAFAF8;
 }
 
 #container {
