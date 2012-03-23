@@ -43,6 +43,10 @@ app.configure('production', function(){
 
 var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {logger:app.logger});
 
+skoopDb.on('error', function(err) {
+	logError(err, 0, null);
+});
+
 /*
  * Routes for api calls
  */
