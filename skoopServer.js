@@ -24,13 +24,10 @@ var app = module.exports = express.createServer();
 
 app.configure(function() {
 	app.enable("jsonp callback");
-	app.set('views', __dirname + '/views');
-	app.set('view engine', 'jade');
 	app.use(log4js.connectLogger(logger, { level: logLevel }));
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
 	app.use(express.methodOverride());
-	app.use(require('stylus').middleware({ src: __dirname + '/public' }));
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));
 });
@@ -346,4 +343,4 @@ function storeImage(skoop, uri) {
 }
 
 // run the application
-app.listen(5150);
+app.listen(80);
