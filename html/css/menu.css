@@ -62,7 +62,7 @@ div#location-sub-menu {
     min-height: 200px;
     padding: 15px;
     top: 89px;
-    left: 388px;
+    left: 343px;
     
     -moz-border-radius: 0 5px 5px 5px;
 -webkit-border-radius:0 5px 5px 5px;
@@ -80,7 +80,7 @@ div#browse-sub-menu {
     box-shadow: 0 0 5px rgba(0,0,0,.55);
     padding: 15px;
     top: 89px;
-    left: 565px;
+    left: 520px;
     
     -moz-border-radius: 0 5px 5px 5px;
 -webkit-border-radius:0 5px 5px 5px;
@@ -100,7 +100,7 @@ div#about-sub-menu {
     min-width: 90px;
     min-height: 100px;
     top: 89px;
-    left: 661px;
+    left: 615px;
     
     -moz-border-radius: 0 5px 5px 5px;
 -webkit-border-radius:0 5px 5px 5px;
