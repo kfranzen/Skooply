@@ -41,7 +41,7 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {logger:app.logger});
+var skoopDb = new skoopdb.SkoopDb('localhost', 27017, {});
 
 skoopDb.on('error', function(err) {
 	logError(err, 0, null);
