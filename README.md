@@ -1,7 +1,7 @@
-skooply.com code base
+Skooply
 ===
 
-This is the main repo for skooply.com. It contains all code for setting up the skooply servers.
+Skooply is an exploration into building a social couponing service. The service is built using Javascript, Node.js, and MongoDB.
 
 ###The code is divided into several folders.
 
@@ -9,12 +9,10 @@ This is the main repo for skooply.com. It contains all code for setting up the s
 * Html - All code for the skooply.com website
 * Scraping - All code for the page scraping bookmarklet
 * The code for the skoopServer is contained in the top level directory
-* Web Services - All code for any non Node.js web Services
-* Postgres - All SQL for the account and reporting database
 *
 The website is implemented entirely in HTML, CSS, and Javascript
 
-The skoopServer is implemented using Node.js and custom node modules.
+The SkoopServer is implemented using Node.js and custom node modules.
 
 ###More info
 
